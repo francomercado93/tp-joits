@@ -70,6 +70,7 @@ class JuegoDatosTest {
 			nombre = "Mario"
 			apellido = "Santos"
 			edad = 38
+			saldo = new BigDecimal(1000)
 		]
 		lamponne = new Usuario() => [
 			username = "Pabluchis"

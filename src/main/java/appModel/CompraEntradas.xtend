@@ -20,7 +20,6 @@ class CompraEntradas {
 	List<Pelicula> cartelera
 	Pelicula peliculaSeleccionada
 	Funcion funcionSeleccionada
-	Integer cantidad
 
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
@@ -36,15 +35,28 @@ class CompraEntradas {
 		RepoPeliculas.instance.getPeliculasRecomendadas()
 	}
 
-	// COmo????
 	@Dependencies("peliculaSeleccionada")
 	def getImporteEntrada() {
 		150
 //		peliculaSeleccionada.validarFuncion(funcionSeleccionada)
 //		peliculaSeleccionada.precioTotal
 	}
-	
-	def getCantidad(){
-		3
+
+	def getItemsEnElCarrito() {
+		usuario.cantidadEntradasCarrito()
 	}
+
+	def void agregarItemCarrito() {
+		print(peliculaSeleccionada.titulo)
+//		print(peliculaSeleccionada.funcionElegida.fecha)
+//		usuario.agregarItemCarrito(peliculaSeleccionada)
+		peliculaSeleccionada = null
+	}
+
+	@Dependencies("peliculaSeleccionada")
+	def getPuedeAgregarItem() {
+		true
+//		peliculaSeleccionada !== null && peliculaSeleccionada.funcionElegida !== null
+	}
+
 }

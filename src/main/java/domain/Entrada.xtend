@@ -1,27 +1,18 @@
 package domain
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 
-//Eliminar clase entrada?
 @Accessors
 @Observable
 class Entrada {
 
-	Pelicula peliculaElegida
+	Pelicula pelicula
+	Funcion funcion
 
-	def elegirPelicula(Pelicula pelicula) {
-		peliculaElegida = pelicula
+	@Dependencies("pelicula", "funcion")
+	def precioEntrada() {
+		pelicula.precioBase + funcion.valorPorDiaFuncion
 	}
-
-	def elegirFuncion(Funcion funcion) {
-		// Validacion de peliculaElegida no sea null
-		peliculaElegida.elegirFuncion(funcion)
-	}
-
-	def valorEntrada() {
-		// Validacion de peliculaElegida y funcion elegida no sea null
-		peliculaElegida.getPrecioTotal()
-	}
-
 }

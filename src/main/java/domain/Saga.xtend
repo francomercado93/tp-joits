@@ -8,7 +8,6 @@ import org.uqbar.commons.model.annotations.Observable
 @Accessors
 @Observable
 class Saga extends Pelicula {
-	// saga tienen una unica funcion para todas las peliculas? se dan todas juntas?
 	static final BigDecimal PRECIO_BASE_SAGA = new BigDecimal("10")
 	static final BigDecimal MULTIPLICADOR_NIVEL_CLASICO = new BigDecimal("5")
 

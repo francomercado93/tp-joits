@@ -29,7 +29,11 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 	def crearPanelBotones(Panel panel) {
 		new Button(panel) => [
 			caption = "Agregar al carrito"
-			width = 1000
+			width = 900
+			alignCenter
+			enabled <=> "puedeAgregarItem"
+			onClick[|modelObject.agregarItemCarrito()]
+
 		]
 		new Panel(panel) => [
 			layout = new ColumnLayout(4)
@@ -37,7 +41,7 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 				layout = new HorizontalLayout
 				new Label(it).text = "Items en el carrito:"
 				new Label(it) => [
-					value <=> "cantidad"
+					value <=> "itemsEnElCarrito"
 				]
 			]
 			new Button(it) => [
@@ -69,7 +73,7 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 		new Panel(panelDer) => [
 			val tabla = new Table<Funcion>(it, typeof(Funcion)) => [
 				items <=> "peliculaSeleccionada.funcionesDisponibles"
-				value <=> "funcionSeleccionada"
+				value <=> "peliculaSeleccionada.funcionElegida"
 				numberVisibleRows = 9
 				width = 400
 			]
@@ -125,7 +129,7 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 			val tablaRec = new Table<Pelicula>(it, typeof(Pelicula)) => [
 				items <=> "peliculasRecomendadas"
 				numberVisibleRows = 4
-//				value <=> "peliculaSeleccionada" // ???
+				value <=> "peliculaSeleccionada"
 			]
 			this.agregarColumnasPelisRecomendadas(tablaRec)
 		]

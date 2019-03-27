@@ -30,7 +30,7 @@ class RepoUsuarios extends Repositorio<Usuario> {
 
 	override asignarId(Usuario usuario) {
 		if (usuario.id == -1) {
-			usuario.id = id
+			usuario.id = new Long(id)
 			this.id = id + 1
 		}
 	}

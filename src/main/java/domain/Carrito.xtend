@@ -1,8 +1,8 @@
 package domain
 
-import java.math.BigDecimal
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
@@ -23,8 +23,16 @@ class Carrito {
 		entradas.clear
 	}
 
-	def BigDecimal total() {
-		new BigDecimal(entradas.fold(0d, [acum, entrada|acum + entrada.valorEntrada()]))
+	def total() {
+		entradas.fold(0d, [acum, entrada|acum + entrada.precioEntrada])
+	}
+
+	@Dependencies("peliculas")
+	def cantidadEntradas() {
+		if (entradas.nullOrEmpty)
+			return 0
+		else
+			return entradas.length
 	}
 
 }

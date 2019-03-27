@@ -1,5 +1,6 @@
 package joits
 
+import domain.Entrada
 import java.math.BigDecimal
 import org.junit.Assert
 import org.junit.Test
@@ -8,23 +9,32 @@ class TestPeliculas extends JuegoDatosTest {
 
 	@Test
 	def void pruebaDelPrecioDeUnaPeliculaQueSeProyectaUnDiaLunesMartesJuevesViernes() {
-		matrix.elegirFuncion(lunes1)
+		val entrada = new Entrada() => [
+			pelicula = matrix
+			funcion = lunes1
+		]
 		val valorEsperado = new BigDecimal("110")
-		Assert.assertEquals(0, matrix.getPrecioTotal().compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado), 0.1)
 	}
 
 	@Test
 	def void pruebaDelPrecioDeUnaPeliculaQueSeProyectaUnDiaMiercoles() {
-		matrix.elegirFuncion(miercoles)
+		val entrada = new Entrada() => [
+			pelicula = matrix
+			funcion = miercoles
+		]
 		val valorEsperado = new BigDecimal("80")
-		Assert.assertEquals(0, matrix.getPrecioTotal().compareTo(valorEsperado)) // esta bien comparar asi(?
+		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado)) // esta bien comparar asi(?
 	}
 
 	@Test
 	def void pruebaDelPrecioDeUnaPeliculaQueSeProyectaFinDeSemana() {
-		nueveReinas.elegirFuncion(domingo1)
+		val entrada = new Entrada() => [
+			pelicula = nueveReinas
+			funcion = domingo1
+		]
 		val valorEsperado = new BigDecimal("150")
-		Assert.assertEquals(0, nueveReinas.getPrecioTotal().compareTo(valorEsperado))
+		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado))
 	}
 
 	@Test
@@ -37,22 +47,72 @@ class TestPeliculas extends JuegoDatosTest {
 
 	@Test
 	def void pruebaDelPrecioDeUnaSagaQueSeProyectaUnDiaLunesMartesJuevesViernes() {
-		sagaBatman.elegirFuncion(lunes4)
+		val entrada = new Entrada() => [
+			pelicula = sagaBatman
+			funcion = lunes4
+		]
 		val valorEsperado = new BigDecimal("150")
-		Assert.assertEquals(0, sagaBatman.getPrecioTotal().compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado), 0.1)
 	}
 
 	@Test
 	def void pruebaDelPrecioDeUnaSagaQueSeProyectaUnMiercoles() {
-		sagaBatman.elegirFuncion(miercoles4)
+		val entrada = new Entrada() => [
+			pelicula = sagaBatman
+			funcion = miercoles4
+		]
 		val valorEsperado = new BigDecimal("120")
-		Assert.assertEquals(0, sagaBatman.getPrecioTotal().compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado), 0.1)
 	}
 
 	@Test
 	def void pruebaDelPrecioDeUnaSagaQueSeProyectaUnFinDeSemana() {
-		sagaBatman.elegirFuncion(domingo7)
+		val entrada = new Entrada() => [
+			pelicula = sagaBatman
+			funcion = domingo7
+		]
 		val valorEsperado = new BigDecimal("190")
-		Assert.assertEquals(0, sagaBatman.getPrecioTotal().compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado), 0.1)
+	}
+
+	@Test
+	def void usuarioAgregaPeliculasAlCarritoLaCantidadEnCarritoEsperado() {
+		val entrada1 = new Entrada() => [
+			pelicula = matrix
+			funcion = lunes1
+		]
+		val entrada2 = new Entrada() => [
+			pelicula = nueveReinas
+			funcion = domingo1
+		]
+		val entrada3 = new Entrada() => [
+			pelicula = matrix
+			funcion = miercoles
+		]
+
+		santos.agregarItemCarrito(entrada1)
+		santos.agregarItemCarrito(entrada2)
+		santos.agregarItemCarrito(entrada3)
+		Assert.assertEquals(3, santos.cantidadEntradasCarrito(), 0.1)
+	}
+
+	@Test
+	def void usuarioAgregaPeliculasAlCarritoElValorTotalEsEsperado() {
+		val entrada1 = new Entrada() => [
+			pelicula = matrix
+			funcion = lunes1
+		]
+		val entrada2 = new Entrada() => [
+			pelicula = nueveReinas
+			funcion = domingo1
+		]
+		val entrada3 = new Entrada() => [
+			pelicula = matrix
+			funcion = miercoles
+		]
+		santos.agregarItemCarrito(entrada1)
+		santos.agregarItemCarrito(entrada2)
+		santos.agregarItemCarrito(entrada3)
+		Assert.assertEquals(340, santos.carrito.total(), 0.1) // .compareTo(valorEsperado), 0.1)
 	}
 }

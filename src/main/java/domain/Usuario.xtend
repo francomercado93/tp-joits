@@ -10,29 +10,30 @@ import org.uqbar.commons.model.exceptions.UserException
 @Observable
 @Accessors
 class Usuario {
-	int id
+	Long id
 	String username
 	String password
 	String nombre
 	String apellido
-	int edad
+	Integer edad
 	Set<Usuario> amigos = newHashSet
 	Carrito carrito
-	List<Entrada> entradasCompradas = newArrayList
+	List<Pelicula> entradasCompradas = newArrayList
 	BigDecimal saldo
 
 	new() {
 		saldo = new BigDecimal("0")
-		id = -1
+		id = new Long(-1)
+		carrito = new Carrito
 	}
-	
+
 	new(String nombreUsr, String contra) {
 		username = nombreUsr
 		password = contra
 		saldo = new BigDecimal("0")
-		id = -1
+		id = new Long(-1)
+		carrito = new Carrito
 	}
-
 
 	def agregarSaldo(BigDecimal numero) {
 		saldo = saldo + numero
@@ -47,25 +48,33 @@ class Usuario {
 
 	def finalizarCompra() {
 		this.descontarSaldo()
-		this.agregarEntradasCompradas(carrito.entradas)
+//		this.agregarEntradasCompradas(carrito.entradas)
 		carrito.vaciarCarrito()
 	}
 
 	def descontarSaldo() {
-		saldo = saldo - carrito.total()
+//		saldo = saldo - carrito.total()
 	}
 
 	def Boolean tieneSaldoSuficiente() {
-		return saldo >= carrito.total()
+//		return saldo >= carrito.total()
 	}
 
-	def agregarEntradasCompradas(List<Entrada> entradas) {
+	def agregarEntradasCompradas(List<Pelicula> entradas) {
 		entradasCompradas.addAll(entradas) // devuelve boolean
 	}
 
 	def validarPassword(String pass) {
 		if (!password.equals(pass))
 			throw new UserException("Contraseña no valida")
+	}
+
+	def agregarItemCarrito(Entrada entrada) {
+		carrito.agregarAlCarrito(entrada)
+	}
+
+	def cantidadEntradasCarrito() {
+		carrito.cantidadEntradas()
 	}
 
 }

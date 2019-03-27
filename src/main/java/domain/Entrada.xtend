@@ -21,7 +21,7 @@ class Entrada {
 
 	def valorEntrada() {
 		// Validacion de peliculaElegida y funcion elegida no sea null
-		peliculaElegida.precioTotal()
+		peliculaElegida.getPrecioTotal()
 	}
 
 }

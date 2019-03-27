@@ -17,7 +17,7 @@ class Funcion {
 	LocalTime hora
 	String nombreSala
 
-	def valorPorDiaFuncion() {
+	def getValorPorDiaFuncion() {
 		if (this.esMiercoles())
 			return VALOR_MIERCOLES
 		else if (esFinDeSemana())

@@ -1,7 +1,6 @@
 package application
 
 import domain.Funcion
-import domain.Pelicula
 import domain.Saga
 import domain.Usuario
 import java.math.BigDecimal
@@ -10,6 +9,7 @@ import java.time.LocalTime
 import org.uqbar.arena.bootstrap.Bootstrap
 import repos.RepoPeliculas
 import repos.RepoUsuarios
+import domain.Pelicula
 
 class JoitsBootstrap implements Bootstrap {
 	Usuario santos

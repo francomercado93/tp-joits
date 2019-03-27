@@ -1,7 +1,6 @@
 package joits
 
 import domain.Funcion
-import domain.Pelicula
 import domain.Saga
 import domain.Usuario
 import java.math.BigDecimal
@@ -9,6 +8,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.junit.Before
+import domain.Pelicula
 
 @Accessors
 class JuegoDatosTest {

@@ -5,7 +5,7 @@
 	<groupId>grupo-7</groupId>
 	<artifactId>tp-2019-joits-grupo-7</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<description>			</description>
+	<description></description>
 
 	<parent>
 		<groupId>org.uqbar-project</groupId>

@@ -11,6 +11,7 @@ class JoitsBootstrap implements Bootstrap {
 	Usuario test
 	Usuario otto
 	Usuario ruggeri
+	Usuario lazy
 
 	override isPending() {
 		true
@@ -46,11 +47,17 @@ class JoitsBootstrap implements Bootstrap {
 			password = "123"
 		]
 
+		lazy = new Usuario => [
+			username = "q"
+			password = "q"
+		]
+
 		crearUsuario(franco)
 		crearUsuario(fabian)
 		crearUsuario(test)
 		crearUsuario(otto)
 		crearUsuario(ruggeri)
+		crearUsuario(lazy)
 	}
 
 	def void crearUsuario(Usuario usuario) {

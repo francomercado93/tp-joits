@@ -33,4 +33,8 @@ class RepoUsuarios extends Repositorio<Usuario> {
 
 	override update(Usuario updateUsuario) {
 	}
+
+	def Usuario getUsuario(String usrname, String pass) {
+		return lista.findFirst(usuario|usuario.username == usrname && usuario.password == pass)
+	}
 }

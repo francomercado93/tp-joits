@@ -3,7 +3,6 @@ package repos
 import domain.Usuario
 
 class RepoUsuarios extends Repositorio<Usuario> {
-
 	// INSTANCIA REPO
 	static RepoUsuarios instance
 
@@ -35,6 +34,7 @@ class RepoUsuarios extends Repositorio<Usuario> {
 	}
 
 	def Usuario getUsuario(String usrname, String pass) {
-		return lista.findFirst(usuario|usuario.username == usrname && usuario.password == pass)
+		// return lista.findFirst(usuario|usuario.username == usrname && usuario.password == pass)
+		return lista.findFirst(usuario|usuario.validarse(usrname, pass))
 	}
 }

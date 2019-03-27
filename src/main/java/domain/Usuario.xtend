@@ -25,4 +25,9 @@ class Usuario {
 	def agregarSaldo(BigDecimal numero) {
 		saldo = saldo + numero
 	}
+
+	def validarse(String user, String pass) {
+		return username == user && password == pass
+	}
+
 }

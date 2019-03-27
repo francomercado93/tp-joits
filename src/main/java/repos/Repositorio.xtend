@@ -6,7 +6,6 @@ import java.util.List
 
 @Accessors
 abstract class Repositorio<T> {
-
 	int id = 0
 	List<T> lista = new ArrayList<T>()
 

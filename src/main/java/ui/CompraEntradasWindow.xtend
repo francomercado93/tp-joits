@@ -1,6 +1,7 @@
 package ui
 
 import appModel.CompraEntradas
+import domain.Funcion
 import domain.Pelicula
 import domain.Usuario
 import org.uqbar.arena.layout.ColumnLayout
@@ -30,8 +31,43 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 			new Panel(mainPanel) => [
 				layout = new ColumnLayout(2)
 				this.crearTablaPeliculas(it)
-				new Label(it).text = "HOlis"
+				this.crearTablaFunciones(it)
 			]
+		]
+	}
+
+	def crearTablaFunciones(Panel panel) {
+		new Panel(panel) => [
+			new Label(it) =>[
+				alignLeft
+				text = "Funciones"
+			]
+			val tabla = new Table<Funcion>(it, typeof(Funcion)) => [
+				items <=> "peliculaSeleccionada.funcionesDisponibles"
+				value <=> "peliculaSeleccionada.funcionElegida"
+				numberVisibleRows = 9
+			]
+			this.agregarColumnasTablaFunciones(tabla)
+		]
+	}
+
+	def agregarColumnasTablaFunciones(Table<Funcion> table) {
+		new Column<Funcion>(table) => [
+			title = "Fecha"
+			fixedSize = 150
+			bindContentsToProperty("fecha")
+		]
+		
+		new Column<Funcion>(table) => [
+			title = "Hora"
+			fixedSize = 50
+			bindContentsToProperty("hora")
+		]
+		
+		new Column<Funcion>(table) => [
+			title = "Sala"
+			fixedSize = 150
+			bindContentsToProperty("nombreSala")
 		]
 	}
 
@@ -39,7 +75,7 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 		new Panel(panel) => [
 			val tabla = new Table<Pelicula>(it, typeof(Pelicula)) => [
 				items <=> "cartelera"
-				numberVisibleRows = 8
+				numberVisibleRows = 5
 				value <=> "peliculaSeleccionada"
 			]
 			this.agregarColumnas(tabla)
@@ -56,17 +92,17 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 		]
 		new Column<Pelicula>(table) => [
 			title = "Fecha"
-			fixedSize = 200
+			fixedSize = 50
 			bindContentsToProperty("anio")
 		]
 		new Column<Pelicula>(table) => [
 			title = "Rating"
-			fixedSize = 200
+			fixedSize = 50
 			bindContentsToProperty("puntaje")
 		]
 		new Column<Pelicula>(table) => [
 			title = "Genero"
-			fixedSize = 200
+			fixedSize = 100
 			bindContentsToProperty("genero")
 		]
 	}

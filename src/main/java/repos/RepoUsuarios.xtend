@@ -1,7 +1,11 @@
 package repos
 
 import domain.Usuario
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
+@Accessors
+@Observable
 class RepoUsuarios extends Repositorio<Usuario> {
 
 	// INSTANCIA REPO
@@ -31,6 +35,11 @@ class RepoUsuarios extends Repositorio<Usuario> {
 		}
 	}
 
-	override update(Usuario updateUsuario) {
+	override busquedaPorNombre(Usuario usuario, String nombre) {
+		usuario.username.equalsIgnoreCase(nombre)
 	}
+
+	override update(Usuario elemento) {
+	}
+
 }

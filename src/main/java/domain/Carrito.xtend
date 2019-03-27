@@ -3,11 +3,13 @@ package domain
 import java.math.BigDecimal
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
+@Observable
 class Carrito {
 
-	List<Entrada> entradas = newArrayList
+	List<Entrada> entradas = newArrayList // List de peliculas?
 
 	def agregarAlCarrito(Entrada entrada) {
 		entradas.add(entrada)

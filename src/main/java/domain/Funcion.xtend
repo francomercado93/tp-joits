@@ -4,8 +4,10 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
+@Observable
 class Funcion {
 
 	static final BigDecimal VALOR_MIERCOLES = new BigDecimal("50")

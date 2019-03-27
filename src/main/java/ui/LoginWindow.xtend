@@ -1,13 +1,14 @@
 package ui
 
-import appModel.CompraTicket
 import appModel.LoginUsuario
+import domain.Usuario
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.PasswordField
 import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
@@ -22,24 +23,29 @@ class LoginWindow extends SimpleWindow<LoginUsuario> {
 	override protected addActions(Panel actionsPanel) {
 		new Button(actionsPanel) => [
 			caption = "Aceptar"
+//			setAsDefault
+//			enabled <=> "validarUsuario"
 			onClick [|
-				val usuarioSeleccionado = this.modelObject.usuarioSeleccionado
-				new CompraTicketSimpleWindow(this, new CompraTicket(usuarioSeleccionado)).open
+//				val usuarioSeleccionado = this.modelObject.usuarioSeleccionado
+				new CompraEntradasWindow(this, new Usuario("MarioSantos", "milazzo")).open
 			]
+//			disableOnError
 		]
 
 		new Button(actionsPanel) => [
 			caption = "Cancelar"
+			onClick[|this.close]
 		]
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-		title = "Login Joits"
 
+		this.title = "Joits - Login"
+		new ErrorsPanel(mainPanel, "Ingrese usuario y contraseña")
 		new Panel(mainPanel) => [
 			layout = new ColumnLayout(2)
 			new Label(it) => [
-				text = "Usuario"
+				text = "Usuario:"
 			]
 
 			new TextBox(it) => [
@@ -47,7 +53,7 @@ class LoginWindow extends SimpleWindow<LoginUsuario> {
 			]
 
 			new Label(it) => [
-				text = "Password"
+				text = "Password:"
 			]
 
 			new PasswordField(it) => [

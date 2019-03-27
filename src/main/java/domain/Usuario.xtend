@@ -5,6 +5,7 @@ import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.exceptions.UserException
 
 @Observable
 @Accessors
@@ -21,9 +22,17 @@ class Usuario {
 	BigDecimal saldo
 
 	new() {
-		saldo = new BigDecimal(0)
+		saldo = new BigDecimal("0")
 		id = -1
 	}
+	
+	new(String nombreUsr, String contra) {
+		username = nombreUsr
+		password = contra
+		saldo = new BigDecimal("0")
+		id = -1
+	}
+
 
 	def agregarSaldo(BigDecimal numero) {
 		saldo = saldo + numero
@@ -52,6 +61,11 @@ class Usuario {
 
 	def agregarEntradasCompradas(List<Entrada> entradas) {
 		entradasCompradas.addAll(entradas) // devuelve boolean
+	}
+
+	def validarPassword(String pass) {
+		if (!password.equals(pass))
+			throw new UserException("Contraseña no valida")
 	}
 
 }

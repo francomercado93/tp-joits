@@ -1,10 +1,12 @@
 package repos
 
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
+@Observable
 abstract class Repositorio<T> {
 
 	int id = 0
@@ -19,6 +21,16 @@ abstract class Repositorio<T> {
 	def void delete(T elemento) {
 		lista.remove(elemento)
 	}
+
+	def search(String value) {
+		lista.filter(elemento|this.busquedaPorNombre(elemento, value)).toList
+//		if (usuario === null)
+//			throw new UserException("No se encontro usuario")
+//		else
+//			return usuario
+	}
+
+	def boolean busquedaPorNombre(T elemento, String value)
 
 	def void asignarId(T elemento)
 

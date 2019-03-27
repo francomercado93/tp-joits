@@ -2,7 +2,11 @@ package domain
 
 import java.math.BigDecimal
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
+@Accessors
+@Observable
 class Saga extends Pelicula {
 	// saga tienen una unica funcion para todas las peliculas? se dan todas juntas?
 	static final BigDecimal PRECIO_BASE_SAGA = new BigDecimal("10")

@@ -1,8 +1,11 @@
 package domain
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
+//Eliminar clase entrada?
 @Accessors
+@Observable
 class Entrada {
 
 	Pelicula peliculaElegida
@@ -18,7 +21,7 @@ class Entrada {
 
 	def valorEntrada() {
 		// Validacion de peliculaElegida y funcion elegida no sea null
-		peliculaElegida.precioTotal() 
+		peliculaElegida.precioTotal()
 	}
 
 }

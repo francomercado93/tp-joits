@@ -100,7 +100,7 @@ class JuegoDatosTest {
 			apellido = "Simpson"
 			edad = 8
 		]
-		// SAGAS
+		// funciones
 		lunes1 = new Funcion() => [
 			fecha = LocalDate.of(2019, 04, 01)
 			hora = LocalTime.of(15, 30)

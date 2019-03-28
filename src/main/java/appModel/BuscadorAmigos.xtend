@@ -6,6 +6,7 @@ import domain.Usuario
 import java.util.List
 import repos.RepoUsuarios
 import org.uqbar.commons.model.annotations.Transactional
+import org.uqbar.commons.model.utils.ObservableUtils
 
 @Observable
 @Accessors
@@ -15,7 +16,7 @@ class BuscadorAmigos {
 	Usuario amigoSeleccionado
 	List<Usuario> usuarios = newArrayList
 	List<Usuario> amigosSugeridos = newArrayList
-	String buscar
+	String busqueda
 
 	new(Usuario usuario) {
 		this.usuarioSeleccionado = usuario
@@ -29,6 +30,15 @@ class BuscadorAmigos {
 	def search() {
 		usuarios = RepoUsuarios.instance.getAll
 		amigosSugeridos = RepoUsuarios.instance.getAll
+	}
+	
+	def void buscarAmigo() {
+		if (busqueda == "" || busqueda === null) {
+			usuarios = RepoUsuarios.instance.getAll
+		} else {
+			usuarios = RepoUsuarios.instance.searchAmigo(busqueda)	
+		}
+		ObservableUtils.firePropertyChanged(this, "usuarios", usuarios)		
 	}
 
 }

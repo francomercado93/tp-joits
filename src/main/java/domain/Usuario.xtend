@@ -57,4 +57,11 @@ class Usuario {
 	// return entradasCompradas.map[pelicula]
 	}
 
+	def buscarAmigo(String busqueda) {
+		// Me parece que el contains evalua todo el string?.
+		var String nombreApellido = nombre + apellido
+		var String busquedaRegex = busqueda.replaceAll("[^a-zA-Z]", "");
+		return nombreApellido.contains(busquedaRegex)
+	}
+
 }

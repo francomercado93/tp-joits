@@ -63,7 +63,7 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 				new Column<Usuario>(it) => [
 					fixedSize = 150
 					title = "Nombre"
-					bindContentsToProperty("username")
+					bindContentsToProperty("nombre")
 				]
 				new Column<Usuario>(it) => [
 					fixedSize = 150
@@ -90,7 +90,7 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 				new Column<Usuario>(it) => [
 					fixedSize = 150
 					title = "Nombre"
-					bindContentsToProperty("username")
+					bindContentsToProperty("nombre")
 				]
 				new Column<Usuario>(it) => [
 					fixedSize = 150
@@ -113,13 +113,14 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 			]
 			new TextBox(it) => [
 				width = 90
+				value <=> "busqueda"
 			]
 			new Button(it) => [
 				// width = 102 TODO: Por qué se ven mal las columnas?
 				width = 101
 				caption = "Buscar"
 				onClick [|
-				
+				this.modelObject.buscarAmigo()
 				]
 			]
 		]

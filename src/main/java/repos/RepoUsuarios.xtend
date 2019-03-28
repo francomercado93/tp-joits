@@ -53,4 +53,8 @@ class RepoUsuarios extends Repositorio<Usuario> {
 		return this.lista
 	}
 	
+	def List<Usuario> searchAmigo(String busqueda) {
+		return lista.filter[usuario | usuario.buscarAmigo(busqueda)].toList
+	}
+	
 }

@@ -17,6 +17,7 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.List
 import appModel.BuscadorAmigos
+import org.uqbar.arena.widgets.NumericField
 
 class UsuarioPanelSimpleWindow extends SimpleWindow<UsuarioPanel> {
 
@@ -42,18 +43,24 @@ class UsuarioPanelSimpleWindow extends SimpleWindow<UsuarioPanel> {
 
 	def customizarPanelIzquierdo(Panel panel) {
 		new Panel(panel) => [
-			layout = new ColumnLayout(2)
+			it.layout = new ColumnLayout(2)
 			new Label(it) => [
 				setText = "Usuario"
+				height = 30
 			]
 			new Label(it) => [
-				setText = "Peperoni"
+				value <=> "usuarioSeleccionado.nombre"
+				height = 30
 			]
 			new Label(it) => [
 				setText = "Edad"
 			]
-			new TextBox(it) => []
-
+			new TextBox(it) => [
+				value <=> "usuarioEdad"
+				width = 75
+			]
+			new Label(it) => []
+			new Label(it) => []
 			new Label(it) => [
 				setText = "Amigos"
 			]
@@ -61,16 +68,18 @@ class UsuarioPanelSimpleWindow extends SimpleWindow<UsuarioPanel> {
 
 		new Panel(panel) => [
 			new Table<Usuario>(it, typeof(Usuario)) => [
-				items <=> "amigos"
+				items <=> "usuarioSeleccionado.amigos"
 				numberVisibleRows = 3
 
 				new Column<Usuario>(it) => [
+					fixedSize = 80
 					title = "Nombre"
 					bindContentsToProperty("username")
 				]
 				new Column<Usuario>(it) => [
+					fixedSize = 80
 					title = "Apellido"
-					bindContentsToProperty("password")
+					bindContentsToProperty("apellido")
 				]
 			]
 		]
@@ -78,62 +87,77 @@ class UsuarioPanelSimpleWindow extends SimpleWindow<UsuarioPanel> {
 		new Panel(panel) => [
 			new Button(it) => [
 				caption = "Buscar Amigos"
-				onClick [|
-//				new BuscadorAmigoSimpleWindow(this, new BuscadorAmigos(modelObject.usuarioSeleccionado) => [
-//					onAccept[this.modelObject.crearCelular(celular)]
-//					open
-//				]
-					new BuscadorAmigoSimpleWindow(this, new BuscadorAmigos(modelObject.usuarioSeleccionado)).open
-				]
+				onClick([|
+					new BuscadorAmigoSimpleWindow(this, new BuscadorAmigos(modelObject.usuarioSeleccionado)) => [
+						onAccept[this.modelObject.actualizar()]
+						open
+					]
+				])
 			]
 		]
 	}
 
 	def customizarPanelDerecho(Panel panel) {
 		new Panel(panel) => [
-			layout = new HorizontalLayout
+			it.layout = new ColumnLayout(3)
 			new Label(it) => [
+				alignLeft
 				setText = "Saldo:"
+				height = 20
 			]
 			new Label(it) => [
-				setText = "$1500"
+				alignLeft
+				value <=> "usuarioSeleccionado.miSaldo"
+				height = 20
 			]
 		]
 		new Panel(panel) => [
-			layout = new ColumnLayout(3)
+			it.layout = new ColumnLayout(3)
 			new Label(it) => [
+				alignLeft
 				setText = "Cargar Saldo:"
+				width = 75
 			]
-			new TextBox(it) => [
-				// TODO: Modificar.
-				value <=> "usuarioSeleccionado.username"
+			new NumericField(it) => [
+				value <=> "cargarSaldo"
+				width = 50
 			]
 			new Button(it) => [
 				caption = "Cargar"
+				width = 75
 				onClick [|
-				//new UsuarioPanelSimpleWindow(this, new UsuarioPanel(modelObject.usuarioSeleccionado)).open
+					modelObject.puedeAgregarSaldo
+					modelObject.agregarSaldo
+					showInfo("Saldo actualizado!")
 				]
 			]
 		]
 		new Panel(panel) => [
+			it.layout = new VerticalLayout
+			new Label(it) => [
+				height = 10
+			]
 			new Label(it) => [
 				setText = "Pelis Vistas"
 			]
 		]
 		new Panel(panel) => [
-			layout = new HorizontalLayout
+			it.layout = new HorizontalLayout
 			new List(it) => [
+				width = 213
+				height = 56
 				allowNull(true)
-				items <=> "amigos"
-			// value <=> "usuarioSeleccionado" //TODO: Creo que no es necesario si solo sirve para visualizar una lista?
+				items <=> "usuarioSeleccionado.peliculasVistas"
+			// value <=> "usuarioSeleccionado" //TODO: Creo que no es necesario ya que solo quiero visualizar una lista.
 			]
 		]
 		new Panel(panel) => [
-			layout = new HorizontalLayout
+			it.layout = new HorizontalLayout
 			new Button(it) => [
 				caption = "Aceptar"
 				onClick [|
-				
+					modelObject.actualizarUsuario()
+					close
 				]
 			]
 			new Button(it) => [

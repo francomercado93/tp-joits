@@ -22,8 +22,7 @@ class LoginWindow extends SimpleWindow<LoginUsuario> {
 	}
 
 	override ErrorsPanel createErrorsPanel(Panel mainPanel) {
-		// Al pedo, para usarlo como label ya que está.
-		new ErrorsPanel(mainPanel, "Ingrese usuario y contraseña!!")
+		new ErrorsPanel(mainPanel, "Ingrese usuario y contraseña:")
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -51,16 +50,17 @@ class LoginWindow extends SimpleWindow<LoginUsuario> {
 	override protected addActions(Panel actionsPanel) {
 		new Button(actionsPanel) => [
 			caption = "Aceptar"
-			// Pa la tecla enter.
 			setAsDefault
 			onClick [|
-				// Si validarUsuario devuelve algo --> goto pantalla menu y sino mostramos un MessageBox.
-				if (modelObject.validarUsuario !== null) {
-					new CompraTicketSimpleWindow(this, new CompraTicket(modelObject.usuarioSeleccionado)).open
-					this.close
-				} else {
-					showInfo("Login incorrecto!")
-				}
+				modelObject.validarUsuario
+				new CompraTicketSimpleWindow(this, new CompraTicket(modelObject.usuarioSeleccionado)).open
+				this.close
+//				if (modelObject.validarUsuario !== null) {
+//					new CompraTicketSimpleWindow(this, new CompraTicket(modelObject.usuarioSeleccionado)).open
+//					this.close
+//				} else {
+//					showInfo("Login incorrecto!")
+//				}
 			]
 		]
 

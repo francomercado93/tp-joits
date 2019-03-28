@@ -269,7 +269,7 @@ class JoitsBootstrap implements Bootstrap {
 		matrix = new Pelicula() => [
 			titulo = "Matrix"
 			anio = 1999
-			puntaje = new BigDecimal(8.7)
+			puntaje = new BigDecimal("8.7")
 			genero = "Ciencia ficcion"
 			agregarFuncion(lunes1)
 			agregarFuncion(martes1)
@@ -279,7 +279,7 @@ class JoitsBootstrap implements Bootstrap {
 		vengadores = new Pelicula() => [
 			titulo = "Los vengadores"
 			anio = 2012
-			puntaje = new BigDecimal(8.1)
+			puntaje = new BigDecimal("8.1")
 			genero = "Ciencia ficcion"
 			agregarFuncion(lunes2)
 			agregarFuncion(jueves1)
@@ -290,7 +290,7 @@ class JoitsBootstrap implements Bootstrap {
 		nueveReinas = new Pelicula() => [
 			titulo = "Nueve reinas"
 			anio = 2000
-			puntaje = new BigDecimal(7.8)
+			puntaje = new BigDecimal("7.7")
 			genero = "Drama"
 			agregarFuncion(martes2)
 			agregarFuncion(viernes2)
@@ -300,7 +300,7 @@ class JoitsBootstrap implements Bootstrap {
 		maquinista = new Pelicula() => [
 			titulo = "El maquinista"
 			anio = 2004
-			puntaje = new BigDecimal(7.1)
+			puntaje = new BigDecimal("7.1")
 			genero = "Drama"
 			agregarFuncion(jueves3)
 			agregarFuncion(jueves4)
@@ -310,7 +310,7 @@ class JoitsBootstrap implements Bootstrap {
 		dragonBallSuper = new Pelicula() => [
 			titulo = "La resurrecion de Freezer"
 			anio = 2015
-			puntaje = new BigDecimal(7.4)
+			puntaje = new BigDecimal("7.4")
 			genero = "Animacion"
 			agregarFuncion(sabado2)
 			agregarFuncion(domingo2)
@@ -320,7 +320,7 @@ class JoitsBootstrap implements Bootstrap {
 		batman1 = new Pelicula() => [
 			titulo = "Batman inicia"
 			anio = 2005
-			puntaje = new BigDecimal(7.4)
+			puntaje = new BigDecimal("7.4")
 			genero = "Ciencia ficcion"
 			agregarFuncion(sabado3)
 			agregarFuncion(jueves4)
@@ -330,7 +330,7 @@ class JoitsBootstrap implements Bootstrap {
 		batman2 = new Pelicula() => [
 			titulo = "Batman: El caballero de la noche"
 			anio = 2008
-			puntaje = new BigDecimal(9)
+			puntaje = new BigDecimal("9")
 			genero = "Ciencia ficcion"
 			agregarFuncion(lunes3)
 			agregarFuncion(miercoles2)
@@ -340,7 +340,7 @@ class JoitsBootstrap implements Bootstrap {
 		batman3 = new Pelicula() => [
 			titulo = "Batman: el caballero de la noche asciende"
 			anio = 2012
-			puntaje = new BigDecimal(8.4)
+			puntaje = new BigDecimal("8.4")
 			genero = "Ciencia ficcion"
 			agregarFuncion(miercoles3)
 			agregarFuncion(jueves2)
@@ -350,7 +350,7 @@ class JoitsBootstrap implements Bootstrap {
 		batman3 = new Pelicula() => [
 			titulo = "Batman: El caballero de la noche"
 			anio = 2015
-			puntaje = new BigDecimal(9)
+			puntaje = new BigDecimal("9")
 			genero = "Ciencia ficcion"
 			agregarFuncion(martes3)
 			agregarFuncion(domingo4)
@@ -360,7 +360,7 @@ class JoitsBootstrap implements Bootstrap {
 		toyStory = new Pelicula() => [
 			titulo = "Toy story"
 			anio = 1995
-			puntaje = new BigDecimal(8.3)
+			puntaje = new BigDecimal("8.3")
 			genero = "Animacion	"
 			agregarFuncion(jueves5)
 			agregarFuncion(sabado6)
@@ -370,7 +370,7 @@ class JoitsBootstrap implements Bootstrap {
 		sagaBatman = new Saga() => [
 			titulo = "Trilogia batman"
 			anio = 2019
-			puntaje = new BigDecimal(8)
+			puntaje = new BigDecimal("8")
 			genero = "Ciencia ficcion"
 			agregarPeliculaSaga(batman1)
 			agregarPeliculaSaga(batman2)

@@ -21,7 +21,7 @@ class Usuario {
 	Integer edad
 	Set<Usuario> amigos = new HashSet<Usuario>
 	Carrito carrito
-	List<Pelicula> entradasCompradas = new ArrayList<Pelicula>
+	List<Entrada> entradasCompradas = new ArrayList<Entrada>
 	BigDecimal saldo
 
 	new() {
@@ -46,24 +46,25 @@ class Usuario {
 		if (this.tieneSaldoSuficiente()) {
 			this.finalizarCompra()
 		} else
-			print("No tiene saldo suficiente") // cambiar por un exception?
+			throw new UserException("No tiene saldo suficiente")
 	}
 
 	def finalizarCompra() {
 		this.descontarSaldo()
-//		this.agregarEntradasCompradas(carrito.entradas)
+		this.agregarEntradasCompradas(carrito.entradas)
 		carrito.vaciarCarrito()
 	}
 
 	def descontarSaldo() {
-//		saldo = saldo - carrito.total()
+		saldo = saldo - carrito.total()
 	}
 
 	def Boolean tieneSaldoSuficiente() {
-//		return saldo >= carrito.total()
+		false
+//		return saldo >= carrito.total() // revisar si compara bien
 	}
 
-	def agregarEntradasCompradas(List<Pelicula> entradas) {
+	def agregarEntradasCompradas(List<Entrada> entradas) {
 		entradasCompradas.addAll(entradas) // devuelve boolean
 	}
 
@@ -79,6 +80,18 @@ class Usuario {
 	@Dependencies("carrito")
 	def Integer cantidadEntradasCarrito() {
 		carrito.cantidadEntradas()
+	}
+
+	def totalCarrito() {
+		carrito.total
+	}
+
+	def eliminarItemCarrito(Entrada entrada) {
+		carrito.eliminarDelCarrito(entrada)
+	}
+
+	def vaciarCarrito() {
+		carrito.vaciarCarrito()
 	}
 
 }

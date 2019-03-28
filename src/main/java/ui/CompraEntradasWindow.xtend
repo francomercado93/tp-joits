@@ -48,7 +48,7 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 			new Button(it) => [
 				caption = "Finalizar compra"
 				width = 150
-				onClick[|new FinalizarCompraWindow(this, modelObject.usuario)]
+				onClick[|new FinalizarCompraWindow(this, modelObject.usuario).open]
 			]
 			new Label(it).text = ""
 			new Button(it) => [
@@ -202,6 +202,8 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 			new Button(it) => [
 				caption = "Buscar"
 				width = 100
+				onClick[|modelObject.search()]
+				disableOnError
 			]
 		]
 	}

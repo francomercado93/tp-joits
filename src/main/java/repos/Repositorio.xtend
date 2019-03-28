@@ -24,10 +24,6 @@ abstract class Repositorio<T> {
 
 	def search(String value) {
 		lista.filter(elemento|this.busquedaPorNombre(elemento, value)).toList
-//		if (usuario === null)
-//			throw new UserException("No se encontro usuario")
-//		else
-//			return usuario
 	}
 
 	def boolean busquedaPorNombre(T elemento, String value)

@@ -1,5 +1,6 @@
 package domain
 
+import java.math.BigDecimal
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -25,7 +26,7 @@ class Carrito {
 	}
 
 	def total() {
-		entradas.fold(0d, [acum, entrada|acum + entrada.precioEntrada])
+		new BigDecimal(entradas.fold(0d, [acum, entrada|acum + entrada.precioEntrada]))
 	}
 
 	@Dependencies("entradas")

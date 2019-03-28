@@ -24,8 +24,8 @@ class RepoPeliculas extends Repositorio<Pelicula> {
 	override update(Pelicula elemento) {
 	}
 
-	override busquedaPorNombre(Pelicula elemento, String value) {
-		true
+	override busquedaPorNombre(Pelicula pelicula, String nombre) {
+		pelicula.titulo.equalsIgnoreCase(nombre) || pelicula.titulo.toLowerCase.indexOf(nombre.toLowerCase()) != -1
 	}
 
 	override asignarId(Pelicula elemento) {

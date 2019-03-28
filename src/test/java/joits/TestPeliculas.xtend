@@ -113,6 +113,7 @@ class TestPeliculas extends JuegoDatosTest {
 		santos.agregarItemCarrito(entrada1)
 		santos.agregarItemCarrito(entrada2)
 		santos.agregarItemCarrito(entrada3)
-		Assert.assertEquals(340, santos.carrito.total(), 0.1) // .compareTo(valorEsperado), 0.1)
+		val valorEsperado = new BigDecimal("340")
+		Assert.assertEquals(0, santos.totalCarrito().compareTo(valorEsperado), 0.1) // .compareTo(valorEsperado), 0.1)
 	}
 }

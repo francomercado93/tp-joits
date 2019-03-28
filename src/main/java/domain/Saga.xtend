@@ -19,7 +19,7 @@ class Saga extends Pelicula {
 	}
 
 	def cantidadPeliculasSaga() {
-		return new BigDecimal(peliculasSaga.length)
+		return new BigDecimal(peliculasSaga.size)
 	}
 
 	def BigDecimal getNivelDeClasico() {
@@ -28,7 +28,7 @@ class Saga extends Pelicula {
 
 	def BigDecimal promedioPuntajePeliculas() {
 		return new BigDecimal(
-			Math.round(peliculasSaga.fold(0d, [acum, peli|acum + peli.puntaje]) / peliculasSaga.length))
+			Math.round(peliculasSaga.fold(0d, [acum, peli|acum + peli.puntaje]) / cantidadPeliculasSaga()))
 	}
 
 	def agregarPeliculaSaga(Pelicula pelicula) {

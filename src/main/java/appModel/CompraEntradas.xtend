@@ -29,7 +29,7 @@ class CompraEntradas {
 	}
 
 	def void search() {
-		cartelera = RepoPeliculas.instance.lista
+		cartelera = RepoPeliculas.instance.search(peliculaABuscar)
 	}
 
 	def getPeliculasRecomendadas() {
@@ -50,10 +50,12 @@ class CompraEntradas {
 			funcion = funcionSeleccionada
 		]
 	}
-	//No actualiza 
+
+	// No actualiza 
 	@Dependencies("usuario")
 	def getItemsEnElCarrito() {
 		usuario.cantidadEntradasCarrito()
+//		ObservableUtils.firePropertyChanged(typeof(CompraEntradas), "usuario")
 	}
 
 	def void agregarItemCarrito() {

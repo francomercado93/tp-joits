@@ -1,6 +1,8 @@
 package domain
 
 import java.math.BigDecimal
+import java.util.ArrayList
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
@@ -12,6 +14,7 @@ class Pelicula {
 	Integer anio
 	BigDecimal puntaje
 	String genero
+	List<Funcion> funcionesDisponibles = new ArrayList<Funcion>
 
 	def BigDecimal getPrecioBase() {
 		PRECIO_BASE_PELICULA
@@ -19,6 +22,10 @@ class Pelicula {
 
 	override toString() {
 		return titulo
+	}
+
+	def agregarFuncion(Funcion funcion) {
+		funcionesDisponibles.add(funcion)
 	}
 
 }

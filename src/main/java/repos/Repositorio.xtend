@@ -1,10 +1,12 @@
 package repos
 
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
+@Observable
 abstract class Repositorio<T> {
 	long id = 0
 	List<T> lista = new ArrayList<T>()
@@ -21,6 +23,12 @@ abstract class Repositorio<T> {
 	def void delete(T elemento) {
 		lista.remove(elemento)
 	}
+
+	def search(String value) {
+		lista.filter(elemento|this.busquedaPorNombre(elemento, value)).toList
+	}
+
+	def boolean busquedaPorNombre(T elemento, String value)
 
 	def void asignarId(T elemento)
 

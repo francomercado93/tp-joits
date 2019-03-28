@@ -1,26 +1,22 @@
-package application
+package joits
 
 import domain.Funcion
-import domain.Pelicula
 import domain.Saga
 import domain.Usuario
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
-import org.uqbar.arena.bootstrap.Bootstrap
-import repos.RepoPeliculas
-import repos.RepoUsuarios
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.junit.Before
+import domain.Pelicula
 
-class JoitsBootstrap implements Bootstrap {
+@Accessors
+class JuegoDatosTest {
 	Usuario santos
 	Usuario lamponne
 	Usuario ruggeri
 	Usuario marge
 	Usuario lisa
-	Usuario santiago
-	Usuario pedro
-	Usuario riquelme
-	Usuario zanetti
 
 	Funcion lunes1
 	Funcion lunes2
@@ -66,21 +62,45 @@ class JoitsBootstrap implements Bootstrap {
 	Pelicula toyStory
 	Saga sagaBatman
 
-	new() {
-	}
+	@Before
+	def void init() {
+		santos = new Usuario() => [
+			username = "MarioSantos"
+			password = "milazzo"
+			nombre = "Mario"
+			apellido = "Santos"
+			edad = 38
+			saldo = new BigDecimal(1000)
+		]
+		lamponne = new Usuario() => [
+			username = "Pabluchis"
+			password = "betun"
+			nombre = "Pablo"
+			apellido = "Lamponne"
+			edad = 42
+		]
+		ruggeri = new Usuario() => [
+			username = "CabezonRuggeri"
+			password = "alfredo"
+			nombre = "Oscar"
+			apellido = "Ruggeri"
+			edad = 57
+		]
 
-	override isPending() {
-		true
-	}
-
-	override run() {
-		initUsuario()
-		initFunciones()
-		initPeliculas()
-	}
-
-	def void initFunciones() {
-
+		marge = new Usuario() => [
+			username = "Marge"
+			password = "mmmm"
+			nombre = "Marge"
+			apellido = "Simpson"
+			edad = 38
+		]
+		lisa = new Usuario() => [
+			username = "LisaSimpson"
+			password = "54547575"
+			nombre = "Lisa"
+			apellido = "Simpson"
+			edad = 8
+		]
 		// funciones
 		lunes1 = new Funcion() => [
 			fecha = LocalDate.of(2019, 04, 01)
@@ -267,13 +287,12 @@ class JoitsBootstrap implements Bootstrap {
 			hora = LocalTime.of(23, 35)
 			nombreSala = "Rivadavia"
 		]
-	}
 
-	def void initPeliculas() {
+		// Peliculas
 		matrix = new Pelicula() => [
 			titulo = "Matrix"
 			anio = 1999
-			puntaje = new BigDecimal("8.7")
+			puntaje = new BigDecimal(8.7)
 			genero = "Ciencia ficcion"
 			agregarFuncion(lunes1)
 			agregarFuncion(martes1)
@@ -283,7 +302,7 @@ class JoitsBootstrap implements Bootstrap {
 		vengadores = new Pelicula() => [
 			titulo = "Los vengadores"
 			anio = 2012
-			puntaje = new BigDecimal("8.1")
+			puntaje = new BigDecimal(8.1)
 			genero = "Ciencia ficcion"
 			agregarFuncion(lunes2)
 			agregarFuncion(jueves1)
@@ -294,7 +313,7 @@ class JoitsBootstrap implements Bootstrap {
 		nueveReinas = new Pelicula() => [
 			titulo = "Nueve reinas"
 			anio = 2000
-			puntaje = new BigDecimal("7.7")
+			puntaje = new BigDecimal(7.8)
 			genero = "Drama"
 			agregarFuncion(martes2)
 			agregarFuncion(viernes2)
@@ -304,7 +323,7 @@ class JoitsBootstrap implements Bootstrap {
 		maquinista = new Pelicula() => [
 			titulo = "El maquinista"
 			anio = 2004
-			puntaje = new BigDecimal("7.1")
+			puntaje = new BigDecimal(7.1)
 			genero = "Drama"
 			agregarFuncion(jueves3)
 			agregarFuncion(jueves4)
@@ -314,7 +333,7 @@ class JoitsBootstrap implements Bootstrap {
 		dragonBallSuper = new Pelicula() => [
 			titulo = "La resurrecion de Freezer"
 			anio = 2015
-			puntaje = new BigDecimal("7.4")
+			puntaje = new BigDecimal(7.4)
 			genero = "Animacion"
 			agregarFuncion(sabado2)
 			agregarFuncion(domingo2)
@@ -324,7 +343,7 @@ class JoitsBootstrap implements Bootstrap {
 		batman1 = new Pelicula() => [
 			titulo = "Batman inicia"
 			anio = 2005
-			puntaje = new BigDecimal("7.4")
+			puntaje = new BigDecimal(7.4)
 			genero = "Ciencia ficcion"
 			agregarFuncion(sabado3)
 			agregarFuncion(jueves4)
@@ -334,7 +353,7 @@ class JoitsBootstrap implements Bootstrap {
 		batman2 = new Pelicula() => [
 			titulo = "Batman: El caballero de la noche"
 			anio = 2008
-			puntaje = new BigDecimal("9")
+			puntaje = new BigDecimal(9)
 			genero = "Ciencia ficcion"
 			agregarFuncion(lunes3)
 			agregarFuncion(miercoles2)
@@ -344,7 +363,7 @@ class JoitsBootstrap implements Bootstrap {
 		batman3 = new Pelicula() => [
 			titulo = "Batman: el caballero de la noche asciende"
 			anio = 2012
-			puntaje = new BigDecimal("8.4")
+			puntaje = new BigDecimal(8.4)
 			genero = "Ciencia ficcion"
 			agregarFuncion(miercoles3)
 			agregarFuncion(jueves2)
@@ -354,7 +373,7 @@ class JoitsBootstrap implements Bootstrap {
 		batman3 = new Pelicula() => [
 			titulo = "Batman: El caballero de la noche"
 			anio = 2015
-			puntaje = new BigDecimal("9")
+			puntaje = new BigDecimal(9)
 			genero = "Ciencia ficcion"
 			agregarFuncion(martes3)
 			agregarFuncion(domingo4)
@@ -364,7 +383,7 @@ class JoitsBootstrap implements Bootstrap {
 		toyStory = new Pelicula() => [
 			titulo = "Toy story"
 			anio = 1995
-			puntaje = new BigDecimal("8.3")
+			puntaje = new BigDecimal(8.3)
 			genero = "Animacion	"
 			agregarFuncion(jueves5)
 			agregarFuncion(sabado6)
@@ -374,7 +393,7 @@ class JoitsBootstrap implements Bootstrap {
 		sagaBatman = new Saga() => [
 			titulo = "Trilogia batman"
 			anio = 2019
-			puntaje = new BigDecimal("8")
+			puntaje = new BigDecimal(8)
 			genero = "Ciencia ficcion"
 			agregarPeliculaSaga(batman1)
 			agregarPeliculaSaga(batman2)
@@ -384,110 +403,5 @@ class JoitsBootstrap implements Bootstrap {
 			agregarFuncion(domingo7)
 		]
 
-		this.crearPelicula(matrix)
-		this.crearPelicula(vengadores)
-		this.crearPelicula(nueveReinas)
-		this.crearPelicula(maquinista)
-		this.crearPelicula(dragonBallSuper)
-		this.crearPelicula(batman1)
-		this.crearPelicula(batman2)
-		this.crearPelicula(batman3)
-		this.crearPelicula(toyStory)
-		this.crearPelicula(sagaBatman)
-
 	}
-
-	def void initUsuario() {
-		santos = new Usuario() => [
-			username = "MarioSantos"
-			password = "milazzo"
-			nombre = "Mario"
-			apellido = "Santos"
-			edad = 38
-		]
-		lamponne = new Usuario() => [
-			username = "Pabluchis"
-			password = "betun"
-			nombre = "Pablo"
-			apellido = "Lamponne"
-			edad = 42
-		]
-		ruggeri = new Usuario() => [
-			username = "CabezonRuggeri"
-			password = "alfredo"
-			nombre = "Oscar"
-			apellido = "Ruggeri"
-			edad = 57
-		]
-
-		marge = new Usuario() => [
-			username = "Marge"
-			password = "mmmm"
-			nombre = "Marge"
-			apellido = "Simpson"
-			edad = 38
-		]
-		lisa = new Usuario() => [
-			username = "LisaSimpson"
-			password = "54547575"
-			nombre = "Lisa"
-			apellido = "Simpson"
-			edad = 8
-		]
-		// Amigos de usuarios
-		santiago = new Usuario => [
-			username = "Santiago"
-			password = "123"
-			nombre = "Santi"
-			apellido = "Rugratz"
-			edad = 21
-		]
-		pedro = new Usuario => [
-			username = "Pedro"
-			password = "123"
-			nombre = "Pedro"
-			apellido = "Sanchez"
-			edad = 22
-		]
-		riquelme = new Usuario => [
-			username = "Riquelme"
-			password = "123"
-			nombre = "Conejo"
-			apellido = "Perez"
-			edad = 23
-		]
-		zanetti = new Usuario => [
-			username = "Zanetti"
-			password = "123"
-			nombre = "Pipi"
-			apellido = "Vasquez"
-			edad = 24
-		]
-		this.crearUsuario(santos)
-		this.crearUsuario(lamponne)
-		this.crearUsuario(ruggeri)
-		this.crearUsuario(marge)
-		this.crearUsuario(lisa)
-		this.crearUsuario(santiago)
-		this.crearUsuario(pedro)
-		this.crearUsuario(riquelme)
-		this.crearUsuario(zanetti)
-		// AGREGAR MAS AMIGOS
-		santos.agregarAmigo(pedro)
-		santos.agregarAmigo(riquelme)
-		santos.agregarAmigo(zanetti)
-
-	// AGREGAR PELICULAS VISTAS A USUARIOS
-	}
-
-	def void crearUsuario(Usuario usuario) {
-		val repoUsuarios = RepoUsuarios.instance
-		repoUsuarios.create(usuario)
-	}
-
-	def crearPelicula(Pelicula pelicula) {
-		val repoPeliculas = RepoPeliculas.instance
-		repoPeliculas.create(pelicula)
-	}
-
 }

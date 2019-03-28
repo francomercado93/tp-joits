@@ -34,9 +34,4 @@ class Funcion {
 	def Boolean esMiercoles() {
 		return fecha.dayOfWeek.toString.equalsIgnoreCase("WEDNESDAY")
 	}
-	
-	def getFecha() {
-		return fecha
-	}
-
 }

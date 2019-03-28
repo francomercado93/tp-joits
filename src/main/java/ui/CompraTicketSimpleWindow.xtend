@@ -1,17 +1,17 @@
 package ui
 
-import appModel.CompraTicket
+import appModel.CompraEntradas
+import appModel.UsuarioPanel
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.SimpleWindow
-import appModel.UsuarioPanel
 import org.uqbar.arena.windows.ErrorsPanel
+import org.uqbar.arena.windows.SimpleWindow
 
-class CompraTicketSimpleWindow extends SimpleWindow<CompraTicket> {
+class CompraTicketSimpleWindow extends SimpleWindow<CompraEntradas> {
 
-	new(LoginWindow window, CompraTicket ticket) {
-		super(window, ticket)
+	new(LoginWindow window, CompraEntradas model) {
+		super(window, model)
 		title = "Compra Tickets"
 	}
 
@@ -22,7 +22,7 @@ class CompraTicketSimpleWindow extends SimpleWindow<CompraTicket> {
 		new Button(actionsPanel) => [
 			caption = "Panel de Control"
 			onClick [|
-				new UsuarioPanelSimpleWindow(this, new UsuarioPanel(modelObject.usuarioSeleccionado)).open
+				new UsuarioPanelSimpleWindow(this, new UsuarioPanel(modelObject.usuario)).open
 			]
 		]
 	}

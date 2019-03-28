@@ -42,11 +42,13 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 				new Label(it).text = "Items en el carrito:"
 				new Label(it) => [
 					value <=> "itemsEnElCarrito"
+					alignLeft()
 				]
 			]
 			new Button(it) => [
 				caption = "Finalizar compra"
 				width = 150
+				onClick[|new FinalizarCompraWindow(this, modelObject.usuario)]
 			]
 			new Label(it).text = ""
 			new Button(it) => [
@@ -73,7 +75,7 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 		new Panel(panelDer) => [
 			val tabla = new Table<Funcion>(it, typeof(Funcion)) => [
 				items <=> "peliculaSeleccionada.funcionesDisponibles"
-				value <=> "peliculaSeleccionada.funcionElegida"
+				value <=> "funcionSeleccionada"
 				numberVisibleRows = 9
 				width = 400
 			]

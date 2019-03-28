@@ -1,5 +1,6 @@
 package appModel
 
+import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
 import domain.Usuario
@@ -35,28 +36,34 @@ class CompraEntradas {
 		RepoPeliculas.instance.getPeliculasRecomendadas()
 	}
 
-	@Dependencies("peliculaSeleccionada")
+	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")
 	def getImporteEntrada() {
-		150
-//		peliculaSeleccionada.validarFuncion(funcionSeleccionada)
-//		peliculaSeleccionada.precioTotal
+		if (puedeAgregarItem) {
+			val entrada = this.crearEntrada()
+			entrada.precioEntrada
+		}
 	}
 
+	def crearEntrada() {
+		new Entrada() => [
+			pelicula = peliculaSeleccionada
+			funcion = funcionSeleccionada
+		]
+	}
+	//No actualiza 
+	@Dependencies("usuario")
 	def getItemsEnElCarrito() {
 		usuario.cantidadEntradasCarrito()
 	}
 
 	def void agregarItemCarrito() {
-		print(peliculaSeleccionada.titulo)
-//		print(peliculaSeleccionada.funcionElegida.fecha)
-//		usuario.agregarItemCarrito(peliculaSeleccionada)
-		peliculaSeleccionada = null
+		val entrada = this.crearEntrada()
+		usuario.agregarItemCarrito(entrada)
 	}
 
-	@Dependencies("peliculaSeleccionada")
-	def getPuedeAgregarItem() {
-		true
-//		peliculaSeleccionada !== null && peliculaSeleccionada.funcionElegida !== null
+	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")
+	def Boolean getPuedeAgregarItem() {
+		peliculaSeleccionada !== null && funcionSeleccionada !== null
 	}
 
 }

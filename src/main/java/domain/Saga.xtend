@@ -1,6 +1,7 @@
 package domain
 
 import java.math.BigDecimal
+import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
@@ -11,7 +12,7 @@ class Saga extends Pelicula {
 	static final BigDecimal PRECIO_BASE_SAGA = new BigDecimal("10")
 	static final BigDecimal MULTIPLICADOR_NIVEL_CLASICO = new BigDecimal("5")
 
-	List<Pelicula> peliculasSaga = newArrayList
+	List<Pelicula> peliculasSaga = new ArrayList<Pelicula>
 
 	override getPrecioBase() {
 		return PRECIO_BASE_SAGA * this.cantidadPeliculasSaga() + this.nivelDeClasico

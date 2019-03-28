@@ -1,9 +1,12 @@
 package domain
 
 import java.math.BigDecimal
+import java.util.ArrayList
+import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
 
@@ -16,9 +19,9 @@ class Usuario {
 	String nombre
 	String apellido
 	Integer edad
-	Set<Usuario> amigos = newHashSet
+	Set<Usuario> amigos = new HashSet<Usuario>
 	Carrito carrito
-	List<Pelicula> entradasCompradas = newArrayList
+	List<Pelicula> entradasCompradas = new ArrayList<Pelicula>
 	BigDecimal saldo
 
 	new() {
@@ -73,7 +76,8 @@ class Usuario {
 		carrito.agregarAlCarrito(entrada)
 	}
 
-	def cantidadEntradasCarrito() {
+	@Dependencies("carrito")
+	def Integer cantidadEntradasCarrito() {
 		carrito.cantidadEntradas()
 	}
 

@@ -21,14 +21,9 @@ class LoginWindow extends SimpleWindow<LoginUsuario> {
 		taskDescription = "Ingrese usuario y contraseña!!!"
 	}
 
-	override ErrorsPanel createErrorsPanel(Panel mainPanel) {
-		new ErrorsPanel(mainPanel, "Ingrese usuario y contraseña:")
-	}
-
 	override protected createFormPanel(Panel mainPanel) {
 
 		this.title = "Joits - Login"
-		new ErrorsPanel(mainPanel, "Ingrese usuario y contraseña")
 		new Panel(mainPanel) => [
 			layout = new ColumnLayout(2)
 			new Label(it) => [

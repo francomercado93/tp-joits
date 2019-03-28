@@ -37,10 +37,10 @@ class CompraEntradas {
 	}
 
 	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")
-	def getImporteEntrada() {
+	def getImporteEntrada() { // muestra el valor si se seleccino una pelicula y una funcion
 		if (puedeAgregarItem) {
 			val entrada = this.crearEntrada()
-			entrada.precioEntrada
+			return "$".concat(entrada.precioEntrada.toString)
 		}
 	}
 

@@ -43,10 +43,6 @@ class Usuario {
 		amigos.add(usuario)
 	}
 
-	def agregarSaldo(BigDecimal numero) {
-		saldo = saldo + numero
-	}
-
 	def validarse(String user, String pass) {
 		return username == user && password == pass
 	}
@@ -58,10 +54,6 @@ class Usuario {
 
 	def agregarSaldinho(BigDecimal cargaSaldo) {
 		saldo = saldo + cargaSaldo
-	}
-
-	def agregarAmego(Usuario amigo) {
-		amigos.add(amigo)
 	}
 
 	def agregarEntrada(Entrada entrada) {
@@ -81,10 +73,9 @@ class Usuario {
 	}
 
 	def comprarEntradas() {
-		if (this.tieneSaldoSuficiente()) {
-			this.finalizarCompra()
-		} else
+		if (!this.tieneSaldoSuficiente())
 			throw new UserException("No tiene saldo suficiente")
+		this.finalizarCompra()
 	}
 
 	def finalizarCompra() {
@@ -94,12 +85,11 @@ class Usuario {
 	}
 
 	def descontarSaldo() {
-		saldo = saldo - carrito.total()
+		saldo = saldo - carrito.total
 	}
 
 	def Boolean tieneSaldoSuficiente() {
-		false
-//		return saldo >= carrito.total() // revisar si compara bien
+		return 1 == saldo.compareTo(carrito.total) || 0 == saldo.compareTo(carrito.total) // saldo >= carrito.total()
 	}
 
 	def agregarEntradasCompradas(List<Entrada> entradas) {
@@ -130,6 +120,11 @@ class Usuario {
 
 	def vaciarCarrito() {
 		carrito.vaciarCarrito()
+	}
+
+	@Dependencies("carrito")
+	def getCarritoEstaVacio() {
+		carrito.carritoEstaVacio
 	}
 
 }

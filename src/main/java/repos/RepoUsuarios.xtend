@@ -40,10 +40,6 @@ class RepoUsuarios extends Repositorio<Usuario> {
 		return lista.findFirst(usuario|usuario.validarse(usrname, pass))
 	}
 
-	def void addAmigo(Usuario usuario, Usuario amigo) {
-		searchById(usuario.id).agregarAmego(amigo)
-	}
-
 	def addEntrada(Usuario usuario, Entrada entrada) {
 		searchById(usuario.id).agregarEntrada(entrada)
 	}
@@ -66,8 +62,9 @@ class RepoUsuarios extends Repositorio<Usuario> {
 	override busquedaPorNombre(Usuario usuario, String nombre) {
 		usuario.username.equalsIgnoreCase(nombre)
 	}
-
-	override update(Usuario elemento) {
+	
+	def getAmigosSugeridos(Usuario usuario) {
+		return lista.filter[usrRepo | usrRepo.edad  <= usuario.edad && usrRepo !== usuario].toList
 	}
 
 }

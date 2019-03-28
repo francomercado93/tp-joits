@@ -1,7 +1,10 @@
 package joits
 
 import domain.Entrada
+import domain.Funcion
 import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.LocalTime
 import org.junit.Assert
 import org.junit.Test
 
@@ -115,5 +118,41 @@ class TestPeliculas extends JuegoDatosTest {
 		santos.agregarItemCarrito(entrada3)
 		val valorEsperado = new BigDecimal("340")
 		Assert.assertEquals(0, santos.totalCarrito().compareTo(valorEsperado), 0.1) // .compareTo(valorEsperado), 0.1)
+	}
+
+	@Test
+	def void testComparacionBigDecimal() {
+		val bd1 = new BigDecimal("80")
+		val bd2 = new BigDecimal("50")
+		Assert.assertEquals(1, bd1.compareTo(bd2), 0.1)
+	}
+
+	@Test
+	def void testPeliculasVistas() {
+		// funciones de peliculas vistas
+		val funcion1 = new Funcion() => [
+			fecha = LocalDate.of(2019, 03, 22)
+			hora = LocalTime.of(18, 00)
+			nombreSala = "Rivadavia"
+		]
+		val funcion2 = new Funcion() => [
+			fecha = LocalDate.of(2019, 03, 24)
+			hora = LocalTime.of(18, 00)
+			nombreSala = "Rivadavia"
+		]
+		// AGREGAR PELICULAS VISTAS A USUARIOS
+		val entradaMatrix = new Entrada() => [
+			pelicula = matrix
+			funcion = funcion1
+		]
+		val entradaToyStory = new Entrada() => [
+			pelicula = toyStory
+			funcion = funcion2
+		]
+		santos.agregarItemCarrito(entradaMatrix)
+		santos.agregarItemCarrito(entradaToyStory)
+		santos.agregarSaldinho(new BigDecimal("600"))
+		santos.comprarEntradas()
+		Assert.assertEquals(2, santos.peliculasVistas.size, 0.1)
 	}
 }

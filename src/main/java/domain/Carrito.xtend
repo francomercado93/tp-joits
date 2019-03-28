@@ -25,12 +25,21 @@ class Carrito {
 		entradas.clear
 	}
 
-	def total() {
-		new BigDecimal(entradas.fold(0d, [acum, entrada|acum + entrada.precioEntrada]))
+	def getTotal() {
+		if (carritoEstaVacio)
+			return new BigDecimal("0")
+		else
+			new BigDecimal(entradas.fold(0d, [acum, entrada|acum + entrada.precioEntrada]))
 	}
 
 	@Dependencies("entradas")
 	def Integer cantidadEntradas() {
 		return entradas.size
 	}
+
+	@Dependencies("entradas")
+	def getCarritoEstaVacio() {
+		entradas.isNullOrEmpty()
+	}
+
 }

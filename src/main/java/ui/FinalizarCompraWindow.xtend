@@ -56,6 +56,7 @@ class FinalizarCompraWindow extends SimpleWindow<FinalizarCompra> {
 			new Button(it) => [
 				caption = "Limpiar carrito"
 				width = 90
+				enabled <=> "carritoEstaVacio"
 				onClick[|modelObject.limpiarCarrito()]
 			]
 			new Label(it).text = ""
@@ -64,14 +65,17 @@ class FinalizarCompraWindow extends SimpleWindow<FinalizarCompra> {
 			new Button(it) => [
 				caption = "Comprar"
 				width = 80
-				onClick[|modelObject.comprarEntradas()]
-				bindEnabled(elementSelected)
+				enabled <=> "carritoEstaVacio"
+				onClick[|
+					modelObject.comprarEntradas()
+					showInfo("Compra realizada con exito!")
+				]
 			]
 			new Button(it) => [
 				caption = "Volver atras"
 				width = 80
 				onClick[|this.close]
-				enabled <=> "botonVolver"
+				enabled <=> "botonVolver" // Desaparecia el boton volver por alguna razon
 				setAsDefault
 			]
 

@@ -24,21 +24,21 @@ class BuscadorAmigos {
 
 	def agregarAmigo() {
 		if (amigoSeleccionado !== null)
-			usuarioSeleccionado.agregarAmego(amigoSeleccionado)
+			usuarioSeleccionado.agregarAmigo(amigoSeleccionado)
 	}
 
 	def search() {
 		usuarios = RepoUsuarios.instance.getAll
-		amigosSugeridos = RepoUsuarios.instance.getAll
+		amigosSugeridos = RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
 	}
-	
+
 	def void buscarAmigo() {
 		if (busqueda == "" || busqueda === null) {
 			usuarios = RepoUsuarios.instance.getAll
 		} else {
-			usuarios = RepoUsuarios.instance.searchAmigo(busqueda)	
+			usuarios = RepoUsuarios.instance.searchAmigo(busqueda)
 		}
-		ObservableUtils.firePropertyChanged(this, "usuarios", usuarios)		
+		ObservableUtils.firePropertyChanged(this, "usuarios", usuarios)
 	}
 
 }

@@ -27,6 +27,22 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 		modelObject.search()
 	}
 
+	override protected addActions(Panel actionsPanel) {
+	}
+
+	override protected createFormPanel(Panel mainPanel) {
+		new Panel(mainPanel) => [
+			new Panel(mainPanel) => [
+				layout = new ColumnLayout(2)
+				this.crearPanelIzquierdo(it)
+				this.crearPanelDerecho(it)
+			]
+			new Panel(mainPanel) => [
+				this.crearPanelBotones(it)
+			]
+		]
+	}
+
 	def crearPanelBotones(Panel panel) {
 		new Button(panel) => [
 			caption = "Agregar al carrito"
@@ -69,19 +85,18 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 				new Label(it).text = "Fecha: "
 				new Label(it) => [
 					value <=> "fechaActual"
-					alignRight()
 				]
 			]
 			new Label(it).text = "Funciones"
 		]
 		new Panel(panelDer) => [
-			val tabla = new Table<Funcion>(it, typeof(Funcion)) => [
+			val tablaFunciones = new Table<Funcion>(it, typeof(Funcion)) => [
 				items <=> "peliculaSeleccionada.funcionesDisponibles"
 				value <=> "funcionSeleccionada"
 				numberVisibleRows = 9
 				width = 400
 			]
-			this.agregarColumnasTablaFunciones(tabla)
+			this.agregarColumnasTablaFunciones(tablaFunciones)
 		]
 		new Panel(panelDer) => [
 			layout = new HorizontalLayout
@@ -124,47 +139,20 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 		panelBusqueda(panelIzq)
 
 		new Panel(panelIzq) => [
-			val tabla = new Table<Pelicula>(it, typeof(Pelicula)) => [
+			val tablaPelicula = new Table<Pelicula>(it, typeof(Pelicula)) => [
 				items <=> "cartelera"
 				value <=> "peliculaSeleccionada"
 				numberVisibleRows = 6
 			]
-			this.agregarColumnas(tabla)
-			val tablaRec = new Table<Pelicula>(it, typeof(Pelicula)) => [
+			this.agregarColumnas(tablaPelicula)
+			val tablaRecomendadas = new Table<Pelicula>(it, typeof(Pelicula)) => [
 				items <=> "peliculasRecomendadas"
-				numberVisibleRows = 4
+				numberVisibleRows = 6
 				value <=> "peliculaSeleccionada"
 			]
-			this.agregarColumnasPelisRecomendadas(tablaRec)
+			this.agregarColumnas(tablaRecomendadas)
 		]
 
-	}
-
-	def agregarColumnasPelisRecomendadas(Table<Pelicula> table) {
-
-		new Column<Pelicula>(table) => [
-			title = "Nombre"
-			fixedSize = 200
-			bindContentsToProperty("titulo")
-		]
-
-		new Column<Pelicula>(table) => [
-			title = "Fecha"
-			fixedSize = 50
-			bindContentsToProperty("anio")
-		]
-
-		new Column<Pelicula>(table) => [
-			title = "Rating"
-			fixedSize = 50
-			bindContentsToProperty("puntaje")
-		]
-
-		new Column<Pelicula>(table) => [
-			title = "Genero"
-			fixedSize = 100
-			bindContentsToProperty("genero")
-		]
 	}
 
 	def agregarColumnas(Table<Pelicula> table) {
@@ -206,22 +194,6 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 				width = 100
 				onClick[|modelObject.search()]
 				disableOnError
-			]
-		]
-	}
-
-	override protected addActions(Panel actionsPanel) {
-	}
-
-	override protected createFormPanel(Panel mainPanel) {
-		new Panel(mainPanel) => [
-			new Panel(mainPanel) => [
-				layout = new ColumnLayout(2)
-				this.crearPanelIzquierdo(it)
-				this.crearPanelDerecho(it)
-			]
-			new Panel(mainPanel) => [
-				this.crearPanelBotones(it)
 			]
 		]
 	}

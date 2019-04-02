@@ -1,5 +1,6 @@
 package appModel
 
+import domain.Carrito
 import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
@@ -9,6 +10,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoPeliculas
 
 @Observable
@@ -21,10 +23,13 @@ class CompraEntradas {
 	List<Pelicula> cartelera
 	Pelicula peliculaSeleccionada
 	Funcion funcionSeleccionada
+	Carrito carrito
 
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
+		carrito = usuarioSeleccionado.carrito // se carga de otra forma, a traves de un repo de carritos
+//		carrito = new Carrito
 		peliculaABuscar = ""
 	}
 
@@ -36,7 +41,7 @@ class CompraEntradas {
 		RepoPeliculas.instance.getPeliculasRecomendadas()
 	}
 
-	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")
+	@Dependencies("peliculaSeleccionada", "funcionSeleccionada") // Hace falta?
 	def getImporteEntrada() { // muestra el valor si se seleccino una pelicula y una funcion
 		if (puedeAgregarItem) {
 			val entrada = this.crearEntrada()
@@ -44,23 +49,26 @@ class CompraEntradas {
 		}
 	}
 
-	def crearEntrada() {
+	def Entrada crearEntrada() {
 		new Entrada() => [
 			pelicula = peliculaSeleccionada
 			funcion = funcionSeleccionada
 		]
 	}
 
-	// No actualiza 
-	@Dependencies("usuario")
+	// no actualiza
+	@Dependencies("carrito")
 	def getItemsEnElCarrito() {
-		usuario.cantidadEntradasCarrito()
-//		ObservableUtils.firePropertyChanged(typeof(CompraEntradas), "usuario")
+		carrito.cantidadEntradas()
 	}
 
 	def void agregarItemCarrito() {
-		val entrada = this.crearEntrada()
-		usuario.agregarItemCarrito(entrada)
+		carrito.agregarAlCarrito(this.crearEntrada())
+		this.actualizarCarrito()
+	}
+
+	def void actualizarCarrito() {
+		ObservableUtils.firePropertyChanged(this, "itemsEnElCarrito")
 	}
 
 	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")

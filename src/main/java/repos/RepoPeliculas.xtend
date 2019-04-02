@@ -8,12 +8,10 @@ import org.uqbar.commons.model.annotations.Observable
 @Accessors
 @Observable
 class RepoPeliculas extends Repositorio<Pelicula> {
-	// INSTANCIA REPO
-	static RepoPeliculas instance
 
 	static final Integer PUNTAJE_RECOMENDABLE = 7
+	static RepoPeliculas instance
 
-	// INICIALIZACION REPO
 	static def getInstance() {
 		if (instance === null) {
 			instance = new RepoPeliculas()
@@ -22,6 +20,7 @@ class RepoPeliculas extends Repositorio<Pelicula> {
 	}
 
 	override update(Pelicula elemento) {
+		// No se actualizan las peliculas		
 	}
 
 	override busquedaPorNombre(Pelicula pelicula, String nombre) {
@@ -34,7 +33,7 @@ class RepoPeliculas extends Repositorio<Pelicula> {
 	def getPeliculasRecomendadas() {
 		val pelisRecomendadas = lista.takeWhile[pelicula|pelicula.puntaje.doubleValue() >= PUNTAJE_RECOMENDABLE]
 		val List<Pelicula> pelis = newArrayList
-		pelis.add(pelisRecomendadas.get(0))
+		pelis.add(pelisRecomendadas.get(0)) // head?
 		pelis.add(pelisRecomendadas.get(1))
 		pelis.add(pelisRecomendadas.get(2))
 		return pelis

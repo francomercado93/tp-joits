@@ -29,7 +29,7 @@ class FinalizarCompraWindow extends SimpleWindow<FinalizarCompra> {
 		new Label(mainPanel).text = "Pelis en el carrito"
 		new Panel(mainPanel) => [
 			val tabla = new Table<Entrada>(it, typeof(Entrada)) => [
-				items <=> "usuario.carrito.entradas"
+				items <=> "carrito.entradas"
 				value <=> "entradaSeleccionada"
 				numberVisibleRows = 5
 				width = 600

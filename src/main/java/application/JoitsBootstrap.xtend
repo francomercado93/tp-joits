@@ -1,5 +1,6 @@
 package application
 
+import domain.Carrito
 import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
@@ -66,6 +67,11 @@ class JoitsBootstrap implements Bootstrap {
 	Pelicula batman3
 	Pelicula toyStory
 	Saga sagaBatman
+
+	Funcion funcion1
+	Funcion funcion2
+	Entrada entradaMatrix
+	Entrada entradaToyStory
 
 	new() {
 	}
@@ -396,6 +402,33 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearPelicula(toyStory)
 		this.crearPelicula(sagaBatman)
 
+		// Peliculas vistas para mario santos
+		funcion1 = new Funcion() => [
+			fecha = LocalDate.of(2019, 03, 22)
+			hora = LocalTime.of(18, 00)
+			nombreSala = "Rivadavia"
+		]
+		funcion2 = new Funcion() => [
+			fecha = LocalDate.of(2019, 03, 24)
+			hora = LocalTime.of(18, 00)
+			nombreSala = "Rivadavia"
+		]
+		// AGREGAR PELICULAS VISTAS A USUARIOS
+		entradaMatrix = new Entrada() => [
+			pelicula = matrix
+			funcion = funcion1
+		]
+		entradaToyStory = new Entrada() => [
+			pelicula = toyStory
+			funcion = funcion2
+		]
+		val carritoTest = new Carrito
+
+		carritoTest.agregarAlCarrito(entradaMatrix)
+		carritoTest.agregarAlCarrito(entradaToyStory)
+		santos.agregarSaldinho(new BigDecimal("600"))
+		santos.carrito = carritoTest
+		santos.comprarEntradas()
 	}
 
 	def void initUsuario() {
@@ -468,32 +501,6 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarAmigo(pedro)
 		santos.agregarAmigo(riquelme)
 		santos.agregarAmigo(zanetti)
-
-		// NO PUEDO CREAR JUEGO DE DATOS (NULLPOINTEREXCEPTION)PERO EN EL TEST FUNCIONA
-//		// funciones de peliculas vistas
-//		val funcion1 = new Funcion() => [
-//			fecha = LocalDate.of(2019, 03, 22)
-//			hora = LocalTime.of(18, 00)
-//			nombreSala = "Rivadavia"
-//		]
-//		val funcion2 = new Funcion() => [
-//			fecha = LocalDate.of(2019, 03, 24)
-//			hora = LocalTime.of(18, 00)
-//			nombreSala = "Rivadavia"
-//		]
-//		// AGREGAR PELICULAS VISTAS A USUARIOS
-//		val entradaMatrix = new Entrada() => [
-//			pelicula = matrix
-//			funcion = funcion1
-//		]
-//		val entradaToyStory = new Entrada() => [
-//			pelicula = toyStory
-//			funcion = funcion2
-//		]
-//		santos.agregarItemCarrito(entradaMatrix)
-//		santos.agregarItemCarrito(entradaToyStory)
-//		santos.agregarSaldinho(new BigDecimal("600"))
-//		santos.comprarEntradas()
 
 		this.crearUsuario(santos)
 		this.crearUsuario(lamponne)

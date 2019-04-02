@@ -1,7 +1,6 @@
 package domain
 
 import java.math.BigDecimal
-import java.time.LocalDate
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
@@ -62,7 +61,7 @@ class Usuario {
 
 	@Dependencies("entradasCompradas")
 	def List<Pelicula> getPeliculasVistas() {
-		return entradasCompradas.filter[entrada|entrada.funcion.fecha < LocalDate.now()].toList.map[pelicula]
+		return entradasCompradas.map[pelicula]
 	}
 
 	def buscarAmigo(String busqueda) {
@@ -101,30 +100,8 @@ class Usuario {
 			throw new UserException("Contraseña no valida")
 	}
 
-	def agregarItemCarrito(Entrada entrada) {
-		carrito.agregarAlCarrito(entrada)
-	}
-
-	@Dependencies("carrito")
-	def Integer cantidadEntradasCarrito() {
-		carrito.cantidadEntradas()
-	}
-
 	def totalCarrito() {
 		carrito.total
-	}
-
-	def eliminarItemCarrito(Entrada entrada) {
-		carrito.eliminarDelCarrito(entrada)
-	}
-
-	def vaciarCarrito() {
-		carrito.vaciarCarrito()
-	}
-
-	@Dependencies("carrito")
-	def getCarritoEstaVacio() {
-		carrito.carritoEstaVacio
 	}
 
 }

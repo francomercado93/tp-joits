@@ -1,6 +1,9 @@
 package joits
 
+import domain.Carrito
+import domain.Entrada
 import domain.Funcion
+import domain.Pelicula
 import domain.Saga
 import domain.Usuario
 import java.math.BigDecimal
@@ -8,7 +11,6 @@ import java.time.LocalDate
 import java.time.LocalTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.junit.Before
-import domain.Pelicula
 
 @Accessors
 class JuegoDatosTest {
@@ -61,6 +63,16 @@ class JuegoDatosTest {
 	Pelicula batman3
 	Pelicula toyStory
 	Saga sagaBatman
+
+	Carrito carritoTest
+	Entrada entrada1
+	Entrada entrada2
+	Entrada entrada3
+
+	Funcion funcion1
+	Funcion funcion2
+	Entrada entradaMatrix
+	Entrada entradaToyStory
 
 	@Before
 	def void init() {
@@ -401,6 +413,44 @@ class JuegoDatosTest {
 			agregarFuncion(lunes4)
 			agregarFuncion(miercoles4)
 			agregarFuncion(domingo7)
+		]
+
+		carritoTest = new Carrito
+
+		entrada1 = new Entrada() => [
+			pelicula = matrix
+			funcion = lunes1
+		]
+
+		entrada2 = new Entrada() => [
+			pelicula = nueveReinas
+			funcion = domingo1
+		]
+
+		entrada3 = new Entrada() => [
+			pelicula = matrix
+			funcion = miercoles
+		]
+
+		// funciones de peliculas vistas
+		funcion1 = new Funcion() => [
+			fecha = LocalDate.of(2019, 03, 22)
+			hora = LocalTime.of(18, 00)
+			nombreSala = "Rivadavia"
+		]
+		funcion2 = new Funcion() => [
+			fecha = LocalDate.of(2019, 03, 24)
+			hora = LocalTime.of(18, 00)
+			nombreSala = "Rivadavia"
+		]
+		// AGREGAR PELICULAS VISTAS A USUARIOS
+		entradaMatrix = new Entrada() => [
+			pelicula = matrix
+			funcion = funcion1
+		]
+		entradaToyStory = new Entrada() => [
+			pelicula = toyStory
+			funcion = funcion2
 		]
 
 	}

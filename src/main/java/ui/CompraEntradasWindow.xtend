@@ -59,7 +59,6 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 				new Label(it).text = "Items en el carrito:"
 				new Label(it) => [
 					value <=> "itemsEnElCarrito"
-					alignLeft()
 				]
 			]
 			new Button(it) => [

@@ -32,7 +32,6 @@ class Carrito {
 			new BigDecimal(entradas.fold(0d, [acum, entrada|acum + entrada.precioEntrada]))
 	}
 
-	@Dependencies("entradas")
 	def Integer cantidadEntradas() {
 		return entradas.size
 	}

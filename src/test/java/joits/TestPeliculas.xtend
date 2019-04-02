@@ -1,10 +1,7 @@
 package joits
 
 import domain.Entrada
-import domain.Funcion
 import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.LocalTime
 import org.junit.Assert
 import org.junit.Test
 
@@ -80,44 +77,21 @@ class TestPeliculas extends JuegoDatosTest {
 
 	@Test
 	def void usuarioAgregaPeliculasAlCarritoLaCantidadEnCarritoEsperado() {
-		val entrada1 = new Entrada() => [
-			pelicula = matrix
-			funcion = lunes1
-		]
-		val entrada2 = new Entrada() => [
-			pelicula = nueveReinas
-			funcion = domingo1
-		]
-		val entrada3 = new Entrada() => [
-			pelicula = matrix
-			funcion = miercoles
-		]
 
-		santos.agregarItemCarrito(entrada1)
-		santos.agregarItemCarrito(entrada2)
-		santos.agregarItemCarrito(entrada3)
-		Assert.assertEquals(3, santos.cantidadEntradasCarrito(), 0.1)
+		carritoTest.agregarAlCarrito(entrada1)
+		carritoTest.agregarAlCarrito(entrada2)
+		carritoTest.agregarAlCarrito(entrada3)
+		Assert.assertEquals(3, carritoTest.cantidadEntradas, 0.1)
 	}
 
 	@Test
 	def void usuarioAgregaPeliculasAlCarritoElValorTotalEsEsperado() {
-		val entrada1 = new Entrada() => [
-			pelicula = matrix
-			funcion = lunes1
-		]
-		val entrada2 = new Entrada() => [
-			pelicula = nueveReinas
-			funcion = domingo1
-		]
-		val entrada3 = new Entrada() => [
-			pelicula = matrix
-			funcion = miercoles
-		]
-		santos.agregarItemCarrito(entrada1)
-		santos.agregarItemCarrito(entrada2)
-		santos.agregarItemCarrito(entrada3)
+
+		carritoTest.agregarAlCarrito(entrada1)
+		carritoTest.agregarAlCarrito(entrada2)
+		carritoTest.agregarAlCarrito(entrada3)
 		val valorEsperado = new BigDecimal("340")
-		Assert.assertEquals(0, santos.totalCarrito().compareTo(valorEsperado), 0.1) // .compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, carritoTest.total.compareTo(valorEsperado), 0.1) // .compareTo(valorEsperado), 0.1)
 	}
 
 	@Test
@@ -129,28 +103,10 @@ class TestPeliculas extends JuegoDatosTest {
 
 	@Test
 	def void testPeliculasVistas() {
-		// funciones de peliculas vistas
-		val funcion1 = new Funcion() => [
-			fecha = LocalDate.of(2019, 03, 22)
-			hora = LocalTime.of(18, 00)
-			nombreSala = "Rivadavia"
-		]
-		val funcion2 = new Funcion() => [
-			fecha = LocalDate.of(2019, 03, 24)
-			hora = LocalTime.of(18, 00)
-			nombreSala = "Rivadavia"
-		]
-		// AGREGAR PELICULAS VISTAS A USUARIOS
-		val entradaMatrix = new Entrada() => [
-			pelicula = matrix
-			funcion = funcion1
-		]
-		val entradaToyStory = new Entrada() => [
-			pelicula = toyStory
-			funcion = funcion2
-		]
-		santos.agregarItemCarrito(entradaMatrix)
-		santos.agregarItemCarrito(entradaToyStory)
+
+		carritoTest.agregarAlCarrito(entradaMatrix)
+		carritoTest.agregarAlCarrito(entradaToyStory)
+		santos.carrito = carritoTest
 		santos.agregarSaldinho(new BigDecimal("600"))
 		santos.comprarEntradas()
 		Assert.assertEquals(2, santos.peliculasVistas.size, 0.1)

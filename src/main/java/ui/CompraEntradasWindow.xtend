@@ -64,6 +64,7 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 			new Button(it) => [
 				caption = "Finalizar compra"
 				width = 150
+//				onClick[|this.abrirFinalizarCompraWindow()]
 				onClick[|new FinalizarCompraWindow(this, modelObject.usuario).open]
 			]
 			new Label(it).text = ""
@@ -76,6 +77,11 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 
 	}
 
+	// Para actualizar la cantidad de entradas en el carrito abro y cierro las pantallas
+//	def abrirFinalizarCompraWindow() {
+//		this.close
+//		new FinalizarCompraWindow(this, modelObject.usuario).open
+//	}
 	def crearPanelDerecho(Panel panel) {
 		val panelDer = new Panel(panel)
 		new Panel(panelDer) => [

@@ -19,6 +19,7 @@ class FinalizarCompraWindow extends SimpleWindow<FinalizarCompra> {
 
 	new(WindowOwner parent, Usuario usuario) {
 		super(parent, new FinalizarCompra(usuario))
+		title = "Joits - Finalizar compra"
 	}
 
 	override protected addActions(Panel actionsPanel) {
@@ -78,10 +79,14 @@ class FinalizarCompraWindow extends SimpleWindow<FinalizarCompra> {
 				enabled <=> "botonVolver" // Desaparecia el boton volver por alguna razon
 				setAsDefault
 			]
-
 		]
 	}
 
+	// Para actualizar los items en el carrito de la pantalla de compra de entradas
+//	def volverCompraEntradasWindow() {
+//		this.close()
+//		new CompraEntradasWindow(this, modelObject.usuario).open
+//	}
 	def agregarColumnasTablaEntradas(Table<Entrada> table) {
 		new Column<Entrada>(table) => [
 			title = "Nombre"

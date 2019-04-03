@@ -8,12 +8,4 @@ class RepoCarritos extends Repositorio<Carrito> {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 
-	override asignarId(Carrito elemento) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
-	override searchById(long id) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
 }

@@ -4,7 +4,6 @@ import java.math.BigDecimal
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
@@ -36,7 +35,6 @@ class Carrito {
 		return entradas.size
 	}
 
-	@Dependencies("entradas")
 	def getCarritoEstaVacio() {
 		entradas.isNullOrEmpty()
 	}

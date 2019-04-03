@@ -19,7 +19,7 @@ class FinalizarCompra {
 
 	new(Usuario usr) {
 		usuario = usr
-		// carrito = RepoCarrito.instance.searchById(usuario)
+		// carrito = RepoCarrito.instance.searchByExample // searchById(usuario)
 		carrito = usr.carrito
 	}
 

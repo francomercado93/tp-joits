@@ -19,15 +19,8 @@ class RepoPeliculas extends Repositorio<Pelicula> {
 		instance
 	}
 
-	override update(Pelicula elemento) {
-		// No se actualizan las peliculas		
-	}
-
 	override busquedaPorNombre(Pelicula pelicula, String nombre) {
 		pelicula.titulo.equalsIgnoreCase(nombre) || pelicula.titulo.toLowerCase.indexOf(nombre.toLowerCase()) != -1
-	}
-
-	override asignarId(Pelicula elemento) {
 	}
 
 	def getPeliculasRecomendadas() {
@@ -37,8 +30,5 @@ class RepoPeliculas extends Repositorio<Pelicula> {
 		pelis.add(pelisRecomendadas.get(1))
 		pelis.add(pelisRecomendadas.get(2))
 		return pelis
-	}
-
-	override searchById(long id) {
 	}
 }

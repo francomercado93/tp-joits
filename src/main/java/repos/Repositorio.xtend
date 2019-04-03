@@ -8,7 +8,7 @@ import org.uqbar.commons.model.annotations.Observable
 @Accessors
 @Observable
 abstract class Repositorio<T> {
-	long id = 0
+
 	List<T> lista = new ArrayList<T>()
 
 	def void create(T elemento) {
@@ -30,7 +30,4 @@ abstract class Repositorio<T> {
 
 	def boolean busquedaPorNombre(T elemento, String value)
 
-	def void asignarId(T elemento)
-
-	def T searchById(long id)
 }

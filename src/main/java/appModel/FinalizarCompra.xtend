@@ -11,7 +11,6 @@ import repos.RepoUsuarios
 
 @Accessors
 @Observable
-
 //transactionaldialog
 class FinalizarCompra {
 
@@ -19,6 +18,7 @@ class FinalizarCompra {
 	Entrada entradaSeleccionada
 	Carrito carrito
 
+	// repo de entradas para cargar el carrito
 	new(Usuario usr) {
 		usuario = usr
 		carrito = usr.carrito
@@ -44,6 +44,11 @@ class FinalizarCompra {
 
 	def comprarEntradas() {
 		usuario.comprarEntradas()
+		this.actualizarUsuario()
+		this.actualizarCarrito()
+	}
+
+	def actualizarUsuario() {
 		RepoUsuarios.instance.update(usuario)
 	}
 

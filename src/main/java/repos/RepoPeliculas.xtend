@@ -1,7 +1,6 @@
 package repos
 
 import domain.Pelicula
-import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
@@ -25,10 +24,6 @@ class RepoPeliculas extends Repositorio<Pelicula> {
 
 	def getPeliculasRecomendadas() {
 		val pelisRecomendadas = lista.takeWhile[pelicula|pelicula.puntaje.doubleValue() >= PUNTAJE_RECOMENDABLE]
-		val List<Pelicula> pelis = newArrayList
-		pelis.add(pelisRecomendadas.get(0)) // head?
-		pelis.add(pelisRecomendadas.get(1))
-		pelis.add(pelisRecomendadas.get(2))
-		return pelis
+		return pelisRecomendadas.take(3).toSet
 	}
 }

@@ -25,6 +25,7 @@ class CompraEntradas {
 	Funcion funcionSeleccionada
 	Carrito carrito
 
+	// merge
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now

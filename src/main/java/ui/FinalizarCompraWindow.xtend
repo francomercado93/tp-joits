@@ -75,7 +75,8 @@ class FinalizarCompraWindow extends SimpleWindow<FinalizarCompra> {
 			new Button(it) => [
 				caption = "Volver atras"
 				width = 80
-				onClick[|this.close]
+//				onClick[|this.close]
+				onClick[|this.volverCompraEntradasWindow]
 				enabled <=> "botonVolver" // Desaparecia el boton volver por alguna razon
 				setAsDefault
 			]
@@ -83,10 +84,11 @@ class FinalizarCompraWindow extends SimpleWindow<FinalizarCompra> {
 	}
 
 	// Para actualizar los items en el carrito de la pantalla de compra de entradas
-//	def volverCompraEntradasWindow() {
-//		this.close()
-//		new CompraEntradasWindow(this, modelObject.usuario).open
-//	}
+	def volverCompraEntradasWindow() {
+		this.close()
+		new CompraEntradasWindow(this, modelObject.usuario).open
+	}
+
 	def agregarColumnasTablaEntradas(Table<Entrada> table) {
 		new Column<Entrada>(table) => [
 			title = "Nombre"

@@ -19,7 +19,6 @@ class FinalizarCompra {
 
 	new(Usuario usr) {
 		usuario = usr
-		// carrito = RepoCarrito.instance.searchByExample // searchById(usuario)
 		carrito = usr.carrito
 	}
 
@@ -43,6 +42,7 @@ class FinalizarCompra {
 
 	def comprarEntradas() {
 		usuario.comprarEntradas()
+		//relacionar carrito con usuario para que pasen las entradas del carrito al usuario
 		// actualizacion de usuario y de carrito
 		// RepoCarrito.instance.update(carrito)
 		RepoUsuarios.instance.update(usuario)

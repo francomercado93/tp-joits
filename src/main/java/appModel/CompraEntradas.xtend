@@ -28,8 +28,7 @@ class CompraEntradas {
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
-		carrito = usuarioSeleccionado.carrito // se carga de otra forma, a traves de un repo de carritos
-//		carrito = new Carrito
+		carrito = new Carrito
 		peliculaABuscar = ""
 	}
 
@@ -74,6 +73,10 @@ class CompraEntradas {
 	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")
 	def Boolean getPuedeAgregarItem() {
 		peliculaSeleccionada !== null && funcionSeleccionada !== null
+	}
+
+	def cargarCarrito() {
+		usuario.carrito = carrito
 	}
 
 }

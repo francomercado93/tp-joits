@@ -1,12 +1,13 @@
 package appModel
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
 import domain.Usuario
 import java.util.List
-import repos.RepoUsuarios
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.annotations.Transactional
+import org.uqbar.commons.model.exceptions.UserException
 import org.uqbar.commons.model.utils.ObservableUtils
+import repos.RepoUsuarios
 
 @Observable
 @Accessors
@@ -23,8 +24,9 @@ class BuscadorAmigos {
 	}
 
 	def agregarAmigo() {
-		if (amigoSeleccionado !== null)
-			usuarioSeleccionado.agregarAmigo(amigoSeleccionado)
+		if (amigoSeleccionado === null)
+			throw new UserException("Debe seleccionar un amigo")
+		usuarioSeleccionado.agregarAmigo(amigoSeleccionado)
 	}
 
 	def search() {

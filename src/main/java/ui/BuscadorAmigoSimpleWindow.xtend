@@ -25,7 +25,6 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 	}
 
 	override protected addActions(Panel actionsPanel) {
-
 		new Button(actionsPanel) => [
 			caption = "Agregar amigo"
 			onClick [|
@@ -55,22 +54,13 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 
 		new Panel(panel) => [
 			it.layout = new HorizontalLayout
-			new Table<Usuario>(it, typeof(Usuario)) => [
+			val tablaAmigos = new Table<Usuario>(it, typeof(Usuario)) => [
 				items <=> "usuarios"
 				value <=> "amigoSeleccionado"
 				numberVisibleRows = 4
 
-				new Column<Usuario>(it) => [
-					fixedSize = 150
-					title = "Nombre"
-					bindContentsToProperty("nombre")
-				]
-				new Column<Usuario>(it) => [
-					fixedSize = 150
-					title = "Apellido"
-					bindContentsToProperty("apellido")
-				]
 			]
+			this.llenarGridAmigos(tablaAmigos)
 		]
 
 		new Panel(panel) => [
@@ -82,24 +72,27 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 
 		new Panel(panel) => [
 			it.layout = new HorizontalLayout
-			new Table<Usuario>(it, typeof(Usuario)) => [
+			val tablaSuegeridos = new Table<Usuario>(it, typeof(Usuario)) => [
 				items <=> "amigosSugeridos"
 				value <=> "amigoSeleccionado"
 				numberVisibleRows = 4
-
-				new Column<Usuario>(it) => [
-					fixedSize = 150
-					title = "Nombre"
-					bindContentsToProperty("nombre")
-				]
-				new Column<Usuario>(it) => [
-					fixedSize = 150
-					title = "Apellido"
-					bindContentsToProperty("apellido")
-				]
 			]
+			this.llenarGridAmigos(tablaSuegeridos)
 		]
 
+	}
+
+	def llenarGridAmigos(Table<Usuario> table) {
+		new Column<Usuario>(table) => [
+			fixedSize = 150
+			title = "Nombre"
+			bindContentsToProperty("nombre")
+		]
+		new Column<Usuario>(table) => [
+			fixedSize = 150
+			title = "Apellido"
+			bindContentsToProperty("apellido")
+		]
 	}
 
 	def customizarPanelBuscador(Panel panel) {
@@ -120,7 +113,7 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 				width = 101
 				caption = "Buscar"
 				onClick [|
-				this.modelObject.buscarAmigo()
+					this.modelObject.buscarAmigo()
 				]
 			]
 		]

@@ -11,6 +11,8 @@ import repos.RepoUsuarios
 
 @Accessors
 @Observable
+
+//transactionaldialog
 class FinalizarCompra {
 
 	Usuario usuario // usuario para finalizar compra solamente
@@ -42,9 +44,6 @@ class FinalizarCompra {
 
 	def comprarEntradas() {
 		usuario.comprarEntradas()
-		//relacionar carrito con usuario para que pasen las entradas del carrito al usuario
-		// actualizacion de usuario y de carrito
-		// RepoCarrito.instance.update(carrito)
 		RepoUsuarios.instance.update(usuario)
 	}
 

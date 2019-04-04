@@ -23,13 +23,13 @@ class CompraEntradas {
 	List<Pelicula> cartelera
 	Pelicula peliculaSeleccionada
 	Funcion funcionSeleccionada
-	Carrito carrito
+	Carrito carritoUsr
 
 	// merge
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
-		carrito = new Carrito
+		carritoUsr = usuario.carrito
 		peliculaABuscar = ""
 	}
 
@@ -59,11 +59,11 @@ class CompraEntradas {
 	// no actualiza
 	@Dependencies("carrito")
 	def getItemsEnElCarrito() {
-		carrito.cantidadEntradas()
+		carritoUsr.cantidadEntradas()
 	}
 
 	def void agregarItemCarrito() {
-		carrito.agregarAlCarrito(this.crearEntrada())
+		carritoUsr.agregarAlCarrito(this.crearEntrada())
 		this.actualizarCarrito()
 	}
 
@@ -74,10 +74,6 @@ class CompraEntradas {
 	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")
 	def Boolean getPuedeAgregarItem() {
 		peliculaSeleccionada !== null && funcionSeleccionada !== null
-	}
-
-	def cargarCarrito() {
-		usuario.carrito = carrito
 	}
 
 }

@@ -310,39 +310,39 @@ class JoitsBootstrap implements Bootstrap {
 		]
 
 		this.crearFuncion(lunes1)
-		this.crearFuncion(lunes2)
-		this.crearFuncion(lunes3)
-		this.crearFuncion(lunes4)
-		this.crearFuncion(martes1)
-		this.crearFuncion(martes2)
-		this.crearFuncion(martes3)
-		this.crearFuncion(miercoles)
-		this.crearFuncion(miercoles2)
-		this.crearFuncion(miercoles3)
-		this.crearFuncion(miercoles4)
-		this.crearFuncion(jueves1)
-		this.crearFuncion(jueves2)
-		this.crearFuncion(jueves3)
-		this.crearFuncion(jueves4)
-		this.crearFuncion(jueves5)
-		this.crearFuncion(viernes1)
-		this.crearFuncion(viernes2)
-		this.crearFuncion(viernes3)
-		this.crearFuncion(sabado1)
-		this.crearFuncion(sabado2)
-		this.crearFuncion(sabado3)
-		this.crearFuncion(sabado4)
-		this.crearFuncion(sabado5)
-		this.crearFuncion(sabado6)
-		this.crearFuncion(domingo1)
-		this.crearFuncion(domingo2)
-		this.crearFuncion(domingo3)
-		this.crearFuncion(domingo4)
-		this.crearFuncion(domingo5)
-		this.crearFuncion(domingo6)
-		this.crearFuncion(domingo7)
-		this.crearFuncion(funcion1)
-		this.crearFuncion(funcion2)
+//		this.crearFuncion(lunes2)
+//		this.crearFuncion(lunes3)
+//		this.crearFuncion(lunes4)
+//		this.crearFuncion(martes1)
+//		this.crearFuncion(martes2)
+//		this.crearFuncion(martes3)
+//		this.crearFuncion(miercoles)
+//		this.crearFuncion(miercoles2)
+//		this.crearFuncion(miercoles3)
+//		this.crearFuncion(miercoles4)
+//		this.crearFuncion(jueves1)
+//		this.crearFuncion(jueves2)
+//		this.crearFuncion(jueves3)
+//		this.crearFuncion(jueves4)
+//		this.crearFuncion(jueves5)
+//		this.crearFuncion(viernes1)
+//		this.crearFuncion(viernes2)
+//		this.crearFuncion(viernes3)
+//		this.crearFuncion(sabado1)
+//		this.crearFuncion(sabado2)
+//		this.crearFuncion(sabado3)
+//		this.crearFuncion(sabado4)
+//		this.crearFuncion(sabado5)
+//		this.crearFuncion(sabado6)
+//		this.crearFuncion(domingo1)
+//		this.crearFuncion(domingo2)
+//		this.crearFuncion(domingo3)
+//		this.crearFuncion(domingo4)
+//		this.crearFuncion(domingo5)
+//		this.crearFuncion(domingo6)
+//		this.crearFuncion(domingo7)
+//		this.crearFuncion(funcion1)
+//		this.crearFuncion(funcion2)
 	}
 
 	def void initPeliculas() {
@@ -461,15 +461,15 @@ class JoitsBootstrap implements Bootstrap {
 		]
 
 		this.crearPelicula(matrix)
-		this.crearPelicula(vengadores)
-		this.crearPelicula(nueveReinas)
-		this.crearPelicula(maquinista)
-		this.crearPelicula(dragonBallSuper)
-		this.crearPelicula(batman1)
-		this.crearPelicula(batman2)
-		this.crearPelicula(batman3)
-		this.crearPelicula(toyStory)
-		this.crearPelicula(sagaBatman)
+//		this.crearPelicula(vengadores)
+//		this.crearPelicula(nueveReinas)
+//		this.crearPelicula(maquinista)
+//		this.crearPelicula(dragonBallSuper)
+//		this.crearPelicula(batman1)
+//		this.crearPelicula(batman2)
+//		this.crearPelicula(batman3)
+//		this.crearPelicula(toyStory)
+//		this.crearPelicula(sagaBatman)
 	}
 
 	def void initUsuario() {
@@ -575,15 +575,15 @@ class JoitsBootstrap implements Bootstrap {
 
 	def crearFuncion(Funcion funcion) {
 		val repoFunciones = RepoFunciones.instance
-//		val listaFunciones = repoFunciones.searchByExample(funcion)
-//		if (listaFunciones.isEmpty) {
-		repoFunciones.create(funcion)
-		println("Funcion " + funcion.fecha + " " + funcion.hora + " creada")
-//		} else {
-//			val funcionBD = listaFunciones.head
-//			funcion.id = funcionBD.id
-//			repoFunciones.update(funcion)
-//		}
+		val listaFunciones = repoFunciones.searchByExample(funcion)
+		if (listaFunciones.isEmpty) {
+			repoFunciones.create(funcion)
+			println("Funcion " + funcion.fecha + " " + funcion.hora + " creada")
+		} else {
+			val funcionBD = listaFunciones.head
+			funcion.id = funcionBD.id
+			repoFunciones.update(funcion)
+		}
 	}
 
 }

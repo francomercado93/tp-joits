@@ -428,15 +428,6 @@ class JoitsBootstrap implements Bootstrap {
 			agregarFuncion(sabado5)
 		]
 
-		batman3 = new Pelicula() => [
-			titulo = "Batman: El caballero de la noche"
-			anio = 2015
-			puntaje = new BigDecimal("9")
-			genero = "Ciencia ficcion"
-			agregarFuncion(martes3)
-			agregarFuncion(domingo4)
-			agregarFuncion(domingo5)
-		]
 
 		toyStory = new Pelicula() => [
 			titulo = "Toy story"
@@ -471,7 +462,7 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearPelicula(batman3)
 		this.crearPelicula(toyStory)
 		//se agregan dos veces las peliculas de la saga?
-//		this.crearPelicula(sagaBatman)
+		this.crearPelicula(sagaBatman)
 	}
 
 	def void initUsuario() {
@@ -568,10 +559,10 @@ class JoitsBootstrap implements Bootstrap {
 		if (listaPeliculas.isEmpty) {
 			repoPeliculas.create(pelicula)
 			println("Pelicula " + pelicula.titulo + " creado")
-		} else {
-			val peliculaBD = listaPeliculas.head
-			pelicula.id = peliculaBD.id
-			repoPeliculas.update(pelicula)
+//		} else {
+//			val peliculaBD = listaPeliculas.head
+//			pelicula.id = peliculaBD.id
+//			repoPeliculas.update(pelicula)
 		}
 	}
 

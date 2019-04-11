@@ -54,7 +54,7 @@ class RepoPeliculas extends RepoDefault<Pelicula> {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery(entityType)
 			val camposPelicula = query.from(entityType)
-			camposPelicula.fetch("funciones")
+			camposPelicula.fetch("funcionesDisponibles")
 			query.select(camposPelicula)
 			query.where(criteria.equal(camposPelicula.get("id"), id))
 			entityManager.createQuery(query).singleResult

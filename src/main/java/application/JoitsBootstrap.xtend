@@ -10,6 +10,7 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
 import org.uqbar.arena.bootstrap.Bootstrap
+import repos.RepoFunciones
 import repos.RepoPeliculas
 import repos.RepoUsuarios
 
@@ -84,6 +85,27 @@ class JoitsBootstrap implements Bootstrap {
 		initUsuario()
 		initFunciones()
 		initPeliculas()
+//		initJuegoDatos()
+	}
+
+	def initJuegoDatos() {
+
+		// AGREGAR PELICULAS VISTAS A USUARIOS
+		entradaMatrix = new Entrada() => [
+			pelicula = matrix
+			funcion = funcion1
+		]
+		entradaToyStory = new Entrada() => [
+			pelicula = toyStory
+			funcion = funcion2
+		]
+		val carritoTest = new Carrito
+
+		carritoTest.agregarAlCarrito(entradaMatrix)
+		carritoTest.agregarAlCarrito(entradaToyStory)
+		santos.agregarSaldinho(new BigDecimal("600"))
+		santos.carrito = carritoTest
+		santos.comprarEntradas()
 	}
 
 	def void initFunciones() {
@@ -274,6 +296,53 @@ class JoitsBootstrap implements Bootstrap {
 			hora = LocalTime.of(23, 35)
 			nombreSala = "Rivadavia"
 		]
+
+		// Peliculas vistas para mario santos
+		funcion1 = new Funcion() => [
+			fecha = LocalDate.of(2019, 03, 22)
+			hora = LocalTime.of(18, 00)
+			nombreSala = "Rivadavia"
+		]
+		funcion2 = new Funcion() => [
+			fecha = LocalDate.of(2019, 03, 24)
+			hora = LocalTime.of(18, 00)
+			nombreSala = "Rivadavia"
+		]
+
+		this.crearFuncion(lunes1)
+		this.crearFuncion(lunes2)
+		this.crearFuncion(lunes3)
+		this.crearFuncion(lunes4)
+		this.crearFuncion(martes1)
+		this.crearFuncion(martes2)
+		this.crearFuncion(martes3)
+		this.crearFuncion(miercoles)
+		this.crearFuncion(miercoles2)
+		this.crearFuncion(miercoles3)
+		this.crearFuncion(miercoles4)
+		this.crearFuncion(jueves1)
+		this.crearFuncion(jueves2)
+		this.crearFuncion(jueves3)
+		this.crearFuncion(jueves4)
+		this.crearFuncion(jueves5)
+		this.crearFuncion(viernes1)
+		this.crearFuncion(viernes2)
+		this.crearFuncion(viernes3)
+		this.crearFuncion(sabado1)
+		this.crearFuncion(sabado2)
+		this.crearFuncion(sabado3)
+		this.crearFuncion(sabado4)
+		this.crearFuncion(sabado5)
+		this.crearFuncion(sabado6)
+		this.crearFuncion(domingo1)
+		this.crearFuncion(domingo2)
+		this.crearFuncion(domingo3)
+		this.crearFuncion(domingo4)
+		this.crearFuncion(domingo5)
+		this.crearFuncion(domingo6)
+		this.crearFuncion(domingo7)
+		this.crearFuncion(funcion1)
+		this.crearFuncion(funcion2)
 	}
 
 	def void initPeliculas() {
@@ -401,34 +470,6 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearPelicula(batman3)
 		this.crearPelicula(toyStory)
 		this.crearPelicula(sagaBatman)
-
-		// Peliculas vistas para mario santos
-		funcion1 = new Funcion() => [
-			fecha = LocalDate.of(2019, 03, 22)
-			hora = LocalTime.of(18, 00)
-			nombreSala = "Rivadavia"
-		]
-		funcion2 = new Funcion() => [
-			fecha = LocalDate.of(2019, 03, 24)
-			hora = LocalTime.of(18, 00)
-			nombreSala = "Rivadavia"
-		]
-		// AGREGAR PELICULAS VISTAS A USUARIOS
-		entradaMatrix = new Entrada() => [
-			pelicula = matrix
-			funcion = funcion1
-		]
-		entradaToyStory = new Entrada() => [
-			pelicula = toyStory
-			funcion = funcion2
-		]
-		val carritoTest = new Carrito
-
-		carritoTest.agregarAlCarrito(entradaMatrix)
-		carritoTest.agregarAlCarrito(entradaToyStory)
-		santos.agregarSaldinho(new BigDecimal("600"))
-		santos.carrito = carritoTest
-		santos.comprarEntradas()
 	}
 
 	def void initUsuario() {
@@ -521,7 +562,28 @@ class JoitsBootstrap implements Bootstrap {
 
 	def crearPelicula(Pelicula pelicula) {
 		val repoPeliculas = RepoPeliculas.instance
-		repoPeliculas.create(pelicula)
+		val listaPeliculas = repoPeliculas.searchByExample(pelicula)
+		if (listaPeliculas.isEmpty) {
+			repoPeliculas.create(pelicula)
+			println("Pelicula " + pelicula.titulo + " creado")
+		} else {
+			val peliculaBD = listaPeliculas.head
+			pelicula.id = peliculaBD.id
+			repoPeliculas.update(pelicula)
+		}
+	}
+
+	def crearFuncion(Funcion funcion) {
+		val repoFunciones = RepoFunciones.instance
+//		val listaFunciones = repoFunciones.searchByExample(funcion)
+//		if (listaFunciones.isEmpty) {
+		repoFunciones.create(funcion)
+		println("Funcion " + funcion.fecha + " " + funcion.hora + " creada")
+//		} else {
+//			val funcionBD = listaFunciones.head
+//			funcion.id = funcionBD.id
+//			repoFunciones.update(funcion)
+//		}
 	}
 
 }

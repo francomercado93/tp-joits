@@ -3,15 +3,20 @@ package domain
 import java.math.BigDecimal
 import java.util.ArrayList
 import java.util.List
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
+@Entity
 @Observable
 class Saga extends Pelicula {
 	static final BigDecimal PRECIO_BASE_SAGA = new BigDecimal("10")
 	static final BigDecimal MULTIPLICADOR_NIVEL_CLASICO = new BigDecimal("5")
 
+	@OneToMany(fetch=FetchType.LAZY)
 	List<Pelicula> peliculasSaga = new ArrayList<Pelicula>
 
 	override getPrecioBase() {

@@ -34,7 +34,8 @@ class CompraEntradas {
 	}
 
 	def void search() {
-		cartelera = RepoPeliculas.instance.search(peliculaABuscar)
+//		cartelera = RepoPeliculas.instance.search(peliculaABuscar)
+		cartelera = RepoPeliculas.instance.allInstances()
 	}
 
 	def getPeliculasRecomendadas() {

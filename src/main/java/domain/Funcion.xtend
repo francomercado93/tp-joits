@@ -3,18 +3,32 @@ package domain
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
+@Entity
 @Observable
 class Funcion {
 
 	static final BigDecimal VALOR_MIERCOLES = new BigDecimal("50")
 	static final BigDecimal VALOR_FINDE = new BigDecimal("120")
 	static final BigDecimal VALOR_OTROS_DIAS = new BigDecimal("80")
+
+	@Id @GeneratedValue
+	Long id
+
+	@Column
 	LocalDate fecha
+
+	@Column
 	LocalTime hora
+
+	@Column(length=150)
 	String nombreSala
 
 	def getValorPorDiaFuncion() {

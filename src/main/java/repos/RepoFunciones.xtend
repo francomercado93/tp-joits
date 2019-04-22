@@ -23,6 +23,9 @@ class RepoFunciones extends RepoDefault<Funcion> {
 	// No se usa??
 	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Funcion> query, Root<Funcion> camposFuncion,
 		Funcion funcion) {
-			
 	}
+
+	override busquedaPorNombre(Funcion t, String nombre) {
+	}
+
 }

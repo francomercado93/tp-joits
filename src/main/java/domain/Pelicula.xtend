@@ -19,11 +19,10 @@ import org.uqbar.commons.model.annotations.Observable
 @Observable
 @Inheritance(strategy=InheritanceType.JOINED)
 class Pelicula {
+	static final BigDecimal PRECIO_BASE_PELICULA = new BigDecimal("30")
 
 	@Id @GeneratedValue
 	Long id
-
-	static final BigDecimal PRECIO_BASE_PELICULA = new BigDecimal("30")
 
 	@Column(length=255)
 	String titulo
@@ -40,8 +39,11 @@ class Pelicula {
 	@OneToMany(fetch=FetchType.LAZY)
 	List<Funcion> funcionesDisponibles = new ArrayList<Funcion>
 
-	def BigDecimal getPrecioBase() {
-		PRECIO_BASE_PELICULA
+	@Column
+	BigDecimal precioBase
+
+	new() {
+		precioBase = PRECIO_BASE_PELICULA
 	}
 
 	override toString() {

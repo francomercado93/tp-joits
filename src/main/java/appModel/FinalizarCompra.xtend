@@ -48,7 +48,7 @@ class FinalizarCompra {
 		this.actualizarCarrito()
 	}
 
-	def actualizarUsuario() {
+	def void actualizarUsuario() {
 		RepoUsuarios.instance.update(usuario)
 	}
 

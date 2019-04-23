@@ -2,11 +2,12 @@ package repos
 
 import domain.Usuario
 import java.util.List
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
 @Observable
@@ -25,7 +26,6 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 //	override create(Usuario usuario) {
 //		super.create(usuario)
 //	}
-
 	// Si necesitamos mantener la posición del elemento en la lista, por lo pronto creo que no.
 	// override update(Usuario usuario) {
 	// var indice = lista.indexOf(searchById(usuario.id))
@@ -59,8 +59,23 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 
 	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Usuario> query, Root<Usuario> camposUsuario,
 		Usuario usuario) {
-		if (usuario.id !== null) {
-			query.where(criteria.equal(camposUsuario.get("id"), usuario.id))
+		if (usuario.username !== null) {
+			query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
+		}
+	}
+
+	def Usuario searchById(Long id) {
+		val entityManager = entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery(entityType)
+			val camposUsuario = query.from(entityType)
+			camposUsuario.fetch("entradasCompradas", JoinType.LEFT)
+			query.select(camposUsuario)
+			query.where(criteria.equal(camposUsuario.get("id"), id))
+			entityManager.createQuery(query).singleResult
+		} finally {
+			entityManager?.close
 		}
 	}
 }

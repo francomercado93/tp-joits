@@ -17,10 +17,12 @@ class Entrada {
 
 	@Id @GeneratedValue
 	Long id
-	@OneToOne(fetch=FetchType.LAZY)
+	// necesito la pelicula y la funcion
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="pelicula", referencedColumnName="id")
 	Pelicula pelicula
-	@OneToOne(fetch=FetchType.LAZY)
+
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="funcion", referencedColumnName="id")
 	Funcion funcion
 

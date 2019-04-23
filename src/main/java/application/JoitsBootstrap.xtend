@@ -85,7 +85,7 @@ class JoitsBootstrap implements Bootstrap {
 		initUsuario()
 		initFunciones()
 		initPeliculas()
-//		initJuegoDatos()
+		initJuegoDatos()
 	}
 
 	def initJuegoDatos() {
@@ -106,6 +106,7 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarSaldinho(new BigDecimal("600"))
 		santos.carrito = carritoTest
 		santos.comprarEntradas()
+		RepoUsuarios.instance.update(santos)
 	}
 
 	def void initFunciones() {
@@ -535,15 +536,15 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarAmigo(riquelme)
 		santos.agregarAmigo(zanetti)
 // Esta pinchando, hay que revisar por qué.
-//		this.crearUsuario(santos)
-//		this.crearUsuario(lamponne)
-//		this.crearUsuario(ruggeri)
-//		this.crearUsuario(marge)
-//		this.crearUsuario(lisa)
-//		this.crearUsuario(santiago)
-//		this.crearUsuario(pedro)
-//		this.crearUsuario(riquelme)
-//		this.crearUsuario(zanetti)
+		this.crearUsuario(santos)
+		this.crearUsuario(lamponne)
+		this.crearUsuario(ruggeri)
+		this.crearUsuario(marge)
+		this.crearUsuario(lisa)
+		this.crearUsuario(santiago)
+		this.crearUsuario(pedro)
+		this.crearUsuario(riquelme)
+		this.crearUsuario(zanetti)
 	// AGREGAR MAS AMIGOS
 	}
 

@@ -5,21 +5,12 @@ import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.OneToMany
-import javax.persistence.FetchType
 
-@Entity
 @Accessors
 @Observable
 class Carrito {
 
-	@Id @GeneratedValue
-	Long id
-	@OneToMany(fetch=FetchType.LAZY)
-	List<Entrada> entradas = new ArrayList<Entrada> // List de peliculas?
+	List<Entrada> entradas = new ArrayList<Entrada>
 
 	def agregarAlCarrito(Entrada entrada) {
 		entradas.add(entrada)

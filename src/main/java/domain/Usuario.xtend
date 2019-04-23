@@ -22,31 +22,42 @@ import org.uqbar.commons.model.exceptions.UserException
 class Usuario {
 	@Id @GeneratedValue
 	Long id
+
 	@Column(length=150)
 	String username
+
 	@Column(length=150)
 	String password
+
 	@Column(length=150)
 	String nombre
+
 	@Column(length=150)
 	String apellido
+
 	@Column
 	Integer edad
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	Set<Usuario> amigos = new HashSet<Usuario>
+
+//	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@Transient
+	Set<Usuario> amigos
 	// Hay que ver que onda con el carrito.
 //	@OneToOne(fetch=FetchType.LAZY)
 //	@JoinColumn(name="carrito", referencedColumnName="id")
 	@Transient
 	Carrito carrito
-	@OneToMany(fetch=FetchType.LAZY)
-	Set<Entrada> entradasCompradas = new HashSet<Entrada>
+
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	Set<Entrada> entradasCompradas
+
 	@Column
 	BigDecimal saldo
 
 	new() {
 		saldo = new BigDecimal("0")
 		carrito = new Carrito
+		amigos = new HashSet<Usuario>
+		entradasCompradas = new HashSet<Entrada>
 	}
 
 	def agregarAmigo(Usuario usuario) {

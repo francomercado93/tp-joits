@@ -535,16 +535,16 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarAmigo(pedro)
 		santos.agregarAmigo(riquelme)
 		santos.agregarAmigo(zanetti)
-
-		this.crearUsuario(santos)
-		this.crearUsuario(lamponne)
-		this.crearUsuario(ruggeri)
-		this.crearUsuario(marge)
-		this.crearUsuario(lisa)
-		this.crearUsuario(santiago)
-		this.crearUsuario(pedro)
-		this.crearUsuario(riquelme)
-		this.crearUsuario(zanetti)
+// Esta pinchando, hay que revisar por qué.
+//		this.crearUsuario(santos)
+//		this.crearUsuario(lamponne)
+//		this.crearUsuario(ruggeri)
+//		this.crearUsuario(marge)
+//		this.crearUsuario(lisa)
+//		this.crearUsuario(santiago)
+//		this.crearUsuario(pedro)
+//		this.crearUsuario(riquelme)
+//		this.crearUsuario(zanetti)
 	// AGREGAR MAS AMIGOS
 	}
 

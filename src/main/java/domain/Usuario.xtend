@@ -4,22 +4,44 @@ import java.math.BigDecimal
 import java.util.HashSet
 import java.util.List
 import java.util.Set
+import javax.persistence.CascadeType
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
 
+@Entity
 @Observable
 @Accessors
 class Usuario {
+	@Id @GeneratedValue
 	Long id
+	@Column(length=150)
 	String username
+	@Column(length=150)
 	String password
+	@Column(length=150)
 	String nombre
+	@Column(length=150)
 	String apellido
+	@Column
 	Integer edad
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	Set<Usuario> amigos = new HashSet<Usuario>
+	// Hay que ver que onda con el carrito.
+//	@OneToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="carrito", referencedColumnName="id")
+	@Transient
 	Carrito carrito
+	@OneToMany(fetch=FetchType.LAZY)
 	Set<Entrada> entradasCompradas = new HashSet<Entrada>
+	@Column
 	BigDecimal saldo
 
 	new() {

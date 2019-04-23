@@ -11,7 +11,6 @@ import org.uqbar.commons.model.exceptions.UserException
 @Observable
 @Accessors
 class Usuario {
-	//ddddsdsd
 	Long id
 	String username
 	String password

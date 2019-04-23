@@ -4,6 +4,7 @@ import java.math.BigDecimal
 import java.util.HashSet
 import java.util.List
 import java.util.Set
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -45,9 +46,9 @@ class Usuario {
 //	@JoinColumn(name="carrito", referencedColumnName="id")
 	@Transient
 	Carrito carrito
-	
+
 //, cascade=CascadeType.ALL??
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Set<Entrada> entradasCompradas
 
 	@Column

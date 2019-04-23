@@ -17,7 +17,7 @@ class Entrada {
 
 	@Id @GeneratedValue
 	Long id
-	// necesito la pelicula y la funcion
+	// necesito la pelicula y la funcion cuando recupero las entradas
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="pelicula", referencedColumnName="id")
 	Pelicula pelicula

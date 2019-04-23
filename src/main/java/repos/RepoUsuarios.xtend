@@ -63,7 +63,7 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 			query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
 		}
 	}
-
+	//se obtienen las entradas compradas y el usuario completo con un solo query
 	def Usuario searchById(Long id) {
 		val entityManager = entityManager
 		try {

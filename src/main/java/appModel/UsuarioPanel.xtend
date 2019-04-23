@@ -11,16 +11,16 @@ import repos.RepoUsuarios
 @Accessors
 class UsuarioPanel {
 	Usuario usuarioSeleccionado
-	
-	//usuario se lo carga con un Repo.instance.searchById(usuarioSeleccionado.id) para hidratar al usuario con los datos 
-	//que hacen falta (amigos, entradasCompradas)
+
+	// usuario se lo carga con un Repo.instance.searchById(usuarioSeleccionado.id) para hidratar al usuario con los datos 
+	// que hacen falta (amigos, entradasCompradas)
 	// List<Usuario> amigos = newArrayList
 	BigDecimal cargarSaldo
 	// Creo esta variable antes que volver a hacer llamada al repo para ir a buscar al usuario nuevamente.
 	int usuarioEdad
 
 	new(Usuario usuario) {
-		print(usuario.id)
+		// hay que hidratar al usuarioSeleccionado buscando por id en el repo
 		this.usuarioSeleccionado = RepoUsuarios.instance.searchById(usuario.id)
 		this.usuarioEdad = usuarioSeleccionado.edad
 	// cargarSaldo = new BigDecimal(0)

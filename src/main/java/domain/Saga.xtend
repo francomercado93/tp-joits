@@ -3,6 +3,7 @@ package domain
 import java.math.BigDecimal
 import java.util.ArrayList
 import java.util.List
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.OneToMany
@@ -16,7 +17,15 @@ class Saga extends Pelicula {
 	static final BigDecimal PRECIO_BASE_SAGA = new BigDecimal("10")
 	static final BigDecimal MULTIPLICADOR_NIVEL_CLASICO = new BigDecimal("5")
 
-	@OneToMany(fetch=FetchType.LAZY)
+	@Column
+	BigDecimal multiplicador
+
+	new() {
+		precioBase = PRECIO_BASE_SAGA
+		multiplicador = MULTIPLICADOR_NIVEL_CLASICO
+	}
+
+	@OneToMany(fetch=FetchType.EAGER) // necesito tener las peliculas para calcular el costo de las entradas
 	List<Pelicula> peliculasSaga = new ArrayList<Pelicula>
 
 	override getPrecioBase() {
@@ -28,13 +37,12 @@ class Saga extends Pelicula {
 	}
 
 	def BigDecimal getNivelDeClasico() {
-		return this.promedioPuntajePeliculas() * MULTIPLICADOR_NIVEL_CLASICO
+		return this.promedioPuntajePeliculas() * multiplicador
 	}
 
 	def BigDecimal promedioPuntajePeliculas() {
 		return new BigDecimal(Math.round(peliculasSaga.fold(0d, [acum, peli|acum + peli.puntaje]) /
 			cantidadPeliculasSaga()))
-
 	}
 
 	def agregarPeliculaSaga(Pelicula pelicula) {

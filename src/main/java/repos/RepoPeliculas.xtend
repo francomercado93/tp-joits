@@ -20,13 +20,13 @@ class RepoPeliculas extends RepoDefault<Pelicula> {
 		}
 		instance
 	}
-	
 
-	def busquedaPorNombre(Pelicula pelicula, String nombre) {
+	override busquedaPorNombre(Pelicula pelicula, String nombre) {
 		pelicula.titulo.equalsIgnoreCase(nombre) || pelicula.titulo.toLowerCase.indexOf(nombre.toLowerCase()) != -1
 	}
 
 	def getPeliculasRecomendadas() {
+		// consulta a la bd o datos cargados en memoria?
 		val pelisRecomendadas = allInstances.takeWhile[pelicula|pelicula.puntaje.doubleValue() >= PUNTAJE_RECOMENDABLE]
 		return pelisRecomendadas.take(3).toSet
 	}

@@ -4,14 +4,17 @@ import domain.Usuario
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.criteria.CriteriaBuilder
+import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.Root
 
 @Accessors
 @Observable
-class RepoUsuarios extends Repositorio<Usuario> {
-// INSTANCIA REPO
+class RepoUsuarios extends RepoDefault<Usuario> {
+	// INSTANCIA REPO
 	static RepoUsuarios instance
 
-// INICIALIZACION REPO
+	// INICIALIZACION REPO
 	static def getInstance() {
 		if (instance === null) {
 			instance = new RepoUsuarios()
@@ -19,27 +22,27 @@ class RepoUsuarios extends Repositorio<Usuario> {
 		instance
 	}
 
-	override void create(Usuario usuario) {
-		super.create(usuario)
-	}
-
-// Si necesitamos mantener la posición del elemento en la lista, por lo pronto creo que no.
-//	override update(Usuario usuario) {
-//		var indice = lista.indexOf(searchById(usuario.id))
-//		lista.set(indice, usuario)
+//	override create(Usuario usuario) {
+//		super.create(usuario)
 //	}
+
+	// Si necesitamos mantener la posición del elemento en la lista, por lo pronto creo que no.
+	// override update(Usuario usuario) {
+	// var indice = lista.indexOf(searchById(usuario.id))
+	// lista.set(indice, usuario)
+	// }
 	def Usuario getUsuario(String usrname, String pass) {
 		// Delego al usuario la validación o el repo debería validar? A quién le corresponde?
 		// return lista.findFirst(usuario|usuario.username == usrname && usuario.password == pass)
-		return lista.findFirst(usuario|usuario.validarse(usrname, pass))
+		return allInstances.findFirst(usuario|usuario.validarse(usrname, pass))
 	}
 
 	def List<Usuario> getAll() {
-		return this.lista
+		return allInstances
 	}
 
 	def List<Usuario> searchAmigo(String busqueda) {
-		return lista.filter[usuario|usuario.buscarAmigo(busqueda)].toList
+		return allInstances.filter[usuario|usuario.buscarAmigo(busqueda)].toList
 	}
 
 	override busquedaPorNombre(Usuario usuario, String nombre) {
@@ -47,7 +50,17 @@ class RepoUsuarios extends Repositorio<Usuario> {
 	}
 
 	def getAmigosSugeridos(Usuario usuario) {
-		return lista.filter[usrRepo|usrRepo.edad <= usuario.edad && usrRepo !== usuario].toList
+		return allInstances.filter[usrRepo|usrRepo.edad <= usuario.edad && usrRepo !== usuario].toList
 	}
 
+	override getEntityType() {
+		Usuario
+	}
+
+	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Usuario> query, Root<Usuario> camposUsuario,
+		Usuario usuario) {
+		if (usuario.id !== null) {
+			query.where(criteria.equal(camposUsuario.get("id"), usuario.id))
+		}
+	}
 }

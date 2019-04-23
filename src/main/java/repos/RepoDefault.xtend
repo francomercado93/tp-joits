@@ -61,9 +61,13 @@ abstract class RepoDefault<T> {
 		}
 	}
 
-//	def search(String value) {
-//		lista.filter(elemento|this.busquedaPorNombre(elemento, value)).toList
-//	}
+	def search(String nombre) {
+		//hacer una consulta a la bd o los datos que estan en memoria??
+		allInstances.filter(elemento|this.busquedaPorNombre(elemento, nombre)).toList
+	}
+
+	abstract def Boolean busquedaPorNombre(T t, String nombre)
+
 	def update(T t) {
 		val entityManager = this.entityManager
 		try {
@@ -80,6 +84,7 @@ abstract class RepoDefault<T> {
 			entityManager?.close
 		}
 	}
+
 	def getEntityManager() {
 		entityManagerFactory.createEntityManager
 	}

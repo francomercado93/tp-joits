@@ -45,7 +45,7 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		return allInstances.filter[usuario|usuario.buscarAmigo(busqueda)].toList
 	}
 
-	def busquedaPorNombre(Usuario usuario, String nombre) {
+	override busquedaPorNombre(Usuario usuario, String nombre) {
 		usuario.username.equalsIgnoreCase(nombre)
 	}
 

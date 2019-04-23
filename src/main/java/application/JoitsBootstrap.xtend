@@ -384,7 +384,7 @@ class JoitsBootstrap implements Bootstrap {
 			genero = "Drama"
 			agregarFuncion(jueves3)
 			agregarFuncion(jueves4)
-			//batman y el maquinista tienen las misma funcion
+			// batman y el maquinista tienen las misma funcion
 			agregarFuncion(sabado1)
 		]
 
@@ -402,7 +402,7 @@ class JoitsBootstrap implements Bootstrap {
 			titulo = "Batman inicia"
 			anio = 2005
 			puntaje = new BigDecimal("7.4")
-			genero = "Ciencia ficcion"
+			genero = "Accion"
 			agregarFuncion(sabado3)
 //			agregarFuncion(jueves4)
 //			agregarFuncion(sabado1) 
@@ -412,7 +412,7 @@ class JoitsBootstrap implements Bootstrap {
 			titulo = "Batman: El caballero de la noche"
 			anio = 2008
 			puntaje = new BigDecimal("9")
-			genero = "Ciencia ficcion"
+			genero = "Accion"
 			agregarFuncion(lunes3)
 			agregarFuncion(miercoles2)
 			agregarFuncion(sabado4)
@@ -422,12 +422,11 @@ class JoitsBootstrap implements Bootstrap {
 			titulo = "Batman: el caballero de la noche asciende"
 			anio = 2012
 			puntaje = new BigDecimal("8.4")
-			genero = "Ciencia ficcion"
+			genero = "Accion"
 			agregarFuncion(miercoles3)
 			agregarFuncion(jueves2)
 			agregarFuncion(sabado5)
 		]
-
 
 		toyStory = new Pelicula() => [
 			titulo = "Toy story"
@@ -443,7 +442,7 @@ class JoitsBootstrap implements Bootstrap {
 			titulo = "Trilogia batman"
 			anio = 2019
 			puntaje = new BigDecimal("8")
-			genero = "Ciencia ficcion"
+			genero = "Accion"
 			agregarPeliculaSaga(batman1)
 			agregarPeliculaSaga(batman2)
 			agregarPeliculaSaga(batman3)
@@ -461,7 +460,7 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearPelicula(batman2)
 		this.crearPelicula(batman3)
 		this.crearPelicula(toyStory)
-		//se agregan dos veces las peliculas de la saga?
+		// se agregan dos veces las peliculas de la saga?
 		this.crearPelicula(sagaBatman)
 	}
 
@@ -555,15 +554,15 @@ class JoitsBootstrap implements Bootstrap {
 
 	def crearPelicula(Pelicula pelicula) {
 		val repoPeliculas = RepoPeliculas.instance
-		val listaPeliculas = repoPeliculas.searchByExample(pelicula)
-		if (listaPeliculas.isEmpty) {
-			repoPeliculas.create(pelicula)
-			println("Pelicula " + pelicula.titulo + " creado")
+//		val listaPeliculas = repoPeliculas.searchByExample(pelicula)
+//		if (listaPeliculas.isEmpty) {
+		repoPeliculas.create(pelicula)
+//			println("Pelicula " + pelicula.titulo + " creado")
 //		} else {
 //			val peliculaBD = listaPeliculas.head
 //			pelicula.id = peliculaBD.id
 //			repoPeliculas.update(pelicula)
-		}
+//	}
 	}
 
 	def crearFuncion(Funcion funcion) {
@@ -571,7 +570,7 @@ class JoitsBootstrap implements Bootstrap {
 //		val listaFunciones = REPOFUNCIONES.SEARCHBYEXAMPLE(FUNCION)
 //		IF (LISTAFUNCIONES.ISEMPTY) {
 		repoFunciones.create(funcion)
-		println("Funcion " + funcion.fecha + " " + funcion.hora + " creada")
+//		println("Funcion " + funcion.fecha + " " + funcion.hora + " creada")
 //		} else {
 //			val funcionBD = listaFunciones.head
 //			funcion.id = funcionBD.id

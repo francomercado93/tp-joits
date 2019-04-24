@@ -13,6 +13,7 @@ import javax.persistence.InheritanceType
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.JoinColumn
 
 @Entity
 @Accessors
@@ -37,6 +38,7 @@ class Pelicula {
 	String genero
 
 	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="pelicula_id")
 	List<Funcion> funcionesDisponibles = new ArrayList<Funcion>
 
 	@Column

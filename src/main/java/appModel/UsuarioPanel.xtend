@@ -11,15 +11,13 @@ import repos.RepoUsuarios
 @Accessors
 class UsuarioPanel {
 	Usuario usuarioSeleccionado
-	// List<Usuario> amigos = newArrayList
 	BigDecimal cargarSaldo
 	// Creo esta variable antes que volver a hacer llamada al repo para ir a buscar al usuario nuevamente.
 	int usuarioEdad
 
 	new(Usuario usuario) {
-		this.usuarioSeleccionado = usuario
+		this.usuarioSeleccionado = RepoUsuarios.instance.searchById(usuario.id)
 		this.usuarioEdad = usuarioSeleccionado.edad
-	// cargarSaldo = new BigDecimal(0)
 	}
 
 	def Boolean puedeAgregarSaldo() {

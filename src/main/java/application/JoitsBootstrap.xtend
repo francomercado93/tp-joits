@@ -85,7 +85,7 @@ class JoitsBootstrap implements Bootstrap {
 		initUsuario()
 		initFunciones()
 		initPeliculas()
-//		initJuegoDatos()
+		initJuegoDatos()
 	}
 
 	def initJuegoDatos() {
@@ -106,6 +106,7 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarSaldinho(new BigDecimal("600"))
 		santos.carrito = carritoTest
 		santos.comprarEntradas()
+		RepoUsuarios.instance.update(santos)
 	}
 
 	def void initFunciones() {
@@ -531,10 +532,7 @@ class JoitsBootstrap implements Bootstrap {
 			edad = 24
 		]
 
-		santos.agregarAmigo(pedro)
-		santos.agregarAmigo(riquelme)
-		santos.agregarAmigo(zanetti)
-
+//agrego los usuarios al repo
 		this.crearUsuario(santos)
 		this.crearUsuario(lamponne)
 		this.crearUsuario(ruggeri)
@@ -544,6 +542,14 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearUsuario(pedro)
 		this.crearUsuario(riquelme)
 		this.crearUsuario(zanetti)
+//		agrego los datos extras y luego actualizo los que corresponden
+		santos.agregarAmigo(pedro)
+		santos.agregarAmigo(riquelme)
+		santos.agregarAmigo(zanetti)
+		lisa.agregarAmigo(marge)
+		RepoUsuarios.instance.update(santos)
+		RepoUsuarios.instance.update(lisa)
+
 	// AGREGAR MAS AMIGOS
 	}
 

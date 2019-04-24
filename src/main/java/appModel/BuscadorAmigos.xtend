@@ -4,13 +4,13 @@ import domain.Usuario
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import org.uqbar.commons.model.annotations.Transactional
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import org.uqbar.commons.model.exceptions.UserException
 import repos.RepoUsuarios
 
 @Observable
 @Accessors
-@Transactional
+@TransactionalAndObservable
 class BuscadorAmigos {
 	Usuario usuarioSeleccionado
 	Usuario amigoSeleccionado

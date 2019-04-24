@@ -16,11 +16,13 @@ import javax.persistence.OneToMany
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import org.uqbar.commons.model.exceptions.UserException
 
 @Entity
 @Observable
 @Accessors
+@TransactionalAndObservable
 class Usuario {
 	@Id @GeneratedValue
 	Long id
@@ -121,6 +123,24 @@ class Usuario {
 
 	def totalCarrito() {
 		carrito.total
+	}
+
+	def esAmigo(Usuario usuario) {
+//		print("usuario repo" + usuario.nombre + usuario)
+		amigos.contains(usuario)
+	}
+
+	override equals(Object obj) {
+		try {
+			val other = obj as Usuario
+			id == other?.id
+		} catch (ClassCastException e) {
+			return false
+		}
+	}
+
+	override hashCode() {
+		if(id !== null) id.hashCode else super.hashCode
 	}
 
 }

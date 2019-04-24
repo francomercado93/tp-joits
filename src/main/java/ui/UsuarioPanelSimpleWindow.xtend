@@ -74,7 +74,7 @@ class UsuarioPanelSimpleWindow extends SimpleWindow<UsuarioPanel> {
 				new Column<Usuario>(it) => [
 					fixedSize = 80
 					title = "Nombre"
-					bindContentsToProperty("username")
+					bindContentsToProperty("nombre")
 				]
 				new Column<Usuario>(it) => [
 					fixedSize = 80

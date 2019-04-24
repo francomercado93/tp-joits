@@ -21,16 +21,18 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 	new(WindowOwner parent, BuscadorAmigos model) {
 		super(parent, model)
 		title = "Buscar amigos!"
-		this.modelObject.search()
+		modelObject.search()
 	}
 
 	override protected addActions(Panel actionsPanel) {
+//		val elementSelected = new NotNullObservable("amigoSeleccionado")
 		new Button(actionsPanel) => [
 			caption = "Agregar amigo"
 			onClick [|
 				this.modelObject.agregarAmigo()
 				this.accept
 			]
+//			bindEnabled(elementSelected)
 		]
 		new Button(actionsPanel) => [
 			caption = "Cancelar"
@@ -113,7 +115,7 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 				width = 101
 				caption = "Buscar"
 				onClick [|
-					this.modelObject.buscarAmigo()
+					this.modelObject.search()
 				]
 			]
 		]

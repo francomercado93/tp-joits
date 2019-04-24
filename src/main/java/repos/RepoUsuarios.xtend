@@ -46,7 +46,15 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 	}
 
 	override busquedaPorNombre(Usuario usuario, String nombre) {
-		usuario.username.equalsIgnoreCase(nombre)
+		matcheaNombre(usuario, nombre) || matcheaApellido(usuario, nombre)
+	}
+
+	def boolean matcheaApellido(Usuario usuario, String nombre) {
+		usuario.apellido.toLowerCase.contains(nombre.toLowerCase)
+	}
+
+	def boolean matcheaNombre(Usuario usuario, String nombre) {
+		usuario.nombre.toLowerCase.contains(nombre.toLowerCase)
 	}
 
 	def getAmigosSugeridos(Usuario usuario) {

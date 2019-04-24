@@ -15,6 +15,7 @@ import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
+import javax.persistence.JoinColumn
 
 @Entity
 @Observable
@@ -38,8 +39,8 @@ class Usuario {
 	@Column
 	Integer edad
 
-//	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@Transient
+//	@OneToMany(fetch=FetchType.LAZY)
 	Set<Usuario> amigos
 	// Hay que ver que onda con el carrito.
 //	@OneToOne(fetch=FetchType.LAZY)
@@ -47,8 +48,8 @@ class Usuario {
 	@Transient
 	Carrito carrito
 
-//, cascade=CascadeType.ALL??
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="usuario_id")
 	Set<Entrada> entradasCompradas
 
 	@Column

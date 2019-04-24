@@ -19,11 +19,11 @@ class Entrada {
 	Long id
 	// necesito la pelicula y la funcion cuando recupero las entradas
 	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="pelicula", referencedColumnName="id")
+	@JoinColumn(name="pelicula_id")
 	Pelicula pelicula
-
+//, referencedColumnName="id"
 	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="funcion", referencedColumnName="id")
+	@JoinColumn(name="funcion_id")
 	Funcion funcion
 
 	def precioEntrada() {

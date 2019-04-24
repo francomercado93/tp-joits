@@ -9,6 +9,7 @@ import domain.Usuario
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
+import javax.persistence.EntityManager
 import org.uqbar.arena.bootstrap.Bootstrap
 import repos.RepoFunciones
 import repos.RepoPeliculas
@@ -21,7 +22,7 @@ class JoitsBootstrap implements Bootstrap {
 	Usuario marge
 	Usuario lisa
 	Usuario santiago
-	Usuario pedro
+	Usuario edna
 	Usuario riquelme
 	Usuario zanetti
 
@@ -74,6 +75,12 @@ class JoitsBootstrap implements Bootstrap {
 	Entrada entradaMatrix
 	Entrada entradaToyStory
 
+	Entrada entradaMatrix2
+
+	Entrada entradaBatman1Funcion1
+
+	Entrada entradaBatman2Funcion2
+
 	new() {
 	}
 
@@ -99,13 +106,60 @@ class JoitsBootstrap implements Bootstrap {
 			pelicula = toyStory
 			funcion = funcion2
 		]
-		val carritoTest = new Carrito
 
+		entradaMatrix2 = new Entrada() => [
+			pelicula = matrix
+			funcion = martes1
+		]
+
+		entradaBatman1Funcion1 = new Entrada() => [
+			pelicula = batman1
+			funcion = sabado3
+		]
+
+		entradaBatman2Funcion2 = new Entrada() => [
+			pelicula = batman2
+			funcion = domingo6
+		]
+		this.santosCompraEntradasYSeHaceAmigos()
+		this.lisaCompraEntradasYHaceAmigos()
+		this.ednaCompraEntradasYHaceAmigos()
+
+	}
+
+	def ednaCompraEntradasYHaceAmigos() {
+		val carritoEdna = new Carrito
+		carritoEdna.agregarAlCarrito(entradaMatrix2)
+		carritoEdna.agregarAlCarrito(entradaBatman1Funcion1)
+		carritoEdna.agregarAlCarrito(entradaBatman2Funcion2)
+		edna.carrito = carritoEdna
+		edna.agregarSaldinho(new BigDecimal("1200"))
+		edna.comprarEntradas()
+		edna.agregarAmigo(santos)
+		edna.agregarAmigo(riquelme)
+		RepoUsuarios.instance.update(edna)
+	}
+
+	def EntityManager lisaCompraEntradasYHaceAmigos() {
+		val carritoLisa = new Carrito
+		carritoLisa.agregarAlCarrito(entradaToyStory)
+		lisa.agregarSaldinho(new BigDecimal("500"))
+		lisa.carrito = carritoLisa
+		lisa.comprarEntradas()
+		lisa.agregarAmigo(marge)
+		RepoUsuarios.instance.update(lisa)
+	}
+
+	def santosCompraEntradasYSeHaceAmigos() {
+		val carritoTest = new Carrito
 		carritoTest.agregarAlCarrito(entradaMatrix)
 		carritoTest.agregarAlCarrito(entradaToyStory)
 		santos.agregarSaldinho(new BigDecimal("600"))
 		santos.carrito = carritoTest
 		santos.comprarEntradas()
+		santos.agregarAmigo(edna)
+		santos.agregarAmigo(riquelme)
+		santos.agregarAmigo(zanetti)
 		RepoUsuarios.instance.update(santos)
 	}
 
@@ -461,7 +515,6 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearPelicula(batman2)
 		this.crearPelicula(batman3)
 		this.crearPelicula(toyStory)
-		// se agregan dos veces las peliculas de la saga?
 		this.crearPelicula(sagaBatman)
 	}
 
@@ -510,47 +563,37 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "Rugratz"
 			edad = 21
 		]
-		pedro = new Usuario => [
-			username = "Pedro"
+		edna = new Usuario => [
+			username = "EdnaK"
 			password = "123"
-			nombre = "Pedro"
-			apellido = "Sanchez"
+			nombre = "Edna"
+			apellido = "Klavados"
 			edad = 22
 		]
 		riquelme = new Usuario => [
-			username = "Riquelme"
+			username = "JR10"
 			password = "123"
-			nombre = "Conejo"
-			apellido = "Perez"
+			nombre = "Juan Roman"
+			apellido = "Riquelme"
 			edad = 23
 		]
 		zanetti = new Usuario => [
-			username = "Zanetti"
+			username = "PupiZanetti"
 			password = "123"
-			nombre = "Pipi"
-			apellido = "Vasquez"
+			nombre = "Javier"
+			apellido = "Zanetti"
 			edad = 24
 		]
-
-//agrego los usuarios al repo
 		this.crearUsuario(santos)
 		this.crearUsuario(lamponne)
 		this.crearUsuario(ruggeri)
 		this.crearUsuario(marge)
 		this.crearUsuario(lisa)
 		this.crearUsuario(santiago)
-		this.crearUsuario(pedro)
+		this.crearUsuario(edna)
 		this.crearUsuario(riquelme)
 		this.crearUsuario(zanetti)
-//		agrego los datos extras y luego actualizo los que corresponden
-		santos.agregarAmigo(pedro)
-		santos.agregarAmigo(riquelme)
-		santos.agregarAmigo(zanetti)
-		lisa.agregarAmigo(marge)
-		RepoUsuarios.instance.update(santos)
-		RepoUsuarios.instance.update(lisa)
 
-	// AGREGAR MAS AMIGOS
 	}
 
 	def void crearUsuario(Usuario usuario) {
@@ -560,28 +603,12 @@ class JoitsBootstrap implements Bootstrap {
 
 	def crearPelicula(Pelicula pelicula) {
 		val repoPeliculas = RepoPeliculas.instance
-//		val listaPeliculas = repoPeliculas.searchByExample(pelicula)
-//		if (listaPeliculas.isEmpty) {
 		repoPeliculas.create(pelicula)
-//			println("Pelicula " + pelicula.titulo + " creado")
-//		} else {
-//			val peliculaBD = listaPeliculas.head
-//			pelicula.id = peliculaBD.id
-//			repoPeliculas.update(pelicula)
-//	}
 	}
 
 	def crearFuncion(Funcion funcion) {
 		val repoFunciones = RepoFunciones.instance
-//		val listaFunciones = REPOFUNCIONES.SEARCHBYEXAMPLE(FUNCION)
-//		IF (LISTAFUNCIONES.ISEMPTY) {
 		repoFunciones.create(funcion)
-//		println("Funcion " + funcion.fecha + " " + funcion.hora + " creada")
-//		} else {
-//			val funcionBD = listaFunciones.head
-//			funcion.id = funcionBD.id
-//			repoFunciones.update(funcion)
-//		}
 	}
 
 }

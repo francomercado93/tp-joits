@@ -10,12 +10,13 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
-import javax.persistence.JoinColumn
 
 @Entity
 @Observable
@@ -39,8 +40,8 @@ class Usuario {
 	@Column
 	Integer edad
 
-	@Transient
-//	@OneToMany(fetch=FetchType.LAZY)
+//	@Transient
+	@ManyToMany(fetch=FetchType.LAZY)
 	Set<Usuario> amigos
 	// Hay que ver que onda con el carrito.
 //	@OneToOne(fetch=FetchType.LAZY)

@@ -72,7 +72,7 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 			val query = criteria.createQuery(entityType)
 			val camposUsuario = query.from(entityType)
 			camposUsuario.fetch("entradasCompradas", JoinType.LEFT)
-//			camposUsuario.fetch("amigos", JoinType.LEFT)
+			camposUsuario.fetch("amigos", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 			entityManager.createQuery(query).singleResult

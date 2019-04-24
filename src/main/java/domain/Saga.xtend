@@ -26,8 +26,7 @@ class Saga extends Pelicula {
 	}
 
 	@OneToMany(fetch=FetchType.EAGER) // necesito tener las peliculas para calcular el costo de las entradas
-	// se generan valores null si le agrego la fk de la saga
-//	@JoinColumn(name="saga_id")
+	// se generan valores null en la tabla pelicula si le agrego la fk de la saga @JoinColumn(name="saga_id")
 //investigar estrategia table per class
 	List<Pelicula> peliculasSaga = new ArrayList<Pelicula>
 

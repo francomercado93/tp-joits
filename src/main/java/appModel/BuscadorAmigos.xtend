@@ -39,9 +39,6 @@ class BuscadorAmigos {
 		].toList
 	}
 
-//	def void actualizarLista() {
-//		ObservableUtils.firePropertyChanged(this, "usuarios", usuarios)
-//	}
 	def getAmigosSugeridos() {
 		RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
 	}

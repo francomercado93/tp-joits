@@ -11,7 +11,7 @@
 		<class>domain.Pelicula</class>
 		<class>domain.Funcion</class>
 		<class>domain.Saga</class>
-<!-- 		<class>domain.Entrada</class> -->
+		<class>domain.Entrada</class>
 		<class>domain.Usuario</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"

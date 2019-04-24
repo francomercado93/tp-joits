@@ -11,17 +11,16 @@ import repos.RepoUsuarios
 
 @Accessors
 @Observable
-//transactionaldialog
 class FinalizarCompra {
 
-	Usuario usuario // usuario para finalizar compra solamente
+	Usuario usuario
 	Entrada entradaSeleccionada
 	Carrito carrito
 
-	// repo de entradas para cargar el carrito
 	new(Usuario usr) {
-		usuario = usr
+		usuario = RepoUsuarios.instance.searchById(usr.id) // necesito traerme las entradas compradas para agregar las nuevas
 		carrito = usr.carrito
+		usuario.carrito = carrito
 	}
 
 	@Dependencies("carrito")
@@ -30,7 +29,7 @@ class FinalizarCompra {
 	}
 
 	def eliminarItem() {
-		carrito.eliminarDelCarrito(entradaSeleccionada)
+		usuario.carrito.eliminarDelCarrito(entradaSeleccionada)
 	}
 
 	def limpiarCarrito() {
@@ -57,7 +56,6 @@ class FinalizarCompra {
 		!carrito.carritoEstaVacio
 	}
 
-// No se deshabilitan los botones de limpiar carrito y comprar cuando se borran los items en el carrito
 	def getBotonVolver() {
 		true
 	}

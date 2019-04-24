@@ -1,7 +1,6 @@
 package repos
 
 import domain.Usuario
-import java.util.List
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.JoinType
@@ -23,26 +22,8 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		instance
 	}
 
-//	override create(Usuario usuario) {
-//		super.create(usuario)
-//	}
-	// Si necesitamos mantener la posición del elemento en la lista, por lo pronto creo que no.
-	// override update(Usuario usuario) {
-	// var indice = lista.indexOf(searchById(usuario.id))
-	// lista.set(indice, usuario)
-	// }
 	def Usuario getUsuario(String usrname, String pass) {
-		// Delego al usuario la validación o el repo debería validar? A quién le corresponde?
-		// return lista.findFirst(usuario|usuario.username == usrname && usuario.password == pass)
 		return allInstances.findFirst(usuario|usuario.validarse(usrname, pass))
-	}
-
-	def List<Usuario> getAll() {
-		return allInstances
-	}
-
-	def List<Usuario> searchAmigo(String busqueda) {
-		return allInstances.filter[usuario|usuario.buscarAmigo(busqueda)].toList
 	}
 
 	override busquedaPorNombre(Usuario usuario, String nombre) {

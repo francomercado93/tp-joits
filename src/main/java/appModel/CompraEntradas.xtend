@@ -25,7 +25,6 @@ class CompraEntradas {
 	Funcion funcionSeleccionada
 	Carrito carritoUsr
 
-	// merge
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
@@ -45,7 +44,7 @@ class CompraEntradas {
 		RepoPeliculas.instance.getPeliculasRecomendadas()
 	}
 
-	@Dependencies("peliculaSeleccionada", "funcionSeleccionada") // Hace falta?
+	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")
 	def getImporteEntrada() { // muestra el valor si se seleccino una pelicula y una funcion
 		if (puedeAgregarItem) {
 			val entrada = this.crearEntrada()
@@ -60,7 +59,6 @@ class CompraEntradas {
 		]
 	}
 
-	// no actualiza
 	@Dependencies("carrito")
 	def getItemsEnElCarrito() {
 		carritoUsr.cantidadEntradas()

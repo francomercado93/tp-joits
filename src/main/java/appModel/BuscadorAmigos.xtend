@@ -2,7 +2,6 @@ package appModel
 
 import domain.Usuario
 import java.util.List
-import javax.persistence.EntityManager
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.annotations.Transactional
@@ -16,39 +15,39 @@ class BuscadorAmigos {
 	Usuario amigoSeleccionado
 	List<Usuario> usuarios
 	String busqueda
+	List<Usuario> amigosSugeridos
 
 	new(Usuario usuario) {
 		this.usuarioSeleccionado = RepoUsuarios.instance.searchById(usuario.id)
 		busqueda = ""
+		amigosSugeridos = RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
 	}
 
 	def agregarAmigo() {
+		// error al persistir en bd, duplicate pk, no cambia de pk del amigo seleccionado cuando se agregan mas de dos amigos
 		usuarioSeleccionado.agregarAmigo(amigoSeleccionado)
-		actualizarUsuario()
-		removerDeListaUsuarios()
+		removerDeListas()
+//		actualizarUsuario()
+//		usuarios = getUsuariosFiltered()
+//		amigosSugeridos = RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
 	}
 
-	def EntityManager actualizarUsuario() {
+	def void actualizarUsuario() {
 		RepoUsuarios.instance.update(usuarioSeleccionado)
 	}
 
-	def boolean removerDeListaUsuarios() {
+	def boolean removerDeListas() {
 		usuarios.remove(amigoSeleccionado)
+		amigosSugeridos.remove(amigoSeleccionado)
 	}
 
 	def void search() {
-//		print("amigos usr" + usuarioSeleccionado.amigos.get(0).nombre + usuarioSeleccionado.amigos.get(0) + "\n")
 		usuarios = getUsuariosFiltered()
 	}
 
 	def List<Usuario> getUsuariosFiltered() {
 		RepoUsuarios.instance.search(busqueda).filter [ usr |
-			! usuarioSeleccionado.esAmigo(usr)
+			! usuarioSeleccionado.esAmigo(usr) && !usuarioSeleccionado.username.equalsIgnoreCase(usr.username)
 		].toList
 	}
-
-	def getAmigosSugeridos() {
-		RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
-	}
-
 }

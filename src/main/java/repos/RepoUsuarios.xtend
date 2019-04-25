@@ -39,7 +39,10 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 	}
 
 	def getAmigosSugeridos(Usuario usuario) {
-		return allInstances.filter[usrRepo|usrRepo.edad <= usuario.edad && usrRepo !== usuario].toList
+		return allInstances.filter [ usrRepo |
+			usrRepo.edad <= usuario.edad && !usuario.username.equalsIgnoreCase(usrRepo.username) &&
+				! usuario.esAmigo(usrRepo)
+		].toList
 	}
 
 	override getEntityType() {

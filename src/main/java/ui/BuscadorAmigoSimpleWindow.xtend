@@ -18,6 +18,7 @@ import org.uqbar.arena.windows.WindowOwner
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 //class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
+//con transactional no se actualiza correctamente, no se agrega el amigo y llega un usuario vacio 
 class BuscadorAmigoSimpleWindow extends SimpleWindow<BuscadorAmigos> {
 
 	new(WindowOwner parent, BuscadorAmigos model) {
@@ -28,6 +29,14 @@ class BuscadorAmigoSimpleWindow extends SimpleWindow<BuscadorAmigos> {
 
 	override protected addActions(Panel actionsPanel) {
 		val elementSelected = new NotNullObservable("amigoSeleccionado")
+
+		new Button(actionsPanel) => [
+			caption = "Aceptar"
+			onClick [|
+				this.modelObject.actualizarUsuario()
+				this.close
+			]
+		]
 		new Button(actionsPanel) => [
 			caption = "Agregar amigo"
 			onClick [|
@@ -42,7 +51,6 @@ class BuscadorAmigoSimpleWindow extends SimpleWindow<BuscadorAmigos> {
 				this.close
 			]
 		]
-
 	}
 
 	override protected createFormPanel(Panel mainPanel) {

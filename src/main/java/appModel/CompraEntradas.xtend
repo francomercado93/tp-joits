@@ -33,7 +33,8 @@ class CompraEntradas {
 	}
 
 	def void setPeliculaSeleccionada(Pelicula pelicula) {
-		peliculaSeleccionada = RepoPeliculas.instance.searchById(pelicula.id)
+		if (pelicula !== null)
+			peliculaSeleccionada = RepoPeliculas.instance.searchById(pelicula.id)
 	}
 
 	def void search() {

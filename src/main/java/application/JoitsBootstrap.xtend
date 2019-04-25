@@ -70,16 +70,17 @@ class JoitsBootstrap implements Bootstrap {
 	Pelicula toyStory
 	Saga sagaBatman
 
-	Funcion funcion1
-	Funcion funcion2
-	Entrada entradaMatrix
-	Entrada entradaToyStory
-
-	Entrada entradaMatrix2
-
-	Entrada entradaBatman1Funcion1
-
-	Entrada entradaBatman2Funcion2
+	Entrada entradaMatrixLunes1
+	Entrada entradaMatrixMartes1
+	Entrada entradaMatrixMiercoles
+	Entrada entradaVengadoreslunes2
+	Entrada entradaVengadoresjueves1
+	Entrada entradaNueveReinasDomingo1
+	Entrada entradaBatman1Martes3
+	Entrada entradaBatman2Sabado4
+	Entrada entradaToyStoryJueves5
+	Entrada entradaToyStorySabado6
+	Entrada entradaSagaBatmanLunes4
 
 	new() {
 	}
@@ -92,46 +93,90 @@ class JoitsBootstrap implements Bootstrap {
 		initUsuario()
 		initFunciones()
 		initPeliculas()
+		initEntradas()
 		initJuegoDatos()
 	}
 
 	def initJuegoDatos() {
-
-		// AGREGAR PELICULAS VISTAS A USUARIOS
-		entradaMatrix = new Entrada() => [
-			pelicula = matrix
-			funcion = funcion1
-		]
-		entradaToyStory = new Entrada() => [
-			pelicula = toyStory
-			funcion = funcion2
-		]
-
-		entradaMatrix2 = new Entrada() => [
-			pelicula = matrix
-			funcion = martes1
-		]
-
-		entradaBatman1Funcion1 = new Entrada() => [
-			pelicula = batman1
-			funcion = sabado3
-		]
-
-		entradaBatman2Funcion2 = new Entrada() => [
-			pelicula = batman2
-			funcion = domingo6
-		]
 		this.santosCompraEntradasYSeHaceAmigos()
 		this.lisaCompraEntradasYHaceAmigos()
 		this.ednaCompraEntradasYHaceAmigos()
 
 	}
 
+	def Entrada initEntradas() {
+		entradaMatrixLunes1 = new Entrada() => [
+			pelicula = matrix
+			funcion = lunes1
+		]
+
+		entradaMatrixMartes1 = new Entrada() => [
+			pelicula = matrix
+			funcion = martes1
+		]
+
+		entradaMatrixMiercoles = new Entrada() => [
+			pelicula = matrix
+			funcion = miercoles
+		]
+
+		entradaVengadoreslunes2 = new Entrada() => [
+			pelicula = vengadores
+			funcion = lunes2
+		]
+
+		entradaVengadoresjueves1 = new Entrada() => [
+			pelicula = vengadores
+			funcion = jueves1
+		]
+
+		entradaVengadoresjueves1 = new Entrada() => [
+			pelicula = vengadores
+			funcion = domingo5
+		]
+
+		entradaNueveReinasDomingo1 = new Entrada() => [
+			pelicula = nueveReinas
+			funcion = domingo1
+		]
+
+		entradaBatman1Martes3 = new Entrada() => [
+			pelicula = batman1
+			funcion = martes3
+		]
+
+		entradaBatman2Sabado4 = new Entrada() => [
+			pelicula = batman2
+			funcion = sabado4
+		]
+
+		entradaBatman2Sabado4 = new Entrada() => [
+			pelicula = batman2
+			funcion = lunes3
+		]
+		entradaToyStoryJueves5 = new Entrada() => [
+			pelicula = toyStory
+			funcion = jueves5
+		]
+
+		entradaToyStorySabado6 = new Entrada() => [
+			pelicula = toyStory
+			funcion = sabado6
+		]
+
+		entradaSagaBatmanLunes4 = new Entrada() => [
+			pelicula = sagaBatman
+			funcion = lunes4
+		]
+	}
+
 	def ednaCompraEntradasYHaceAmigos() {
 		val carritoEdna = new Carrito
-		carritoEdna.agregarAlCarrito(entradaMatrix2)
-		carritoEdna.agregarAlCarrito(entradaBatman1Funcion1)
-		carritoEdna.agregarAlCarrito(entradaBatman2Funcion2)
+		carritoEdna.agregarAlCarrito(entradaBatman1Martes3)
+		carritoEdna.agregarAlCarrito(entradaBatman2Sabado4)
+		carritoEdna.agregarAlCarrito(entradaSagaBatmanLunes4)
+		carritoEdna.agregarAlCarrito(entradaMatrixLunes1)
+		carritoEdna.agregarAlCarrito(entradaNueveReinasDomingo1)
 		edna.carrito = carritoEdna
 		edna.agregarSaldinho(new BigDecimal("1200"))
 		edna.comprarEntradas()
@@ -142,8 +187,14 @@ class JoitsBootstrap implements Bootstrap {
 
 	def EntityManager lisaCompraEntradasYHaceAmigos() {
 		val carritoLisa = new Carrito
-		carritoLisa.agregarAlCarrito(entradaToyStory)
-		lisa.agregarSaldinho(new BigDecimal("500"))
+		carritoLisa.agregarAlCarrito(entradaMatrixMartes1)
+		carritoLisa.agregarAlCarrito(entradaVengadoreslunes2)
+		carritoLisa.agregarAlCarrito(entradaVengadoresjueves1)
+		carritoLisa.agregarAlCarrito(entradaToyStorySabado6)
+		carritoLisa.agregarAlCarrito(entradaSagaBatmanLunes4)
+		carritoLisa.agregarAlCarrito(entradaBatman1Martes3)
+		carritoLisa.agregarAlCarrito(entradaBatman2Sabado4)
+		lisa.agregarSaldinho(new BigDecimal("5450"))
 		lisa.carrito = carritoLisa
 		lisa.comprarEntradas()
 		lisa.agregarAmigo(marge)
@@ -152,9 +203,10 @@ class JoitsBootstrap implements Bootstrap {
 
 	def santosCompraEntradasYSeHaceAmigos() {
 		val carritoTest = new Carrito
-		carritoTest.agregarAlCarrito(entradaMatrix)
-		carritoTest.agregarAlCarrito(entradaToyStory)
-		santos.agregarSaldinho(new BigDecimal("600"))
+		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
+		carritoTest.agregarAlCarrito(entradaMatrixMiercoles)
+		carritoTest.agregarAlCarrito(entradaToyStoryJueves5)
+		santos.agregarSaldinho(new BigDecimal("980"))
 		santos.carrito = carritoTest
 		santos.comprarEntradas()
 		santos.agregarAmigo(edna)
@@ -203,7 +255,7 @@ class JoitsBootstrap implements Bootstrap {
 
 		martes3 = new Funcion() => [
 			fecha = LocalDate.of(2019, 04, 02)
-			hora = LocalTime.of(20, 30)
+			hora = LocalTime.of(21, 30)
 			nombreSala = "Rivadavia"
 		]
 
@@ -352,18 +404,6 @@ class JoitsBootstrap implements Bootstrap {
 			nombreSala = "Rivadavia"
 		]
 
-		// Peliculas vistas para mario santos
-		funcion1 = new Funcion() => [
-			fecha = LocalDate.of(2019, 03, 22)
-			hora = LocalTime.of(18, 00)
-			nombreSala = "Rivadavia"
-		]
-		funcion2 = new Funcion() => [
-			fecha = LocalDate.of(2019, 03, 24)
-			hora = LocalTime.of(18, 00)
-			nombreSala = "Rivadavia"
-		]
-
 		this.crearFuncion(lunes1)
 		this.crearFuncion(lunes2)
 		this.crearFuncion(lunes3)
@@ -396,8 +436,6 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearFuncion(domingo5)
 		this.crearFuncion(domingo6)
 		this.crearFuncion(domingo7)
-		this.crearFuncion(funcion1)
-		this.crearFuncion(funcion2)
 	}
 
 	def void initPeliculas() {
@@ -420,6 +458,7 @@ class JoitsBootstrap implements Bootstrap {
 			agregarFuncion(jueves1)
 			agregarFuncion(viernes1)
 			agregarFuncion(viernes3)
+			agregarFuncion(domingo5)
 		]
 
 		nueveReinas = new Pelicula() => [
@@ -439,7 +478,6 @@ class JoitsBootstrap implements Bootstrap {
 			genero = "Drama"
 			agregarFuncion(jueves3)
 			agregarFuncion(jueves4)
-			// batman y el maquinista tienen las misma funcion
 			agregarFuncion(sabado1)
 		]
 
@@ -459,8 +497,8 @@ class JoitsBootstrap implements Bootstrap {
 			puntaje = new BigDecimal("7.4")
 			genero = "Accion"
 			agregarFuncion(sabado3)
-//			agregarFuncion(jueves4)
-//			agregarFuncion(sabado1) 
+			agregarFuncion(martes3)
+			agregarFuncion(domingo4)
 		]
 
 		batman2 = new Pelicula() => [

@@ -25,7 +25,7 @@ class Funcion {
 	@Column
 	LocalDate fecha
 
-	@Column
+	@Column(columnDefinition="varchar(8)")
 	LocalTime hora
 
 	@Column(length=150)

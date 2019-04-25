@@ -2,7 +2,7 @@ package ui
 
 import appModel.BuscadorAmigos
 import domain.Usuario
-import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
@@ -12,11 +12,13 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.ErrorsPanel
+import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
-class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
+//class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
+class BuscadorAmigoSimpleWindow extends SimpleWindow<BuscadorAmigos> {
 
 	new(WindowOwner parent, BuscadorAmigos model) {
 		super(parent, model)
@@ -25,14 +27,14 @@ class BuscadorAmigoSimpleWindow extends TransactionalDialog<BuscadorAmigos> {
 	}
 
 	override protected addActions(Panel actionsPanel) {
-//		val elementSelected = new NotNullObservable("amigoSeleccionado")
+		val elementSelected = new NotNullObservable("amigoSeleccionado")
 		new Button(actionsPanel) => [
 			caption = "Agregar amigo"
 			onClick [|
 				this.modelObject.agregarAmigo()
-				this.accept
+//				this.accept
 			]
-//			bindEnabled(elementSelected)
+			bindEnabled(elementSelected)
 		]
 		new Button(actionsPanel) => [
 			caption = "Cancelar"

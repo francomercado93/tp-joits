@@ -16,13 +16,12 @@ import javax.persistence.OneToMany
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import org.uqbar.commons.model.exceptions.UserException
 
 @Entity
 @Observable
 @Accessors
-@TransactionalAndObservable
+//@TransactionalAndObservable
 class Usuario {
 	@Id @GeneratedValue
 	Long id
@@ -52,7 +51,7 @@ class Usuario {
 	@JoinColumn(name="usuario_id")
 	Set<Entrada> entradasCompradas
 
-	@Column
+	@Column(nullable=false, columnDefinition="decimal(19,2) default 0")
 	BigDecimal saldo
 
 	new() {
@@ -116,10 +115,11 @@ class Usuario {
 	}
 
 	def esAmigo(Usuario usuario) {
-//		print("usuario repo" + usuario.nombre + usuario)
 		amigos.contains(usuario)
 	}
 
+	// se cargan los amigos del usuario en el usuarioPanel y luego en el buscador de amigos se obtenian del repo
+	// los usuarios que no son amigos de usuario, pero no filtraba bien la lista de no amigos porque los tomaba como usuarios diferentes
 	override equals(Object obj) {
 		try {
 			val other = obj as Usuario

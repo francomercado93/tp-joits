@@ -2,15 +2,15 @@ package appModel
 
 import domain.Usuario
 import java.util.List
+import javax.persistence.EntityManager
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import org.uqbar.commons.model.annotations.TransactionalAndObservable
-import org.uqbar.commons.model.exceptions.UserException
+import org.uqbar.commons.model.annotations.Transactional
 import repos.RepoUsuarios
 
 @Observable
 @Accessors
-@TransactionalAndObservable
+@Transactional
 class BuscadorAmigos {
 	Usuario usuarioSeleccionado
 	Usuario amigoSeleccionado
@@ -23,9 +23,17 @@ class BuscadorAmigos {
 	}
 
 	def agregarAmigo() {
-		if (amigoSeleccionado === null)
-			throw new UserException("Debe seleccionar un amigo")
 		usuarioSeleccionado.agregarAmigo(amigoSeleccionado)
+		actualizarUsuario()
+		removerDeListaUsuarios()
+	}
+
+	def EntityManager actualizarUsuario() {
+		RepoUsuarios.instance.update(usuarioSeleccionado)
+	}
+
+	def boolean removerDeListaUsuarios() {
+		usuarios.remove(amigoSeleccionado)
 	}
 
 	def void search() {

@@ -29,7 +29,7 @@ class FinalizarCompra {
 	}
 
 	def eliminarItem() {
-		usuario.carrito.eliminarDelCarrito(entradaSeleccionada)
+		carrito.eliminarDelCarrito(entradaSeleccionada)
 	}
 
 	def limpiarCarrito() {

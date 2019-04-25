@@ -89,7 +89,7 @@ class UsuarioPanelSimpleWindow extends SimpleWindow<UsuarioPanel> {
 				caption = "Buscar Amigos"
 				onClick([|
 					new BuscadorAmigoSimpleWindow(this, new BuscadorAmigos(modelObject.usuarioSeleccionado)) => [
-						onAccept[this.modelObject.actualizar()]
+//						onAccept[this.modelObject.actualizar()]
 						open
 					]
 				])

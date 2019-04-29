@@ -31,6 +31,9 @@ class Funcion {
 	@Column(length=150)
 	String nombreSala
 
+	new() {
+	}
+
 	def getValorPorDiaFuncion() {
 		if (this.esMiercoles())
 			return VALOR_MIERCOLES

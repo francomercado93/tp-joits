@@ -9,9 +9,7 @@ import domain.Usuario
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
-import javax.persistence.EntityManager
 import org.uqbar.arena.bootstrap.Bootstrap
-import repos.RepoFunciones
 import repos.RepoPeliculas
 import repos.RepoUsuarios
 
@@ -170,22 +168,21 @@ class JoitsBootstrap implements Bootstrap {
 		]
 	}
 
-	def ednaCompraEntradasYHaceAmigos() {
-		val carritoEdna = new Carrito
-		carritoEdna.agregarAlCarrito(entradaBatman1Martes3)
-		carritoEdna.agregarAlCarrito(entradaBatman2Sabado4)
-		carritoEdna.agregarAlCarrito(entradaSagaBatmanLunes4)
-		carritoEdna.agregarAlCarrito(entradaMatrixLunes1)
-		carritoEdna.agregarAlCarrito(entradaNueveReinasDomingo1)
-		edna.carrito = carritoEdna
-		edna.agregarSaldinho(new BigDecimal("1200"))
-		edna.comprarEntradas()
-		edna.agregarAmigo(santos)
-		edna.agregarAmigo(riquelme)
-		RepoUsuarios.instance.update(edna)
+	def santosCompraEntradasYSeHaceAmigos() {
+		val carritoTest = new Carrito
+		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
+		carritoTest.agregarAlCarrito(entradaMatrixMiercoles)
+		carritoTest.agregarAlCarrito(entradaToyStoryJueves5)
+		santos.agregarSaldinho(new BigDecimal("980"))
+		santos.carrito = carritoTest
+		santos.comprarEntradas()
+		santos.agregarAmigo(edna)
+		santos.agregarAmigo(riquelme)
+		santos.agregarAmigo(zanetti)
+		RepoUsuarios.instance.update(santos)
 	}
 
-	def EntityManager lisaCompraEntradasYHaceAmigos() {
+	def lisaCompraEntradasYHaceAmigos() {
 		val carritoLisa = new Carrito
 		carritoLisa.agregarAlCarrito(entradaMatrixMartes1)
 		carritoLisa.agregarAlCarrito(entradaVengadoreslunes2)
@@ -201,18 +198,19 @@ class JoitsBootstrap implements Bootstrap {
 		RepoUsuarios.instance.update(lisa)
 	}
 
-	def santosCompraEntradasYSeHaceAmigos() {
-		val carritoTest = new Carrito
-		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
-		carritoTest.agregarAlCarrito(entradaMatrixMiercoles)
-		carritoTest.agregarAlCarrito(entradaToyStoryJueves5)
-		santos.agregarSaldinho(new BigDecimal("980"))
-		santos.carrito = carritoTest
-		santos.comprarEntradas()
-		santos.agregarAmigo(edna)
-		santos.agregarAmigo(riquelme)
-		santos.agregarAmigo(zanetti)
-		RepoUsuarios.instance.update(santos)
+	def ednaCompraEntradasYHaceAmigos() {
+		val carritoEdna = new Carrito
+		carritoEdna.agregarAlCarrito(entradaBatman1Martes3)
+		carritoEdna.agregarAlCarrito(entradaBatman2Sabado4)
+		carritoEdna.agregarAlCarrito(entradaSagaBatmanLunes4)
+		carritoEdna.agregarAlCarrito(entradaMatrixLunes1)
+		carritoEdna.agregarAlCarrito(entradaNueveReinasDomingo1)
+		edna.carrito = carritoEdna
+		edna.agregarSaldinho(new BigDecimal("1200"))
+		edna.comprarEntradas()
+		edna.agregarAmigo(santos)
+		edna.agregarAmigo(riquelme)
+		RepoUsuarios.instance.update(edna)
 	}
 
 	def void initFunciones() {
@@ -403,39 +401,6 @@ class JoitsBootstrap implements Bootstrap {
 			hora = LocalTime.of(23, 35)
 			nombreSala = "Rivadavia"
 		]
-
-		this.crearFuncion(lunes1)
-		this.crearFuncion(lunes2)
-		this.crearFuncion(lunes3)
-		this.crearFuncion(lunes4)
-		this.crearFuncion(martes1)
-		this.crearFuncion(martes2)
-		this.crearFuncion(martes3)
-		this.crearFuncion(miercoles)
-		this.crearFuncion(miercoles2)
-		this.crearFuncion(miercoles3)
-		this.crearFuncion(miercoles4)
-		this.crearFuncion(jueves1)
-		this.crearFuncion(jueves2)
-		this.crearFuncion(jueves3)
-		this.crearFuncion(jueves4)
-		this.crearFuncion(jueves5)
-		this.crearFuncion(viernes1)
-		this.crearFuncion(viernes2)
-		this.crearFuncion(viernes3)
-		this.crearFuncion(sabado1)
-		this.crearFuncion(sabado2)
-		this.crearFuncion(sabado3)
-		this.crearFuncion(sabado4)
-		this.crearFuncion(sabado5)
-		this.crearFuncion(sabado6)
-		this.crearFuncion(domingo1)
-		this.crearFuncion(domingo2)
-		this.crearFuncion(domingo3)
-		this.crearFuncion(domingo4)
-		this.crearFuncion(domingo5)
-		this.crearFuncion(domingo6)
-		this.crearFuncion(domingo7)
 	}
 
 	def void initPeliculas() {
@@ -631,7 +596,6 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearUsuario(edna)
 		this.crearUsuario(riquelme)
 		this.crearUsuario(zanetti)
-
 	}
 
 	def void crearUsuario(Usuario usuario) {
@@ -643,10 +607,4 @@ class JoitsBootstrap implements Bootstrap {
 		val repoPeliculas = RepoPeliculas.instance
 		repoPeliculas.create(pelicula)
 	}
-
-	def crearFuncion(Funcion funcion) {
-		val repoFunciones = RepoFunciones.instance
-		repoFunciones.create(funcion)
-	}
-
 }

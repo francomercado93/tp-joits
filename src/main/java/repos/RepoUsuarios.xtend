@@ -1,20 +1,21 @@
 package repos
 
 import domain.Usuario
+import javax.persistence.NoResultException
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 @Observable
 class RepoUsuarios extends RepoDefault<Usuario> {
-	// INSTANCIA REPO
+
 	static RepoUsuarios instance
 
-	// INICIALIZACION REPO
 	static def getInstance() {
 		if (instance === null) {
 			instance = new RepoUsuarios()
@@ -23,7 +24,23 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 	}
 
 	def Usuario getUsuario(String usrname, String pass) {
-		return allInstances.findFirst(usuario|usuario.validarse(usrname, pass))
+		val entityManager = entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery(entityType)
+			val camposUsuario = query.from(entityType)
+			query.select(camposUsuario)
+			query.where(criteria.equal(camposUsuario.get("username"), usrname))
+//			buscar en bd por username y pass o buscar por username y luego validar en clase usuario?
+//			query.where(criteria.equal(camposUsuario.get("password"), pass))
+			val usuarioBd = entityManager.createQuery(query).singleResult
+			usuarioBd.validarPassword(pass)
+			usuarioBd
+		} catch (NoResultException e) {
+			throw new UserException("Error: usuario " + usrname + " no registrado.", e)
+		} finally {
+			entityManager?.close
+		}
 	}
 
 	override busquedaPorNombre(Usuario usuario, String nombre) {
@@ -38,13 +55,6 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		usuario.nombre.toLowerCase.contains(nombre.toLowerCase)
 	}
 
-	def getAmigosSugeridos(Usuario usuario) {
-		return allInstances.filter [ usrRepo |
-			usrRepo.edad <= usuario.edad && !usuario.username.equalsIgnoreCase(usrRepo.username) &&
-				! usuario.esAmigo(usrRepo)
-		].toList
-	}
-
 	override getEntityType() {
 		Usuario
 	}
@@ -56,7 +66,6 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		}
 	}
 
-	// se obtienen las entradas compradas y el usuario completo con un solo query
 	def Usuario searchById(Long id) {
 		val entityManager = entityManager
 		try {
@@ -64,12 +73,42 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 			val query = criteria.createQuery(entityType)
 			val camposUsuario = query.from(entityType)
 			camposUsuario.fetch("entradasCompradas", JoinType.LEFT)
-			camposUsuario.fetch("amigos", JoinType.LEFT)
+			camposUsuario.fetch("amigos") // , JoinType.LEFT
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 			entityManager.createQuery(query).singleResult
 		} finally {
 			entityManager?.close
 		}
+	}
+
+	def getAmigosSugeridos(Usuario usuario) {
+//		val amigo1 = new Usuario() => [
+//			username = "MoeSzyslak"
+//			password = "nofuneral"
+//			nombre = "Moe"
+//			apellido = "Szyslak"
+//			edad = 37
+//		]
+//		val amigo2 = new Usuario() => [
+//			username = "CerseiLannister"
+//			password = "jaime"
+//			nombre = "Cersei"
+//			apellido = "Lannister"
+//			edad = 45
+//		]
+//		val amigo3 = new Usuario() => [
+//			username = "TucoSalamanca"
+//			password = "tuco"
+//			nombre = "Tuco"
+//			apellido = "Salamanca"
+//			edad = 41
+//		]
+//		val amigosSugeridos = new ArrayList<Usuario>
+//		amigosSugeridos.add(amigo1)
+//		amigosSugeridos.add(amigo2)
+//		amigosSugeridos.add(amigo3)
+//		return amigosSugeridos
+		return allInstances.take(3).toList
 	}
 }

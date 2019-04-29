@@ -41,6 +41,7 @@ class Usuario {
 	@Column
 	Integer edad
 
+//	@OneToMany(fetch=FetchType.LAZY)
 	@ManyToMany(fetch=FetchType.LAZY)
 	Set<Usuario> amigos
 
@@ -63,10 +64,6 @@ class Usuario {
 
 	def agregarAmigo(Usuario usuario) {
 		amigos.add(usuario)
-	}
-
-	def validarse(String user, String pass) {
-		return username == user && password == pass
 	}
 
 	def String getMiSaldo() {
@@ -106,6 +103,8 @@ class Usuario {
 	}
 
 	def validarPassword(String pass) {
+		if (pass === null)
+			throw new UserException("Ingrese contraseña")
 		if (!password.equals(pass))
 			throw new UserException("Contraseña no valida")
 	}

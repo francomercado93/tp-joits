@@ -26,6 +26,9 @@ class Entrada {
 	@JoinColumn(name="funcion_id")
 	Funcion funcion
 
+	new() {
+	}
+
 	def precioEntrada() {
 		pelicula.precioBase + funcion.valorPorDiaFuncion
 	}

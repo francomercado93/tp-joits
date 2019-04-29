@@ -27,22 +27,21 @@ abstract class RepoDefault<T> {
 
 	abstract def Class<T> getEntityType()
 
-	// En usuarios si lo uso
-	def searchByExample(T t) {
+	def searchByName(String nombre) {
 		val entityManager = this.entityManager
 		try {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery(entityType)
 			val from = query.from(entityType)
 			query.select(from)
-			generateWhere(criteria, query, from, t)
+			generateWhere(criteria, query, from, nombre)
 			entityManager.createQuery(query).resultList
 		} finally {
 			entityManager?.close
 		}
 	}
 
-	abstract def void generateWhere(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> campos, T t)
+	abstract def void generateWhere(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> campos, String nombre)
 
 	def create(T t) {
 		val entityManager = this.entityManager
@@ -62,8 +61,6 @@ abstract class RepoDefault<T> {
 	}
 
 	def search(String nombre) {
-		//hacer una consulta a la bd o los datos que estan en memoria??
-		allInstances.filter(elemento|this.busquedaPorNombre(elemento, nombre)).toList
 	}
 
 	abstract def Boolean busquedaPorNombre(T t, String nombre)

@@ -60,10 +60,8 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 	}
 
 	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Usuario> query, Root<Usuario> camposUsuario,
-		Usuario usuario) {
-		if (usuario.username !== null) {
-			query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
-		}
+		String nombre) {
+//		query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
 	}
 
 	def Usuario searchById(Long id) {
@@ -72,8 +70,8 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery(entityType)
 			val camposUsuario = query.from(entityType)
-			camposUsuario.fetch("entradasCompradas", JoinType.LEFT)
-			camposUsuario.fetch("amigos") // , JoinType.LEFT
+			camposUsuario.fetch("entradasCompradas", JoinType.LEFT) // si un usuario no tiene entradas o amigos los trae igual de la bd
+			camposUsuario.fetch("amigos", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 			entityManager.createQuery(query).singleResult
@@ -111,4 +109,5 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 //		return amigosSugeridos
 		return allInstances.take(3).toList
 	}
+
 }

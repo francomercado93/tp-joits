@@ -3,6 +3,7 @@ package repos
 import domain.Pelicula
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
@@ -33,10 +34,10 @@ class RepoPeliculas extends RepoDefault<Pelicula> {
 	}
 
 	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Pelicula> query, Root<Pelicula> camposPelicula,
-		Pelicula pelicula) {
-		if (pelicula.titulo !== null) {
-			query.where(criteria.equal(camposPelicula.get("titulo"), pelicula.titulo))
-		}
+		String titulo) {
+//		if (pelicula.titulo !== null) {
+		query.where(criteria.like(camposPelicula.get("titulo"), "%" + titulo + "%"))
+//		}
 	}
 
 	def Pelicula searchById(Long id) {
@@ -45,7 +46,7 @@ class RepoPeliculas extends RepoDefault<Pelicula> {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery(entityType)
 			val camposPelicula = query.from(entityType)
-			camposPelicula.fetch("funcionesDisponibles")
+			camposPelicula.fetch("funcionesDisponibles", JoinType.LEFT)
 			query.select(camposPelicula)
 			query.where(criteria.equal(camposPelicula.get("id"), id))
 			entityManager.createQuery(query).singleResult

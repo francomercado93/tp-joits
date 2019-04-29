@@ -46,8 +46,9 @@ class BuscadorAmigos {
 	}
 
 	def List<Usuario> getUsuariosFiltered() {
-		RepoUsuarios.instance.search(busqueda).filter [ usr |
-			! usuarioSeleccionado.esAmigo(usr) && !usuarioSeleccionado.username.equalsIgnoreCase(usr.username)
-		].toList
+		RepoUsuarios.instance.allInstances
+//		RepoUsuarios.instance.search(busqueda).filter [ usr |
+//			! usuarioSeleccionado.esAmigo(usr) && !usuarioSeleccionado.username.equalsIgnoreCase(usr.username)
+//		].toList
 	}
 }

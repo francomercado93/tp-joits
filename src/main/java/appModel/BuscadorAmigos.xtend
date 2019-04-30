@@ -4,12 +4,10 @@ import domain.Usuario
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import org.uqbar.commons.model.annotations.Transactional
 import repos.RepoUsuarios
 
 @Observable
 @Accessors
-@Transactional
 class BuscadorAmigos {
 	Usuario usuarioSeleccionado
 	Usuario amigoSeleccionado
@@ -24,12 +22,9 @@ class BuscadorAmigos {
 	}
 
 	def agregarAmigo() {
-		// error al persistir en bd, duplicate pk, no cambia de pk del amigo seleccionado cuando se agregan mas de dos amigos
 		usuarioSeleccionado.agregarAmigo(amigoSeleccionado)
-		removerDeListas()
-//		actualizarUsuario()
-//		usuarios = getUsuariosFiltered()
-//		amigosSugeridos = RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
+		search()
+//		removerDeListas()
 	}
 
 	def void actualizarUsuario() {
@@ -37,18 +32,18 @@ class BuscadorAmigos {
 	}
 
 	def boolean removerDeListas() {
-		usuarios.remove(amigoSeleccionado)
 		amigosSugeridos.remove(amigoSeleccionado)
 	}
 
 	def void search() {
-		usuarios = getUsuariosFiltered()
+		usuarios = getUsuariosFiltrados()
 	}
 
-	def List<Usuario> getUsuariosFiltered() {
-		RepoUsuarios.instance.allInstances
-//		RepoUsuarios.instance.search(busqueda).filter [ usr |
-//			! usuarioSeleccionado.esAmigo(usr) && !usuarioSeleccionado.username.equalsIgnoreCase(usr.username)
-//		].toList
+	def getUsuariosFiltrados() {
+		RepoUsuarios.instance.searchByName(busqueda).filter(usr|filtrarAmigosYUsuario(usr)).toList
+	}
+
+	def boolean filtrarAmigosYUsuario(Usuario usr) {
+		usuarioSeleccionado.id != usr.id && ! usuarioSeleccionado.esAmigo(usr)
 	}
 }

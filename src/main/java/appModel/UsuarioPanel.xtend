@@ -35,11 +35,8 @@ class UsuarioPanel {
 	}
 
 	def void actualizarUsuario() {
-		// Lo unico que deberia actualizar al apretar el boton Aceptar.
-		if (usuarioSeleccionado.edad !== this.usuarioEdad) {
-			usuarioSeleccionado.edad = this.usuarioEdad
-			this.actualizar
-		}
+		usuarioSeleccionado.setEdad(usuarioEdad)
+		this.actualizar
 	}
 
 	def void actualizar() {

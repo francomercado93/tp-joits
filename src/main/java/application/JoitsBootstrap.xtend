@@ -80,6 +80,12 @@ class JoitsBootstrap implements Bootstrap {
 	Entrada entradaToyStorySabado6
 	Entrada entradaSagaBatmanLunes4
 
+	Usuario amigo1
+
+	Usuario amigo2
+
+	Usuario amigo3
+
 	new() {
 	}
 
@@ -587,6 +593,28 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "Zanetti"
 			edad = 24
 		]
+
+		amigo1 = new Usuario() => [
+			username = "MoeSzyslak"
+			password = "nofuneral"
+			nombre = "MoeAmigo"
+			apellido = "Szyslak"
+			edad = 37
+		]
+		amigo2 = new Usuario() => [
+			username = "CerseiLannister"
+			password = "jaime"
+			nombre = "CerseiAmigo"
+			apellido = "Lannister"
+			edad = 45
+		]
+		amigo3 = new Usuario() => [
+			username = "TucoSalamanca"
+			password = "tuco"
+			nombre = "TucoAmigo"
+			apellido = "Salamanca"
+			edad = 41
+		]
 		this.crearUsuario(santos)
 		this.crearUsuario(lamponne)
 		this.crearUsuario(ruggeri)
@@ -596,6 +624,9 @@ class JoitsBootstrap implements Bootstrap {
 		this.crearUsuario(edna)
 		this.crearUsuario(riquelme)
 		this.crearUsuario(zanetti)
+		this.crearUsuario(amigo1)
+		this.crearUsuario(amigo2)
+		this.crearUsuario(amigo3)
 	}
 
 	def void crearUsuario(Usuario usuario) {

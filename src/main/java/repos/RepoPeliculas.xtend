@@ -21,10 +21,6 @@ class RepoPeliculas extends RepoDefault<Pelicula> {
 		instance
 	}
 
-	override busquedaPorNombre(Pelicula pelicula, String nombre) {
-		pelicula.titulo.equalsIgnoreCase(nombre) || pelicula.titulo.toLowerCase.indexOf(nombre.toLowerCase()) != -1
-	}
-
 	override getEntityType() {
 		Pelicula
 	}
@@ -35,12 +31,10 @@ class RepoPeliculas extends RepoDefault<Pelicula> {
 
 	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Pelicula> query, Root<Pelicula> camposPelicula,
 		String titulo) {
-//		if (pelicula.titulo !== null) {
 		query.where(criteria.like(camposPelicula.get("titulo"), "%" + titulo + "%"))
-//		}
 	}
 
-	def Pelicula searchById(Long id) {
+	override Pelicula searchById(Long id) {
 		val entityManager = entityManager
 		try {
 			val criteria = entityManager.criteriaBuilder

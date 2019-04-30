@@ -132,4 +132,10 @@ class Usuario {
 		if(id !== null) id.hashCode else super.hashCode
 	}
 
+	def void setEdad(Integer unaEdad) {
+		if (unaEdad === null || unaEdad <= 0 || unaEdad > 150) {
+			throw new UserException("Debe ingresar una edad valida")
+		}
+		this.edad = unaEdad
+	}
 }

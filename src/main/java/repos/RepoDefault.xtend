@@ -25,24 +25,6 @@ abstract class RepoDefault<T> {
 		}
 	}
 
-	abstract def Class<T> getEntityType()
-
-	def searchByName(String nombre) {
-		val entityManager = this.entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery(entityType)
-			val from = query.from(entityType)
-			query.select(from)
-			generateWhere(criteria, query, from, nombre)
-			entityManager.createQuery(query).resultList
-		} finally {
-			entityManager?.close
-		}
-	}
-
-	abstract def void generateWhere(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> campos, String nombre)
-
 	def create(T t) {
 		val entityManager = this.entityManager
 		try {
@@ -59,11 +41,6 @@ abstract class RepoDefault<T> {
 			entityManager?.close
 		}
 	}
-
-	def search(String nombre) {
-	}
-
-	abstract def Boolean busquedaPorNombre(T t, String nombre)
 
 	def update(T t) {
 		val entityManager = this.entityManager
@@ -85,5 +62,25 @@ abstract class RepoDefault<T> {
 	def getEntityManager() {
 		entityManagerFactory.createEntityManager
 	}
+
+	abstract def Class<T> getEntityType()
+
+	def List<T> searchByName(String nombre) {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery(entityType)
+			val from = query.from(entityType)
+			query.select(from)
+			generateWhere(criteria, query, from, nombre)
+			entityManager.createQuery(query).resultList
+		} finally {
+			entityManager?.close
+		}
+	}
+
+	abstract def void generateWhere(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> campos, String nombre)
+
+	abstract def T searchById(Long id)
 
 }

@@ -23,6 +23,8 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		instance
 	}
 
+//buscar en bd por username y pass o buscar por username y luego validar en clase usuario?
+//query.where(criteria.equal(camposUsuario.get("password"), pass))
 	def Usuario getUsuario(String usrname, String pass) {
 		val entityManager = entityManager
 		try {
@@ -31,8 +33,6 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 			val camposUsuario = query.from(entityType)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("username"), usrname))
-//			buscar en bd por username y pass o buscar por username y luego validar en clase usuario?
-//			query.where(criteria.equal(camposUsuario.get("password"), pass))
 			val usuarioBd = entityManager.createQuery(query).singleResult
 			usuarioBd.validarPassword(pass)
 			usuarioBd
@@ -43,28 +43,18 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		}
 	}
 
-	override busquedaPorNombre(Usuario usuario, String nombre) {
-		matcheaNombre(usuario, nombre) || matcheaApellido(usuario, nombre)
-	}
-
-	def boolean matcheaApellido(Usuario usuario, String nombre) {
-		usuario.apellido.toLowerCase.contains(nombre.toLowerCase)
-	}
-
-	def boolean matcheaNombre(Usuario usuario, String nombre) {
-		usuario.nombre.toLowerCase.contains(nombre.toLowerCase)
-	}
-
 	override getEntityType() {
 		Usuario
 	}
 
 	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Usuario> query, Root<Usuario> camposUsuario,
 		String nombre) {
-//		query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
+		query.where(
+			criteria.or(criteria.like(camposUsuario.get("nombre"), "%" + nombre + "%"),
+				criteria.like(camposUsuario.get("apellido"), "%" + nombre + "%")))
 	}
 
-	def Usuario searchById(Long id) {
+	override Usuario searchById(Long id) {
 		val entityManager = entityManager
 		try {
 			val criteria = entityManager.criteriaBuilder
@@ -81,33 +71,7 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 	}
 
 	def getAmigosSugeridos(Usuario usuario) {
-//		val amigo1 = new Usuario() => [
-//			username = "MoeSzyslak"
-//			password = "nofuneral"
-//			nombre = "Moe"
-//			apellido = "Szyslak"
-//			edad = 37
-//		]
-//		val amigo2 = new Usuario() => [
-//			username = "CerseiLannister"
-//			password = "jaime"
-//			nombre = "Cersei"
-//			apellido = "Lannister"
-//			edad = 45
-//		]
-//		val amigo3 = new Usuario() => [
-//			username = "TucoSalamanca"
-//			password = "tuco"
-//			nombre = "Tuco"
-//			apellido = "Salamanca"
-//			edad = 41
-//		]
-//		val amigosSugeridos = new ArrayList<Usuario>
-//		amigosSugeridos.add(amigo1)
-//		amigosSugeridos.add(amigo2)
-//		amigosSugeridos.add(amigo3)
-//		return amigosSugeridos
-		return allInstances.take(3).toList
+		searchByName("amigo")
 	}
 
 }

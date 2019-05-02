@@ -21,7 +21,6 @@ import org.uqbar.commons.model.exceptions.UserException
 @Entity
 @Observable
 @Accessors
-//@TransactionalAndObservable
 class Usuario {
 	@Id @GeneratedValue
 	Long id
@@ -41,7 +40,6 @@ class Usuario {
 	@Column
 	Integer edad
 
-//	@OneToMany(fetch=FetchType.LAZY)
 	@ManyToMany(fetch=FetchType.LAZY)
 	Set<Usuario> amigos
 

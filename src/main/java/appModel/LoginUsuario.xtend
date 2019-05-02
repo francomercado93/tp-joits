@@ -18,20 +18,4 @@ class LoginUsuario {
 		if (usuarioSeleccionado === null)
 			throw new UserException("Login incorrecto!")
 	}
-
-//	def Usuario validarUsuario() {
-//		usuarioSeleccionado = RepoUsuarios.instance.getUsuario(usrname, pass)
-//		return usuarioSeleccionado
-//	}
-//	def getRepoUsr() {
-//		RepoUsuarios.instance
-//	}
-//
-//	def validarUsuario() {
-//		false
-//		usuarioSeleccionado = repoUsr.search(usrname)
-//		usuarioSeleccionado.validarPassword(pass)
-//		return usuarioSeleccionado !== null
-//	}
-
 }

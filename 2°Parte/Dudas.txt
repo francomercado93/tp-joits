@@ -1,0 +1,3 @@
+-Transactional buscador de amigos?
+-carrito separado del usuario?
+-Transactional finalizar compra

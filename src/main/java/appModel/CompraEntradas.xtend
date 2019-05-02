@@ -54,10 +54,12 @@ class CompraEntradas {
 	}
 
 	def Entrada crearEntrada() {
-		new Entrada() => [
+		val entrada = new Entrada() => [
 			pelicula = peliculaSeleccionada
 			funcion = funcionSeleccionada
 		]
+		entrada.setPrecioEntrada()
+		entrada
 	}
 
 	@Dependencies("carrito")

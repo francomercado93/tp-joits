@@ -39,4 +39,8 @@ class Carrito {
 		entradas.isNullOrEmpty()
 	}
 
+	def setPreciosEntradas() {
+		entradas.forEach(entrada|entrada.setPrecioEntrada())
+	}
+
 }

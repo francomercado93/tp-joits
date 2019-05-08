@@ -28,7 +28,7 @@ class Carrito {
 		if (carritoEstaVacio)
 			return new BigDecimal("0")
 		else
-			new BigDecimal(entradas.fold(0d, [acum, entrada|acum + entrada.precioEntrada]))
+			new BigDecimal(entradas.fold(0d, [acum, entrada|acum + entrada.getPrecioEntrada()]))
 	}
 
 	def Integer cantidadEntradas() {

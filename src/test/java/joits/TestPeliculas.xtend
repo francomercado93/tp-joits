@@ -14,7 +14,7 @@ class TestPeliculas extends JuegoDatosTest {
 			funcion = lunes1
 		]
 		val valorEsperado = new BigDecimal("110")
-		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, entrada.getPrecioEntrada().compareTo(valorEsperado), 0.1)
 	}
 
 	@Test
@@ -24,7 +24,7 @@ class TestPeliculas extends JuegoDatosTest {
 			funcion = miercoles
 		]
 		val valorEsperado = new BigDecimal("80")
-		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado)) // esta bien comparar asi(?
+		Assert.assertEquals(0, entrada.getPrecioEntrada().compareTo(valorEsperado)) // esta bien comparar asi(?
 	}
 
 	@Test
@@ -34,7 +34,7 @@ class TestPeliculas extends JuegoDatosTest {
 			funcion = domingo1
 		]
 		val valorEsperado = new BigDecimal("150")
-		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado))
+		Assert.assertEquals(0, entrada.getPrecioEntrada().compareTo(valorEsperado))
 	}
 
 	@Test
@@ -52,7 +52,7 @@ class TestPeliculas extends JuegoDatosTest {
 			funcion = lunes4
 		]
 		val valorEsperado = new BigDecimal("150")
-		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, entrada.getPrecioEntrada().compareTo(valorEsperado), 0.1)
 	}
 
 	@Test
@@ -62,7 +62,7 @@ class TestPeliculas extends JuegoDatosTest {
 			funcion = miercoles4
 		]
 		val valorEsperado = new BigDecimal("120")
-		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, entrada.getPrecioEntrada().compareTo(valorEsperado), 0.1)
 	}
 
 	@Test
@@ -72,7 +72,7 @@ class TestPeliculas extends JuegoDatosTest {
 			funcion = domingo7
 		]
 		val valorEsperado = new BigDecimal("190")
-		Assert.assertEquals(0, entrada.precioEntrada().compareTo(valorEsperado), 0.1)
+		Assert.assertEquals(0, entrada.getPrecioEntrada().compareTo(valorEsperado), 0.1)
 	}
 
 	@Test

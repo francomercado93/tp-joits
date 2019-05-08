@@ -51,12 +51,6 @@ class LoginWindow extends SimpleWindow<LoginUsuario> {
 				modelObject.validarUsuario
 				new CompraEntradasWindow(this, modelObject.usuarioSeleccionado).open
 				this.close
-//				if (modelObject.validarUsuario !== null) {
-//					new CompraTicketSimpleWindow(this, new CompraTicket(modelObject.usuarioSeleccionado)).open
-//					this.close
-//				} else {
-//					showInfo("Login incorrecto!")
-//				}
 			]
 		]
 

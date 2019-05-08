@@ -179,6 +179,7 @@ class JoitsBootstrap implements Bootstrap {
 		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
 		carritoTest.agregarAlCarrito(entradaMatrixMiercoles)
 		carritoTest.agregarAlCarrito(entradaToyStoryJueves5)
+		carritoTest.setPreciosEntradas()
 		santos.agregarSaldinho(new BigDecimal("980"))
 		santos.carrito = carritoTest
 		santos.comprarEntradas()
@@ -198,6 +199,7 @@ class JoitsBootstrap implements Bootstrap {
 		carritoLisa.agregarAlCarrito(entradaBatman1Martes3)
 		carritoLisa.agregarAlCarrito(entradaBatman2Sabado4)
 		lisa.agregarSaldinho(new BigDecimal("5450"))
+		carritoLisa.setPreciosEntradas()
 		lisa.carrito = carritoLisa
 		lisa.comprarEntradas()
 		lisa.agregarAmigo(marge)
@@ -211,6 +213,7 @@ class JoitsBootstrap implements Bootstrap {
 		carritoEdna.agregarAlCarrito(entradaSagaBatmanLunes4)
 		carritoEdna.agregarAlCarrito(entradaMatrixLunes1)
 		carritoEdna.agregarAlCarrito(entradaNueveReinasDomingo1)
+		carritoEdna.setPreciosEntradas()
 		edna.carrito = carritoEdna
 		edna.agregarSaldinho(new BigDecimal("1200"))
 		edna.comprarEntradas()

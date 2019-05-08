@@ -5,6 +5,7 @@ import java.math.BigDecimal
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
+import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
 
 @Observable
@@ -41,5 +42,10 @@ class UsuarioPanel {
 
 	def void actualizar() {
 		RepoUsuarios.instance.update(usuarioSeleccionado)
+	}
+
+	def void actualizarAmigos() {
+		this.usuarioSeleccionado = RepoUsuarios.instance.searchById(usuarioSeleccionado.id)
+		ObservableUtils.firePropertyChanged(this, "usuarioSeleccionado")
 	}
 }

@@ -21,8 +21,8 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 //con transactional no se actualiza correctamente, no se agrega el amigo y llega un usuario vacio 
 class BuscadorAmigoSimpleWindow extends SimpleWindow<BuscadorAmigos> {
 
-	new(WindowOwner parent, BuscadorAmigos model) {
-		super(parent, model)
+	new(WindowOwner parent, Usuario usuario) {
+		super(parent, new BuscadorAmigos(usuario))
 		title = "Buscar amigos!"
 		modelObject.search()
 	}

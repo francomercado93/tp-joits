@@ -6,7 +6,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongodb.morphia.annotations.Entity
 import org.uqbar.commons.model.annotations.Observable
 
-@Entity
+//para crear otra collection
+//@Entity
 @Accessors
 @Observable
 class Saga extends Pelicula {

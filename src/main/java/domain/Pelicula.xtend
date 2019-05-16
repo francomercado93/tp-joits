@@ -16,7 +16,6 @@ class Pelicula {
 
 	static final BigDecimal PRECIO_BASE_PELICULA = new BigDecimal("30")
 
-
 	String titulo
 
 	Integer anio

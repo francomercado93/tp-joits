@@ -25,12 +25,11 @@ class RepoPeliculas extends RepoAbstractMongo<Pelicula> {
 		return allInstances.take(3).toList
 	}
 
-//	def Pelicula searchById(Long id) {
-//	}
+//	def Pelicula searchByName(String nombre)
 	override searchByExample(Pelicula example) {
 		val query = ds.createQuery(entityType)
 		if (example.titulo !== null) {
-			query.field("titulo").equal(example.titulo)
+			query.field("titulo").containsIgnoreCase(example.titulo ?: "")
 		}
 		query.asList
 	}

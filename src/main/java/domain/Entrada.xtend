@@ -4,11 +4,9 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.OneToOne
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
@@ -19,13 +17,11 @@ class Entrada {
 
 	@Id @GeneratedValue
 	Long id
-// necesito la pelicula y la funcion cuando recupero las entradas
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="pelicula_id")
+
+	@Transient
 	Pelicula pelicula
-//, referencedColumnName="id"
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="funcion_id")
+
+	@Transient
 	Funcion funcion
 
 	@Column

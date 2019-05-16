@@ -8,9 +8,6 @@
 	<persistence-unit name="Joits">
 		<description>Tp de entradas para cine Joits</description>
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>domain.Pelicula</class>
-		<class>domain.Funcion</class>
-		<class>domain.Saga</class>
 		<class>domain.Entrada</class>
 		<class>domain.Usuario</class>
 		<properties>

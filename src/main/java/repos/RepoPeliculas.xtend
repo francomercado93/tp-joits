@@ -1,16 +1,12 @@
 package repos
 
 import domain.Pelicula
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.CriteriaQuery
-import javax.persistence.criteria.JoinType
-import javax.persistence.criteria.Root
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
 @Observable
-class RepoPeliculas extends RepoDefault<Pelicula> {
+class RepoPeliculas extends RepoAbstractMongo<Pelicula> {
 
 	static RepoPeliculas instance
 
@@ -29,23 +25,13 @@ class RepoPeliculas extends RepoDefault<Pelicula> {
 		return allInstances.take(3).toList
 	}
 
-	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Pelicula> query, Root<Pelicula> camposPelicula,
-		String titulo) {
-		query.where(criteria.like(camposPelicula.get("titulo"), "%" + titulo + "%"))
-	}
-
-	override Pelicula searchById(Long id) {
-		val entityManager = entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery(entityType)
-			val camposPelicula = query.from(entityType)
-			camposPelicula.fetch("funcionesDisponibles", JoinType.LEFT)
-			query.select(camposPelicula)
-			query.where(criteria.equal(camposPelicula.get("id"), id))
-			entityManager.createQuery(query).singleResult
-		} finally {
-			entityManager?.close
+//	def Pelicula searchById(Long id) {
+//	}
+	override searchByExample(Pelicula example) {
+		val query = ds.createQuery(entityType)
+		if (example.titulo !== null) {
+			query.field("titulo").equal(example.titulo)
 		}
+		query.asList
 	}
 }

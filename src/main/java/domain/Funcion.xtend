@@ -1,34 +1,26 @@
 package domain
 
+import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongodb.morphia.annotations.Embedded
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
-@Entity
+@Embedded
 @Observable
-class Funcion {
+class Funcion implements Serializable {
 
 	static final BigDecimal VALOR_MIERCOLES = new BigDecimal("50")
 	static final BigDecimal VALOR_FINDE = new BigDecimal("120")
 	static final BigDecimal VALOR_OTROS_DIAS = new BigDecimal("80")
 
-	@Id @GeneratedValue
-	Long id
-
-	@Column
 	LocalDate fecha
 
-	@Column(columnDefinition="varchar(8)")
 	LocalTime hora
 
-	@Column(length=150)
 	String nombreSala
 
 	new() {

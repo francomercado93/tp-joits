@@ -1,34 +1,27 @@
 package domain
 
 import java.math.BigDecimal
-import java.util.ArrayList
 import java.util.List
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongodb.morphia.annotations.Entity
 import org.uqbar.commons.model.annotations.Observable
 
-@Accessors
 @Entity
+@Accessors
 @Observable
 class Saga extends Pelicula {
 	static final BigDecimal PRECIO_BASE_SAGA = new BigDecimal("10")
 	static final BigDecimal MULTIPLICADOR_NIVEL_CLASICO = new BigDecimal("5")
 
-	@Column
 	BigDecimal multiplicador
+
+	List<Pelicula> peliculasSaga
 
 	new() {
 		precioBase = PRECIO_BASE_SAGA
 		multiplicador = MULTIPLICADOR_NIVEL_CLASICO
+		peliculasSaga = newArrayList
 	}
-
-	@OneToMany(fetch=FetchType.EAGER)
-	// necesito tener las peliculas para calcular el costo de las entradas, no puede ser lazy
-	// se generan valores null en la tabla pelicula si le agrego la fk de la saga con @JoinColumn(name="saga_id")
-	List<Pelicula> peliculasSaga = new ArrayList<Pelicula>
 
 	override getPrecioBase() {
 		return PRECIO_BASE_SAGA * this.cantidadPeliculasSaga() + this.nivelDeClasico

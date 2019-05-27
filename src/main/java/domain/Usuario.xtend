@@ -50,6 +50,10 @@ class Usuario {
 	@JoinColumn(name="usuario_id")
 	Set<Entrada> entradasCompradas
 
+//	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+//	@JoinColumn(name="usuario_id")
+//	@ElementCollection
+//	Set<String> peliculasVistas
 	@Column(nullable=false, columnDefinition="decimal(19,2) default 0")
 	BigDecimal saldo
 
@@ -75,6 +79,9 @@ class Usuario {
 	def Set<Pelicula> getPeliculasVistas() {
 		return entradasCompradas.map[pelicula].toSet
 	}
+//	def setPeliculasVistas() {
+//		peliculasVistas = entradasCompradas.map[pelicula.titulo].toSet
+//	}
 
 	def comprarEntradas() {
 		if (!this.tieneSaldoSuficiente())
@@ -98,6 +105,7 @@ class Usuario {
 
 	def agregarEntradasCompradas(List<Entrada> entradas) {
 		entradasCompradas.addAll(entradas) // devuelve boolean
+//		this.setPeliculasVistas()
 	}
 
 	def validarPassword(String pass) {

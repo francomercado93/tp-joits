@@ -3,7 +3,6 @@ package domain
 import java.math.BigDecimal
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.mongodb.morphia.annotations.Entity
 import org.uqbar.commons.model.annotations.Observable
 
 //para crear otra collection

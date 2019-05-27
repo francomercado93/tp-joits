@@ -89,7 +89,7 @@ class UsuarioPanelSimpleWindow extends SimpleWindow<UsuarioPanel> {
 				caption = "Buscar Amigos"
 				onClick[|
 					new BuscadorAmigoSimpleWindow(this, modelObject.usuarioSeleccionado).open
-				modelObject.actualizarAmigos()
+					modelObject.actualizarAmigos()
 				]
 			]
 		]
@@ -146,7 +146,6 @@ class UsuarioPanelSimpleWindow extends SimpleWindow<UsuarioPanel> {
 				height = 56
 				allowNull(true)
 				items <=> "usuarioSeleccionado.peliculasVistas"
-			// value <=> "usuarioSeleccionado" //TODO: Creo que no es necesario ya que solo quiero visualizar una lista.
 			]
 		]
 		new Panel(panel) => [

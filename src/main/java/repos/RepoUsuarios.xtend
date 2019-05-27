@@ -61,6 +61,7 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 			val query = criteria.createQuery(entityType)
 			val camposUsuario = query.from(entityType)
 			camposUsuario.fetch("entradasCompradas", JoinType.LEFT) // si un usuario no tiene entradas o amigos los trae igual de la bd
+//			camposUsuario.fetch("peliculasVistas", JoinType.LEFT)
 			camposUsuario.fetch("amigos", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))

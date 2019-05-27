@@ -3,10 +3,11 @@ package domain
 import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.Column
+import javax.persistence.Convert
+import javax.persistence.Embedded
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
@@ -18,10 +19,11 @@ class Entrada {
 	@Id @GeneratedValue
 	Long id
 
-	@Transient
+	@Column
+	@Convert(converter=PeliculaConverter)
 	Pelicula pelicula
 
-	@Transient
+	@Embedded
 	Funcion funcion
 
 	@Column

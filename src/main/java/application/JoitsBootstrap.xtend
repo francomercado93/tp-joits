@@ -517,7 +517,6 @@ class JoitsBootstrap implements Bootstrap {
 			agregarFuncion(miercoles4)
 			agregarFuncion(domingo7)
 		]
-
 		this.crearPelicula(matrix)
 		this.crearPelicula(vengadores)
 		this.crearPelicula(nueveReinas)

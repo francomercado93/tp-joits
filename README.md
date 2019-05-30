@@ -1,7 +1,7 @@
 # Pasos para crear shards
-1)Crear carpeta data y mongodb.
+_1)Crear carpeta data y mongodb.
 2)Ejecutar como administrador cmd o git bash
-3)Levantar
+3)Levantar_
 ```
 "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath C:\data\mongodb
 ```

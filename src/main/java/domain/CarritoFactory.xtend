@@ -99,6 +99,13 @@ class CarritoFactory {
 	}
 }
 
+/*
+ * TODO: Cambiar a una forma mas sencilla, utilizar @Expose para guardar solo los campos que queremos en Redis (titulo y datos de la funcion).
+ * Luego convertir a Json el objeto de entrada y guardar eso. Para rescatarlo, parseamos el JSON y usamos el titulo para buscar la peli al repo
+ * y para los datos de la funcion hacemos un new Funcion() pasando los datos guardados del JSON. A lo sumo habría que validar que la Funcion
+ * sea equals a la Funcion que tiene la Pelicula y que tire una excepción si son diferentes (capaz actualizaron la funcion en MongoDB)
+ * a la hora de comprar las entradas .
+*/
 @Accessors
 @Observable
 class EntradaRedis {

@@ -31,15 +31,17 @@ class FinalizarCompra {
 	def eliminarItem() {
 		CarritoFactory.instance.eliminarEntradaRedis(usuario.id, entradaSeleccionada)
 		carrito.eliminarDelCarrito(entradaSeleccionada)
+		ObservableUtils.firePropertyChanged(this, "carrito")
 	}
 
 	def limpiarCarrito() {
 		CarritoFactory.instance.vaciarCarrito(usuario.id)
 		carrito.vaciarCarrito()
-		this.actualizarCarrito()
+		ObservableUtils.firePropertyChanged(this, "carrito")
+		this.actualizarPrecioCarrito()
 	}
 
-	def actualizarCarrito() {
+	def actualizarPrecioCarrito() {
 		ObservableUtils.firePropertyChanged(this, "totalCarrito")
 	}
 
@@ -47,7 +49,8 @@ class FinalizarCompra {
 		CarritoFactory.instance.vaciarCarrito(usuario.id)
 		usuario.comprarEntradas()
 		this.actualizarUsuario()
-		this.actualizarCarrito()
+		this.carrito.vaciarCarrito()
+		ObservableUtils.firePropertyChanged(this, "carrito")
 	}
 
 	def void actualizarUsuario() {

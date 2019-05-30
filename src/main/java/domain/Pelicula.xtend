@@ -9,7 +9,7 @@ import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.model.annotations.Observable
 
 //sin asignar un nuevo nombre a la collection, se me generaban dos colecciones Pelicula y Saga en la base
-@Entity(value="Peliculas")
+@Entity(value="Peliculas", noClassnameStored=false)
 @Accessors
 @Observable
 class Pelicula {

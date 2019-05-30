@@ -15,7 +15,7 @@ class PeliculaConverter implements AttributeConverter<Pelicula, String> {
 //	if (pelicula instanceof Saga)
 //
 //		return "asdasd"
-}
+	}
 
 	override convertToEntityAttribute(String titulo) {
 		val peliculaABuscar = new Pelicula(titulo)

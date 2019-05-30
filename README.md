@@ -106,7 +106,7 @@ db.Pelicula.count()
 use joits
 db.Pelicula.count()
 ```
-##Creamos las shardkeys con indices hash
+## Creamos las shardkeys con indices hash.
 
 Volvemos a levantar el puerto 28001:
 ```

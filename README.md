@@ -139,13 +139,15 @@ db.chunks.find({},
 
 ```
 ## Algunas cosas que nos pueden servir
-
+```
  sh.startBalancer()
 
 sh.status( { verbose : 1 } )
 
  sh.stopBalancer()
+
  sh.getBalancerState()
+ ```
 
 
 

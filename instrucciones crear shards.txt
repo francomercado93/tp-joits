@@ -133,6 +133,22 @@ db.Saga.getShardDistribution()
 
 No se distribuyen las peliculas en los shards
 
+usar db.collection.createIndex() en vez de db.collection.ensureIndex()
+
+Creates an index on the specified field if the index does not already exist.
+ por id
+
+db.Peliculas.createIndex( { _id : "hashed" } )
+
+
+sh.enableSharding("joits")
+
+Enables sharding on the specified database. This does not automatically shard any collections but makes it possible to begin sharding collections using sh.shardCollection().
+
+sh.shardCollection(namespace, key, unique, options)¶
+Shards a collection using the key as a the shard key. sh.shardCollection() takes the following arguments:
+
+sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false)
 
 
 

@@ -3,7 +3,7 @@
 * Ejecutar como administrador cmd o git bash
 * Levantar
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath C:\data\mongodb
+"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath "C:\data\mongodb"
 ```
 
 * Crear carpeta sharding en mongodb
@@ -11,12 +11,13 @@
 * Pararse en el directorio sharding y crear las carpetas
 ```
 mkdir cfg1 cfg2 shard1 shard2 repl1 repl2
+ ```
+ * Levantamos los servers de configuracion
 
 "C:\Program Files\MongoDB\Server\4.0\bin\mongod" --replSet rsConf --configsvr --port 26050 --logpath C:\data\mongodb\sharding\log.cfg1 --logappend --dbpath C:\data\mongodb\sharding\cfg1
 ```
+// Abrir nueva terminal
 
-* Abrir nueva terminal
-```
 "C:\Program Files\MongoDB\Server\4.0\bin\mongod" --replSet rsConf --configsvr --port 26051 --logpath C:\data\mongodb\sharding\log.cfg2 --logappend --dbpath C:\data\mongodb\sharding\cfg2
 ```
 *Para cambiar a carpeta sharding*
@@ -24,6 +25,8 @@ mkdir cfg1 cfg2 shard1 shard2 repl1 repl2
 cd C:\data\mongodb\sharding
 ```
 * Se deberian creardos archivos log en la carpeta sharding y otro archivos en la carpeta cfg1 y cfg2
+
+* Levantamos los shards
 ```
 "C:\Program Files\MongoDB\Server\4.0\bin\mongod" --shardsvr --replSet shard1 --dbpath C:\data\mongodb\sharding\shard1 --logpath C:\data\mongodb\sharding\log.shard1 --port 27000 --logappend --smallfiles --oplogSize 50
 
@@ -149,6 +152,25 @@ sh.status( { verbose : 1 } )
  sh.getBalancerState()
  ```
 
+
+Usar db.collection.createIndex() en vez de db.collection.ensureIndex()
+
+Creates an index on the specified field if the index does not already exist.
+ por id
+ ```
+db.Peliculas.createIndex( { _id : "hashed" } )
+
+sh.enableSharding("joits")
+ ```
+
+Enables sharding on the specified database. This does not automatically shard any collections but makes it possible to begin sharding collections using sh.shardCollection().
+ ```
+sh.shardCollection(namespace, key, unique, options)¶
+ ```
+Shards a collection using the key as a the shard key. sh.shardCollection() takes the following arguments:
+ ```
+sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false)
+ ```
 
 
 

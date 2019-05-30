@@ -33,4 +33,12 @@ class RepoPeliculas extends RepoAbstractMongo<Pelicula> {
 		}
 		query.asList
 	}
+	
+	def Pelicula searchByName(String nombre) {
+		val query = ds.createQuery(entityType)
+		if (nombre !== null) {
+			query.field("titulo").containsIgnoreCase(nombre ?: "")
+		}
+		query.asList.head
+	}
 }

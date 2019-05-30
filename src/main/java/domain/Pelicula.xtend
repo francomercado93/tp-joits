@@ -8,9 +8,10 @@ import org.mongodb.morphia.annotations.Entity
 import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.model.annotations.Observable
 
-@Entity
+
 @Accessors
 @Observable
+@Entity(value="Peliculas")
 class Pelicula {
 	@Id ObjectId id
 

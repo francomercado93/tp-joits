@@ -8,6 +8,7 @@ import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
+import domain.CarritoFactory
 
 @Accessors
 @Observable
@@ -20,7 +21,6 @@ class FinalizarCompra {
 	new(Usuario usr) {
 		usuario = RepoUsuarios.instance.searchById(usr.id) // necesito traerme las entradas compradas para agregar las nuevas
 		carrito = usr.carrito
-		usuario.carrito = carrito
 	}
 
 	@Dependencies("carrito")
@@ -29,10 +29,12 @@ class FinalizarCompra {
 	}
 
 	def eliminarItem() {
+		CarritoFactory.instance.eliminarEntradaRedis(usuario.id, entradaSeleccionada)
 		carrito.eliminarDelCarrito(entradaSeleccionada)
 	}
 
 	def limpiarCarrito() {
+		CarritoFactory.instance.vaciarCarrito(usuario.id)
 		carrito.vaciarCarrito()
 		this.actualizarCarrito()
 	}
@@ -42,6 +44,7 @@ class FinalizarCompra {
 	}
 
 	def comprarEntradas() {
+		CarritoFactory.instance.vaciarCarrito(usuario.id)
 		usuario.comprarEntradas()
 		this.actualizarUsuario()
 		this.actualizarCarrito()

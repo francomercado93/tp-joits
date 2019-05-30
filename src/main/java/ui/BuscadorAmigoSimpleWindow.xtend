@@ -121,7 +121,7 @@ class BuscadorAmigoSimpleWindow extends SimpleWindow<BuscadorAmigos> {
 				value <=> "busqueda"
 			]
 			new Button(it) => [
-				// width = 102 TODO: Por qué se ven mal las columnas?
+				// width = 102 Por qué se ven mal las columnas? Porque si.
 				width = 101
 				caption = "Buscar"
 				onClick [|

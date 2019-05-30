@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import java.time.LocalTime
 
 @Entity
 @Accessors
@@ -42,6 +43,10 @@ class Entrada {
 
 	def LocalDate fechaFuncion() {
 		return funcion.getFecha
+	}
+
+	def LocalTime horaFuncion() {
+		return funcion.getHora
 	}
 
 }

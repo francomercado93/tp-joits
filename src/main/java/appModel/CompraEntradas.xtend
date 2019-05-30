@@ -12,6 +12,7 @@ import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoPeliculas
+import domain.CarritoFactory
 
 @Observable
 @Accessors
@@ -28,6 +29,7 @@ class CompraEntradas {
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
+		usuario.carrito = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		carritoUsr = usuario.carrito
 		peliculaABuscar = ""
 	}
@@ -68,6 +70,7 @@ class CompraEntradas {
 	}
 
 	def void agregarItemCarrito() {
+		CarritoFactory.instance.agregarEntradaRedis(usuario.id, this.crearEntrada())
 		carritoUsr.agregarAlCarrito(this.crearEntrada())
 		this.actualizarCarrito()
 	}

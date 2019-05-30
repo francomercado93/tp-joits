@@ -9,7 +9,6 @@ import org.uqbar.commons.model.annotations.Observable
 @Accessors
 @Observable
 class Carrito {
-
 	List<Entrada> entradas = new ArrayList<Entrada>
 
 	def agregarAlCarrito(Entrada entrada) {
@@ -42,5 +41,4 @@ class Carrito {
 	def setPreciosEntradas() {
 		entradas.forEach(entrada|entrada.setPrecioEntrada())
 	}
-
 }

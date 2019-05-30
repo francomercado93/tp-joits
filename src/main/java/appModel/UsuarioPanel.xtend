@@ -29,7 +29,7 @@ class UsuarioPanel {
 	def void agregarSaldo() {
 		// Bug con el binding de un BigDecimal? (Cuando sumo por ejemplo 44.4 lo toma como 444)
 		usuarioSeleccionado.agregarSaldinho(cargarSaldo)
-		// cargarSaldo = null TODO: Por qué no funca con null la vista?
+		// cargarSaldo = null  Por qué no funca con null la vista? Porque no bindea contra null.
 		cargarSaldo = BigDecimal.ZERO
 		// SIMPSON: Entra cuchillo salen las tripas (actualizamos usuario --> remove y add)
 		this.actualizar

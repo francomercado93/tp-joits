@@ -13,7 +13,8 @@ abstract class RepoAbstractMongo<T> {
 
 	new() {
 		if (ds === null) {
-			val mongo = new MongoClient("localhost", 27017)
+//			val mongo = new MongoClient("localhost", 27017)
+			val mongo = new MongoClient("localhost", 28001)
 			new Morphia => [
 				map(Pelicula).map(Saga)
 				ds = createDatastore(mongo, "joits")

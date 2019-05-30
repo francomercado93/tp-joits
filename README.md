@@ -1,48 +1,38 @@
-# Pasos para crear shards
-* Crear carpeta data y mongodb.
-* Ejecutar como administrador cmd o git bash
-* Levantar
+# Pasos para crear shards!
+* Crear carpeta data, mongodb y sharding.
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath "C:\data\mongodb"
+mkdir "C:\data\mongodb\sharding
 ```
-
-* Crear carpeta sharding en mongodb
-
-* Pararse en el directorio sharding y crear las carpetas
+* Levantar mongod en "C:\data\mongodb
 ```
+mongod --dbpath "C:\data\mongodb"
+```
+* Crear carpetas de config, shards y replicas.
+```
+cd "C:\data\mongodb\sharding"
 mkdir cfg1 cfg2 shard1 shard2 repl1 repl2
  ```
  * Levantamos los servers de configuracion
-
-"C:\Program Files\MongoDB\Server\4.0\bin\mongod" --replSet rsConf --configsvr --port 26050 --logpath C:\data\mongodb\sharding\log.cfg1 --logappend --dbpath C:\data\mongodb\sharding\cfg1
+ ```
+mongod --replSet rsConf --configsvr --port 26050 --logpath C:\data\mongodb\sharding\log.cfg1 --logappend --dbpath C:\data\mongodb\sharding\cfg1
 ```
-// Abrir nueva terminal
-
-"C:\Program Files\MongoDB\Server\4.0\bin\mongod" --replSet rsConf --configsvr --port 26051 --logpath C:\data\mongodb\sharding\log.cfg2 --logappend --dbpath C:\data\mongodb\sharding\cfg2
+//Abrir nueva terminal
+ ```
+mongod --replSet rsConf --configsvr --port 26051 --logpath C:\data\mongodb\sharding\log.cfg2 --logappend --dbpath C:\data\mongodb\sharding\cfg2
 ```
-*Para cambiar a carpeta sharding*
-```
-cd C:\data\mongodb\sharding
-```
-* Se deberian creardos archivos log en la carpeta sharding y otro archivos en la carpeta cfg1 y cfg2
-
 * Levantamos los shards
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongod" --shardsvr --replSet shard1 --dbpath C:\data\mongodb\sharding\shard1 --logpath C:\data\mongodb\sharding\log.shard1 --port 27000 --logappend --smallfiles --oplogSize 50
+mongod --shardsvr --replSet shard1 --dbpath C:\data\mongodb\sharding\shard1 --logpath C:\data\mongodb\sharding\log.shard1 --port 27000 --logappend --smallfiles --oplogSize 50
 
+mongod --shardsvr --replSet shard1 --dbpath C:\data\mongodb\sharding\repl1 --logpath C:\data\mongodb\sharding\log.repl1 --port 27001 --logappend --smallfiles --oplogSize 50
 
-"C:\Program Files\MongoDB\Server\4.0\bin\mongod" --shardsvr --replSet shard1 --dbpath C:\data\mongodb\sharding\repl1 --logpath C:\data\mongodb\sharding\log.repl1 --port 27001 --logappend --smallfiles --oplogSize 50
+mongod --shardsvr --replSet shard2 --dbpath C:\data\mongodb\sharding\shard2 --logpath C:\data\mongodb\sharding\log.shard2 --port 27100 --logappend --smallfiles --oplogSize 50
 
-
-"C:\Program Files\MongoDB\Server\4.0\bin\mongod" --shardsvr --replSet shard2 --dbpath C:\data\mongodb\sharding\shard2 --logpath C:\data\mongodb\sharding\log.shard2 --port 27100 --logappend --smallfiles --oplogSize 50
-
-
-"C:\Program Files\MongoDB\Server\4.0\bin\mongod" --shardsvr --replSet shard2 --dbpath C:\data\mongodb\sharding\repl2 --logpath C:\data\mongodb\sharding\log.repl2 --port 27101 --logappend --smallfiles --oplogSize 50
+mongod --shardsvr --replSet shard2 --dbpath C:\data\mongodb\sharding\repl2 --logpath C:\data\mongodb\sharding\log.repl2 --port 27101 --logappend --smallfiles --oplogSize 50
 ```
-* Levantar instancia de mongo en puerto 26050:
+* Levantar cliente mongo en puerto 26050 y correr config:
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongo" --port 26050
-
+mongo --port 26050
 
 cfg={_id:"rsConf",members:[{_id:0 ,host: "127.0.0.1:26050"}, {_id: 1, host: "127.0.0.1:26051" }]}
 
@@ -50,22 +40,19 @@ rs.initiate(cfg)
 //deberia tirar un ok: 1
 exit
 ```
-* Levantar una instancia de mongo en el puerto 27000 y configurar master y slave
+* Levantar cliente mongo en puerto 27000 y configurar master/slave
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongo" --port 27000
+mongo --port 27000
 
 cfg={_id:"shard1", members:[{_id:0 ,host: "127.0.0.1:27000"}, {_id:1 ,host: "127.0.0.1:27001" }]}
 
 rs.initiate(cfg)
-
 rs.status()
-
 exit
 ```
-
 * Lo mismo para el otro shard
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongo" --port 27100
+mongo --port 27100
 
 cfg={_id:"shard2", members:[{_id:0 ,host: "127.0.0.1:27100"}, {_id:1 ,host: "127.0.0.1:27101" }]}
 
@@ -77,11 +64,11 @@ exit
 ```
 * Iniciar servicios de ruteo
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongos" --configdb rsConf/127.0.0.1:26050,127.0.0.1:26051 --logappend --logpath C:\data\mongodb\shardlog --port 28001 --bind_ip 127.0.0.1
+mongos --configdb rsConf/127.0.0.1:26050,127.0.0.1:26051 --logappend --logpath C:\data\mongodb\shardlog --port 28001 --bind_ip 127.0.0.1
 ```
-* Abrir nuevo git bash o cmd(siempre como administrador) y abrir sesion cliente de mongo
+* Abrir cliente mongo en puerto 28001
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongo" --port 28001
+mongo --port 28001
 ```
 * Agregar los shards que creamos
 ```
@@ -98,28 +85,28 @@ Abrir eclipse y cambiar el puerto a 28001 para que se conecte al servicio de rut
 A partir de ahora se puede ver las colecciones
 ```
 use joits
- db.Pelicula.find().pretty()
-db.Pelicula.count()
+db.Peliculas.find().pretty()
+db.Peliculas.count()
 ```
 
-* Las peliculas y sagas estan en el shard dos, esto se ve haciendo:
+* Las peliculas y sagas estan en algun shard, esto se ve haciendo:
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongo" --port 27100
+mongo --port 27100
 
 use joits
 db.Pelicula.count()
 ```
 ## Creamos las shardkeys con indices hash.
 
-Volvemos a levantar el puerto 28001:
+* Abrir cliente mongo en puerto 28001:
 ```
-"C:\Program Files\MongoDB\Server\4.0\bin\mongo" --port 28001
+mongo --port 28001
 
 use joits
 
 -- creamos el índice de peliculas por hash del titulo 
 
-db.Peliculas.ensureIndex({"titulo": "hashed"})
+db.Peliculas.ensureIndex({"_id": "hashed"})
 
 -- habilitamos el sharding para la database joits
 
@@ -127,7 +114,7 @@ sh.enableSharding("joits")
 
 -- definimos la clave por el índice 
 
-sh.shardCollection("joits.Peliculas", {"titulo": "hashed" }, false)
+sh.shardCollection("joits.Peliculas", {"_id": "hashed" }, false)
 ```
 Vemos los chunks que se generaron:
 ```
@@ -143,26 +130,24 @@ db.chunks.find({},
 ```
 ## Algunas cosas que nos pueden servir
 ```
- sh.startBalancer()
+sh.startBalancer()
 
 sh.status( { verbose : 1 } )
 
- sh.stopBalancer()
+sh.stopBalancer()
 
- sh.getBalancerState()
- ```
-
+sh.getBalancerState()
+```
 
 Usar db.collection.createIndex() en vez de db.collection.ensureIndex()
 
 Creates an index on the specified field if the index does not already exist.
- por id
+por id
  ```
 db.Peliculas.createIndex( { _id : "hashed" } )
 
 sh.enableSharding("joits")
  ```
-
 Enables sharding on the specified database. This does not automatically shard any collections but makes it possible to begin sharding collections using sh.shardCollection().
  ```
 sh.shardCollection(namespace, key, unique, options)¶

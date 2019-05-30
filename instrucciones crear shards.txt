@@ -80,7 +80,7 @@ exit
 sh.addShard("shard1/127.0.0.1:27000")
 sh.addShard("shard2/127.0.0.1:27100")
 
-Si todo anduvo ok, vas a ver los 2 shards y sus rÃ©plicas con este comando:
+Si todo anduvo ok, vas a ver los 2 shards y sus réplicas con este comando:
 
 db.adminCommand( { listShards: 1 } )
 
@@ -105,7 +105,7 @@ db.Pelicula.count()
 
 use joits
 
--- creamos el Ã­ndice de peliculas por hash del titulo 
+-- creamos el índice de peliculas por hash del titulo 
 
 db.Pelicula.ensureIndex({"titulo": "hashed"})
 
@@ -113,7 +113,7 @@ db.Pelicula.ensureIndex({"titulo": "hashed"})
 
 sh.enableSharding("joits")
 
--- definimos la clave por el Ã­ndice 
+-- definimos la clave por el índice 
 
 sh.shardCollection("joits.Pelicula", {"titulo": "hashed" }, false)
 

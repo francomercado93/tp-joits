@@ -10,16 +10,10 @@ class PeliculaConverter implements AttributeConverter<Pelicula, String> {
 		if (pelicula !== null) {
 			return pelicula.titulo
 		}
-//		else
-//			return pelicula.genero
-//	if (pelicula instanceof Saga)
-//
-//		return "asdasd"
 	}
 
 	override convertToEntityAttribute(String titulo) {
-		val peliculaABuscar = new Pelicula(titulo)
-		RepoPeliculas.instance.searchByExample(peliculaABuscar).head
+		RepoPeliculas.instance.searchByName(titulo)
 	}
 
 }

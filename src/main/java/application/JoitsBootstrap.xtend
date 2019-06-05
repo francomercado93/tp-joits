@@ -81,12 +81,13 @@ class JoitsBootstrap implements Bootstrap {
 	Entrada entradaSagaBatmanLunes4
 
 	Usuario amigo1
-
 	Usuario amigo2
-
 	Usuario amigo3
 
+	Carrito carritoTest
+
 	new() {
+		carritoTest = new Carrito()
 	}
 
 	override isPending() {
@@ -175,14 +176,13 @@ class JoitsBootstrap implements Bootstrap {
 	}
 
 	def santosCompraEntradasYSeHaceAmigos() {
-		val carritoTest = new Carrito
+		carritoTest.vaciarCarrito()
 		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
 		carritoTest.agregarAlCarrito(entradaMatrixMiercoles)
 		carritoTest.agregarAlCarrito(entradaToyStoryJueves5)
 		carritoTest.setPreciosEntradas()
 		santos.agregarSaldinho(new BigDecimal("980"))
-		santos.carrito = carritoTest
-		santos.comprarEntradas()
+		santos.comprarEntradas(carritoTest)
 		santos.agregarAmigo(edna)
 		santos.agregarAmigo(riquelme)
 		santos.agregarAmigo(zanetti)
@@ -190,33 +190,31 @@ class JoitsBootstrap implements Bootstrap {
 	}
 
 	def lisaCompraEntradasYHaceAmigos() {
-		val carritoLisa = new Carrito
-		carritoLisa.agregarAlCarrito(entradaMatrixMartes1)
-		carritoLisa.agregarAlCarrito(entradaVengadoreslunes2)
-		carritoLisa.agregarAlCarrito(entradaVengadoresjueves1)
-		carritoLisa.agregarAlCarrito(entradaToyStorySabado6)
-		carritoLisa.agregarAlCarrito(entradaSagaBatmanLunes4)
-		carritoLisa.agregarAlCarrito(entradaBatman1Martes3)
-		carritoLisa.agregarAlCarrito(entradaBatman2Sabado4)
+		carritoTest.vaciarCarrito()
+		carritoTest.agregarAlCarrito(entradaMatrixMartes1)
+		carritoTest.agregarAlCarrito(entradaVengadoreslunes2)
+		carritoTest.agregarAlCarrito(entradaVengadoresjueves1)
+		carritoTest.agregarAlCarrito(entradaToyStorySabado6)
+		carritoTest.agregarAlCarrito(entradaSagaBatmanLunes4)
+		carritoTest.agregarAlCarrito(entradaBatman1Martes3)
+		carritoTest.agregarAlCarrito(entradaBatman2Sabado4)
 		lisa.agregarSaldinho(new BigDecimal("5450"))
-		carritoLisa.setPreciosEntradas()
-		lisa.carrito = carritoLisa
-		lisa.comprarEntradas()
+		carritoTest.setPreciosEntradas()
+		lisa.comprarEntradas(carritoTest)
 		lisa.agregarAmigo(marge)
 		RepoUsuarios.instance.update(lisa)
 	}
 
 	def ednaCompraEntradasYHaceAmigos() {
-		val carritoEdna = new Carrito
-		carritoEdna.agregarAlCarrito(entradaBatman1Martes3)
-		carritoEdna.agregarAlCarrito(entradaBatman2Sabado4)
-		carritoEdna.agregarAlCarrito(entradaSagaBatmanLunes4)
-		carritoEdna.agregarAlCarrito(entradaMatrixLunes1)
-		carritoEdna.agregarAlCarrito(entradaNueveReinasDomingo1)
-		carritoEdna.setPreciosEntradas()
-		edna.carrito = carritoEdna
+		carritoTest.vaciarCarrito()
+		carritoTest.agregarAlCarrito(entradaBatman1Martes3)
+		carritoTest.agregarAlCarrito(entradaBatman2Sabado4)
+		carritoTest.agregarAlCarrito(entradaSagaBatmanLunes4)
+		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
+		carritoTest.agregarAlCarrito(entradaNueveReinasDomingo1)
+		carritoTest.setPreciosEntradas()
 		edna.agregarSaldinho(new BigDecimal("1200"))
-		edna.comprarEntradas()
+		edna.comprarEntradas(carritoTest)
 		edna.agregarAmigo(santos)
 		edna.agregarAmigo(riquelme)
 		RepoUsuarios.instance.update(edna)

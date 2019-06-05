@@ -13,7 +13,6 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
-import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
@@ -43,9 +42,6 @@ class Usuario {
 	@ManyToMany(fetch=FetchType.LAZY)
 	Set<Usuario> amigos
 
-	@Transient
-	Carrito carrito
-
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="usuario_id")
 	Set<Entrada> entradasCompradas
@@ -59,7 +55,6 @@ class Usuario {
 
 	new() {
 		saldo = new BigDecimal("0")
-		carrito = new Carrito
 		amigos = new HashSet<Usuario>
 		entradasCompradas = new HashSet<Entrada>
 	}
@@ -79,27 +74,27 @@ class Usuario {
 	def Set<Pelicula> getPeliculasVistas() {
 		return entradasCompradas.map[pelicula].toSet
 	}
+
 //	def setPeliculasVistas() {
 //		peliculasVistas = entradasCompradas.map[pelicula.titulo].toSet
 //	}
-
-	def comprarEntradas() {
-		if (!this.tieneSaldoSuficiente())
+	def comprarEntradas(Carrito carrito) {
+		if (!this.tieneSaldoSuficiente(carrito))
 			throw new UserException("No tiene saldo suficiente")
-		this.finalizarCompra()
+		this.finalizarCompra(carrito)
 	}
 
-	def finalizarCompra() {
-		this.descontarSaldo()
+	def finalizarCompra(Carrito carrito) {
+		this.descontarSaldo(carrito)
 		this.agregarEntradasCompradas(carrito.entradas)
 		carrito.vaciarCarrito()
 	}
 
-	def descontarSaldo() {
+	def descontarSaldo(Carrito carrito) {
 		saldo = saldo - carrito.total
 	}
 
-	def Boolean tieneSaldoSuficiente() {
+	def Boolean tieneSaldoSuficiente(Carrito carrito) {
 		return 1 == saldo.compareTo(carrito.total) || 0 == saldo.compareTo(carrito.total) // saldo >= carrito.total()
 	}
 
@@ -115,7 +110,7 @@ class Usuario {
 			throw new UserException("Contraseña no valida")
 	}
 
-	def totalCarrito() {
+	def totalCarrito(Carrito carrito) {
 		carrito.total
 	}
 

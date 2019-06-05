@@ -20,7 +20,7 @@ class FinalizarCompra {
 
 	new(Usuario usr) {
 		usuario = RepoUsuarios.instance.searchById(usr.id) // necesito traerme las entradas compradas para agregar las nuevas
-		carrito = usr.carrito
+		carrito = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 	}
 
 	@Dependencies("carrito")
@@ -29,14 +29,14 @@ class FinalizarCompra {
 	}
 
 	def eliminarItem() {
-		CarritoFactory.instance.eliminarEntradaRedis(usuario.id, entradaSeleccionada)
 		carrito.eliminarDelCarrito(entradaSeleccionada)
+		CarritoFactory.instance.eliminarEntradaRedis(usuario.id, entradaSeleccionada)
 		ObservableUtils.firePropertyChanged(this, "carrito")
 	}
 
 	def limpiarCarrito() {
-		CarritoFactory.instance.vaciarCarrito(usuario.id)
 		carrito.vaciarCarrito()
+		CarritoFactory.instance.vaciarCarrito(usuario.id)
 		ObservableUtils.firePropertyChanged(this, "carrito")
 		this.actualizarPrecioCarrito()
 	}
@@ -46,10 +46,10 @@ class FinalizarCompra {
 	}
 
 	def comprarEntradas() {
+		usuario.comprarEntradas(carrito)
+		carrito.vaciarCarrito()
 		CarritoFactory.instance.vaciarCarrito(usuario.id)
-		usuario.comprarEntradas()
 		this.actualizarUsuario()
-		this.carrito.vaciarCarrito()
 		ObservableUtils.firePropertyChanged(this, "carrito")
 	}
 

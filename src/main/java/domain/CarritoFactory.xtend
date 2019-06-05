@@ -1,22 +1,21 @@
 package domain
 
 //import org.uqbar.commons.model.exceptions.UserException
-import redis.clients.jedis.Jedis
-//import redis.clients.jedis.JedisPool
-//import redis.clients.jedis.JedisPoolConfig
-//import redis.clients.jedis.exceptions.JedisConnectionException
-import java.util.List
-import com.google.gson.Gson
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
+
+import com.eclipsesource.json.Json
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.List
+import org.uqbar.xtrest.json.JSONUtils
+import redis.clients.jedis.Jedis
 import repos.RepoPeliculas
-import java.util.ArrayList
-import java.math.BigDecimal
 
 class CarritoFactory {
 	Jedis jedis
+	extension JSONUtils = new JSONUtils
 	// var JedisPool jedisPool //TODO: Implementar jedisPool con todas las funciones.
 	static CarritoFactory instance = null
 	public static val LOCALHOST = "localhost"
@@ -34,95 +33,48 @@ class CarritoFactory {
 	}
 
 	def Carrito usuarioEntradasRedis(Long usuarioId) {
-		val List<EntradaRedis> entradas = jedis.lrange("usuario:" + usuarioId, 0, -1).map [ json |
-			convertirToEntradaRedis(json)
+		val List<Entrada> entradasAgregadas = jedis.lrange("usuario:" + usuarioId, 0, -1).map [ json |
+			this.convertEntrada(json)
 		].toList
-		val List<Entrada> entradasGuardadas = new ArrayList<Entrada>
-		for (EntradaRedis entrada : entradas) {
-			entradasGuardadas.add(crearEntrada(entrada))
-		}
-		return new Carrito() => [entradas = entradasGuardadas]
+		val carrito = new Carrito()
+		carrito.entradas.addAll(entradasAgregadas)
+		return carrito
 	}
 
-	// Soy un boludo, cuando compra tendría que eliminar todo, está al revés.
-//	def void agregarEntradaRedis(long usuarioId, List<Entrada> entradas) {
-//		val List<EntradaRedis> redisEntradas = entradas.map[entrada|carritoToEntradaRedis(entrada)].toList
-//		for (EntradaRedis entrada : redisEntradas) {
-//  			jedis.rpush("usuario:" + usuarioId, convertirToJson(entrada))
-//		}
-//	}
-//	
 	def void agregarEntradaRedis(long usuarioId, Entrada entrada) {
-		val EntradaRedis redis = crearEntradaRedis(entrada)
-		jedis.rpush("usuario:" + usuarioId, convertirToJson(redis))
+		jedis.rpush("usuario:" + usuarioId, this.convertirToJson(entrada))
 	}
 
 	def void eliminarEntradaRedis(Long usuarioId, Entrada entrada) {
-		val EntradaRedis redis = crearEntradaRedis(entrada)
-		jedis.lrem("usuario:" + usuarioId, 1, convertirToJson(redis))
+		jedis.lrem("usuario:" + usuarioId, 1, convertirToJson(entrada))
 	}
 
 	def void vaciarCarrito(Long usuarioId) {
 		jedis.del("usuario:" + usuarioId)
 	}
 
-	def convertirToJson(EntradaRedis entrada) {
-		val Gson gson = new Gson()
-		return gson.toJson(entrada)
+	def convertirToJson(Entrada entrada) {
+		return entrada.toJson()
 	}
 
-	def convertirToEntradaRedis(String json) {
-		var gson = new Gson()
-		return gson.fromJson(json, EntradaRedis)
+	def convertEntrada(String json) {
+		this.crearEntrada(json)
 	}
 
-	def crearEntradaRedis(Entrada entrada) {
-		return new EntradaRedis() => [
-			titulo = entrada.pelicula.titulo
-			sala = entrada.funcion.nombreSala
-			fecha = entrada.fechaFuncion()
-			hora = entrada.horaFuncion()
-			precioEntrada = entrada.precioEntrada
-		]
-	}
-
-	def crearEntrada(EntradaRedis entrada) {
+	def crearEntrada(String json) {
+		val entradaJson = Json.parse(json).asObject()
 		return new Entrada() => [
-			pelicula = RepoPeliculas.instance.searchByName(entrada.titulo)
+			pelicula = RepoPeliculas.instance.searchByName(entradaJson.get("pelicula").asString())
 			funcion = new Funcion() => [
-				fecha = entrada.fecha
-				hora = entrada.hora
-				nombreSala = entrada.sala
+				val fechaFuncion = entradaJson.get("fecha").asString()
+				val DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+				fecha = LocalDate.parse(fechaFuncion, dateFormatter)
+				val horaFuncion = entradaJson.get("hora").asString()
+				val DateTimeFormatter timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+				hora = LocalTime.parse(horaFuncion, timeFormatter)
+				nombreSala = entradaJson.get("nombreSala").asString()
 			]
-			precioEntrada = entrada.precioEntrada
+			precioEntrada = new BigDecimal(entradaJson.get("precioEntrada").asDouble())
 		]
-	}
-}
-
-/*
- * TODO: Cambiar a una forma mas sencilla, utilizar @Expose para guardar solo los campos que queremos en Redis (titulo y datos de la funcion).
- * Luego convertir a Json el objeto de entrada y guardar eso. Para rescatarlo, parseamos el JSON y usamos el titulo para buscar la peli al repo
- * y para los datos de la funcion hacemos un new Funcion() pasando los datos guardados del JSON. A lo sumo habría que validar que la Funcion
- * sea equals a la Funcion que tiene la Pelicula y que tire una excepción si son diferentes (capaz actualizaron la funcion en MongoDB)
- * a la hora de comprar las entradas .
-*/
-@Accessors
-@Observable
-class EntradaRedis {
-	String titulo
-	String sala
-	LocalDate fecha
-	LocalTime hora
-	BigDecimal precioEntrada
-
-	new(String _titulo, String _sala, LocalDate _fecha, LocalTime _hora, BigDecimal _precioEntrada) {
-		this.titulo = _titulo
-		this.sala = _sala
-		this.fecha = _fecha
-		this.hora = _hora
-		this.precioEntrada = _precioEntrada
-	}
-
-	new() {
 	}
 }

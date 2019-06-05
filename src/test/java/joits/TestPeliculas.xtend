@@ -103,12 +103,11 @@ class TestPeliculas extends JuegoDatosTest {
 
 	@Test
 	def void testPeliculasVistas() {
-
+		carritoTest.vaciarCarrito()
 		carritoTest.agregarAlCarrito(entradaMatrix)
 		carritoTest.agregarAlCarrito(entradaToyStory)
-		santos.carrito = carritoTest
 		santos.agregarSaldinho(new BigDecimal("600"))
-		santos.comprarEntradas()
+		santos.comprarEntradas(carritoTest)
 		Assert.assertEquals(2, santos.peliculasVistas.size, 0.1)
 	}
 }

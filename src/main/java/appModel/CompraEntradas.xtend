@@ -29,16 +29,10 @@ class CompraEntradas {
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
-		usuario.carrito = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
-		carritoUsr = usuario.carrito
+		carritoUsr = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		peliculaABuscar = ""
 	}
 
-// no necesitamos buscar por id a la pelicula porque con el allInstances ya tenemos toda la info de la pelicula
-//	def void setPeliculaSeleccionada(Pelicula pelicula) {
-//		if (pelicula !== null)
-//			peliculaSeleccionada = RepoPeliculas.instance.searchById(pelicula.id)
-//	}
 	def void search() {
 		cartelera = RepoPeliculas.instance.searchByExample(new Pelicula(peliculaABuscar))
 	}
@@ -70,8 +64,9 @@ class CompraEntradas {
 	}
 
 	def void agregarItemCarrito() {
-		CarritoFactory.instance.agregarEntradaRedis(usuario.id, this.crearEntrada())
-		carritoUsr.agregarAlCarrito(this.crearEntrada())
+		val entrada = this.crearEntrada()
+		CarritoFactory.instance.agregarEntradaRedis(usuario.id, entrada)
+		carritoUsr.agregarAlCarrito(entrada)
 		this.actualizarCarrito()
 	}
 

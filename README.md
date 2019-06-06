@@ -99,7 +99,7 @@ db.Pelicula.count()
 mongo --port 28001
 
 use joits 
-
+```
 No hay que cargar los datos a la bd todavia, si cargamos la bd y creamos la shard key nos sale este mensaje, debido a que la collection
 no es vacia:
 ```

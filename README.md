@@ -116,7 +116,7 @@ sh.enableSharding("joits")
 
 --primero creamos el documento opciones para indicarle la cantidad inicial de chunks
 
-opciones = { numInitialChunks: 6}
+opciones = { numInitialChunks: 4}
 
 sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false, opciones)
 ```

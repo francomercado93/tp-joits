@@ -21,7 +21,7 @@ import org.uqbar.commons.model.annotations.Observable
 class Entrada {
 	static String DATE_PATTERN = "dd/MM/yyyy"
 	static String TIME_PATTERN = "HH:mm"
-
+	// comentario
 	@Id @GeneratedValue
 	@JsonIgnore
 	Long id
@@ -38,10 +38,10 @@ class Entrada {
 
 	@Column
 	BigDecimal precioEntrada
+
 //
 //	@Column
 //	String nombrePelicula
-
 	new() {
 	}
 
@@ -60,7 +60,6 @@ class Entrada {
 //	def getNombrePelicula() {
 //		nombrePelicula
 //	}
-
 	@JsonProperty("pelicula")
 	def String getTituloPelicula() {
 		return pelicula.toString()

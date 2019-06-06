@@ -24,9 +24,9 @@ class Pelicula {
 	String titulo
 	@JsonIgnore
 	Integer anio
-	@JsonIgnore
+	//@JsonIgnore
 	BigDecimal puntaje
-	@JsonIgnore
+	//@JsonIgnore
 	String genero
 	@JsonIgnore
 	List<Funcion> funcionesDisponibles

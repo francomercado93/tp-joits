@@ -56,8 +56,9 @@ class CarritoFactory {
 	}
 
 	def convertEntrada(String json) {
-		val Entrada entrada = mapper.readValue(json, typeof(Entrada))
-		entrada.pelicula = RepoPeliculas.instance.searchByName(entrada.pelicula.toString)
-		return entrada
+		mapper.readValue(json, typeof(Entrada))
+		//val Entrada entrada = mapper.readValue(json, typeof(Entrada))
+		//entrada.pelicula = RepoPeliculas.instance.searchByName(entrada.pelicula.toString)
+		//return entrada
 	}
 }

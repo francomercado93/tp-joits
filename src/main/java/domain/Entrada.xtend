@@ -24,7 +24,7 @@ class Entrada {
 
 	@Column
 	@Convert(converter=PeliculaConverter)
-	// @JsonIgnore
+	//@JsonIgnore
 //	@Transient
 	Pelicula pelicula
 

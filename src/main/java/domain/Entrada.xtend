@@ -20,7 +20,7 @@ import org.uqbar.commons.model.annotations.Observable
 @JsonIgnoreProperties(value=#["changeSupport"])
 class Entrada {
 	static String DATE_PATTERN = "dd/MM/yyyy"
-	static String TIME_PATTERN = "hh:mm"
+	static String TIME_PATTERN = "HH:mm"
 
 	@Id @GeneratedValue
 	@JsonIgnore

@@ -36,7 +36,7 @@ class CarritoFactory {
 		val List<Entrada> entradasAgregadas = jedis.lrange("usuario:" + usuarioId, 0, -1).map [ json |
 			this.convertEntrada(json)
 		].toList
-		val carrito = new Carrito()
+		var carrito = new Carrito()
 		carrito.entradas.addAll(entradasAgregadas)
 		return carrito
 	}

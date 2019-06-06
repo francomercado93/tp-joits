@@ -71,6 +71,7 @@ class CompraEntradas {
 	}
 
 	def void actualizarCarrito() {
+		carritoUsr = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		ObservableUtils.firePropertyChanged(this, "itemsEnElCarrito")
 	}
 

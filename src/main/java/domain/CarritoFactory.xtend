@@ -1,28 +1,26 @@
 package domain
 
 //import org.uqbar.commons.model.exceptions.UserException
-
-import com.eclipsesource.json.Json
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import java.util.List
-import org.uqbar.xtrest.json.JSONUtils
 import redis.clients.jedis.Jedis
 import repos.RepoPeliculas
 
 class CarritoFactory {
 	Jedis jedis
-	extension JSONUtils = new JSONUtils
 	// var JedisPool jedisPool //TODO: Implementar jedisPool con todas las funciones.
 	static CarritoFactory instance = null
 	public static val LOCALHOST = "localhost"
+	val mapper = new ObjectMapper()
 
 	private new() {
 		// jedisPool = new JedisPool(new JedisPoolConfig, LOCALHOST)
 		jedis = new Jedis("LOCALHOST")
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+		mapper.registerModule(new JavaTimeModule())
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 	}
 
 	static def getInstance() {
@@ -54,27 +52,12 @@ class CarritoFactory {
 	}
 
 	def convertirToJson(Entrada entrada) {
-		return entrada.toJson()
+		mapper.writeValueAsString(entrada)
 	}
 
 	def convertEntrada(String json) {
-		this.crearEntrada(json)
-	}
-
-	def crearEntrada(String json) {
-		val entradaJson = Json.parse(json).asObject()
-		return new Entrada() => [
-			pelicula = RepoPeliculas.instance.searchByName(entradaJson.get("pelicula").asString())
-			funcion = new Funcion() => [
-				val fechaFuncion = entradaJson.get("fecha").asString()
-				val DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-				fecha = LocalDate.parse(fechaFuncion, dateFormatter)
-				val horaFuncion = entradaJson.get("hora").asString()
-				val DateTimeFormatter timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-				hora = LocalTime.parse(horaFuncion, timeFormatter)
-				nombreSala = entradaJson.get("nombreSala").asString()
-			]
-			precioEntrada = new BigDecimal(entradaJson.get("precioEntrada").asDouble())
-		]
+		val Entrada entrada = mapper.readValue(json, typeof(Entrada))
+		entrada.pelicula = RepoPeliculas.instance.searchByName(entrada.pelicula.toString)
+		return entrada
 	}
 }

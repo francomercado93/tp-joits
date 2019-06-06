@@ -3,10 +3,6 @@
 ```
 mkdir "C:\data\mongodb\sharding
 ```
-* Levantar mongod en "C:\data\mongodb
-```
-mongod --dbpath "C:\data\mongodb"
-```
 * Crear carpetas de config, shards y replicas.
 ```
 cd "C:\data\mongodb\sharding"
@@ -102,8 +98,27 @@ db.Pelicula.count()
 ```
 mongo --port 28001
 
-use joits
+use joits 
 
+No hay que cargar los datos a la bd todavia, si cargamos la bd y creamos la shard key nos sale este mensaje, debido a que la collection
+no es vacia:
+```
+sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false, opciones)
+{
+        "ok" : 0,
+        "errmsg" : "numInitialChunks is not supported when the collection is not empty",
+        "code" : 72,
+        "codeName" : "InvalidOptions",
+        "operationTime" : Timestamp(1559841831, 4),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1559841831, 4),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+```
 -- creamos el índice de peliculas por hash del titulo 
 
 db.Peliculas.ensureIndex({"_id": "hashed"})
@@ -160,6 +175,10 @@ Shards a collection using the key as a the shard key. sh.shardCollection() takes
  ```
 sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false)
  ```
+ 
+ * Levantar mongod en "C:\data\mongodb"
+```
+mongod --dbpath "C:\data\mongodb"
 
 
 

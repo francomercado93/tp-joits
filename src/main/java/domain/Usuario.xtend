@@ -100,7 +100,6 @@ class Usuario {
 
 	def agregarEntradasCompradas(List<Entrada> entradas) {
 		entradasCompradas.addAll(entradas) // devuelve boolean
-//		this.setPeliculasVistas()
 	}
 
 	def validarPassword(String pass) {

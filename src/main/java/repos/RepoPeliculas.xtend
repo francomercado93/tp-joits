@@ -2,7 +2,6 @@ package repos
 
 import com.mongodb.MongoClient
 import domain.Pelicula
-import domain.Saga
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongodb.morphia.Datastore
@@ -27,9 +26,9 @@ class RepoPeliculas {
 	new() {
 		if (ds === null) {
 			val mongo = new MongoClient("localhost", 27017)
-			// val mongo = new MongoClient("localhost", 28001)
+//			 val mongo = new MongoClient("localhost", 28001)
 			new Morphia => [
-				map(Pelicula).map(Saga)
+				map(Pelicula)
 				ds = createDatastore(mongo, "joits")
 				ds.ensureIndexes
 			]

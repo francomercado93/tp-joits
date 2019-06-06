@@ -29,6 +29,7 @@ class Entrada {
 	@Column
 	@Convert(converter=PeliculaConverter)
 	@JsonIgnore
+//	@Transient
 	Pelicula pelicula
 
 	@Embedded
@@ -37,6 +38,9 @@ class Entrada {
 
 	@Column
 	BigDecimal precioEntrada
+//
+//	@Column
+//	String nombrePelicula
 
 	new() {
 	}
@@ -48,6 +52,14 @@ class Entrada {
 	def getPrecioEntrada() {
 		precioEntrada
 	}
+
+//	def setNombrePelicula() {
+//		nombrePelicula = this.tituloPelicula
+//	}
+//
+//	def getNombrePelicula() {
+//		nombrePelicula
+//	}
 
 	@JsonProperty("pelicula")
 	def String getTituloPelicula() {

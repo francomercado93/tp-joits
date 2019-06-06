@@ -17,6 +17,7 @@ class Carrito {
 
 	def agregarAlCarrito(Entrada entrada) {
 		entradas.add(entrada)
+//		entrada.setNombrePelicula()
 	}
 
 	def eliminarDelCarrito(Entrada entrada) {

@@ -29,7 +29,6 @@ class FinalizarCompra {
 	}
 
 	def eliminarItem() {
-		print(entradaSeleccionada.funcion.hora)
 		CarritoFactory.instance.eliminarEntradaRedis(usuario.id, entradaSeleccionada)
 		carrito.eliminarDelCarrito(entradaSeleccionada)
 		ObservableUtils.firePropertyChanged(this, "carrito")

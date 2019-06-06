@@ -114,7 +114,11 @@ sh.enableSharding("joits")
 
 -- definimos la clave por el índice 
 
-sh.shardCollection("joits.Peliculas", {"_id": "hashed" }, false)
+--primero creamos el documento opciones para indicarle la cantidad inicial de chunks
+
+opciones = { numInitialChunks: 6}
+
+sh.shardCollection("finanzas.facturas", {"nroFactura": "hashed" }, false, opciones)
 ```
 Vemos los chunks que se generaron:
 ```

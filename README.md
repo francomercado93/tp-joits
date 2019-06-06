@@ -118,7 +118,7 @@ sh.enableSharding("joits")
 
 opciones = { numInitialChunks: 6}
 
-sh.shardCollection("finanzas.facturas", {"nroFactura": "hashed" }, false, opciones)
+sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false, opciones)
 ```
 Vemos los chunks que se generaron:
 ```

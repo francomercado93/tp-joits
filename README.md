@@ -120,7 +120,7 @@ sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false, opciones)
 }
 ```
 -- creamos el índice de peliculas por hash del titulo 
-
+```
 db.Peliculas.ensureIndex({"_id": "hashed"})
 
 -- habilitamos el sharding para la database joits

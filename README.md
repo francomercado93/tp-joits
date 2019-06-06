@@ -75,23 +75,6 @@ sh.addShard("shard2/127.0.0.1:27100")
 ```
 db.adminCommand( { listShards: 1 } )
 ```
-## Opcional
-Abrir eclipse y cambiar el puerto a 28001 para que se conecte al servicio de ruteo (mongos) en el RepoAbstractMongo y luego ejecutar la app.
-
-A partir de ahora se puede ver las colecciones
-```
-use joits
-db.Peliculas.find().pretty()
-db.Peliculas.count()
-```
-
-* Las peliculas y sagas estan en algun shard, esto se ve haciendo:
-```
-mongo --port 27100
-
-use joits
-db.Pelicula.count()
-```
 ## Creamos las shardkeys con indices hash.
 
 * Abrir cliente mongo en puerto 28001:
@@ -126,14 +109,19 @@ db.Peliculas.ensureIndex({"_id": "hashed"})
 -- habilitamos el sharding para la database joits
 
 sh.enableSharding("joits")
+```
+*Definimos la clave por el índice 
 
--- definimos la clave por el índice 
-
---primero creamos el documento opciones para indicarle la cantidad inicial de chunks
-
+Hay dos formas de crear la shard key:
+1)Indicando la cantidad inicial de chunks para eso primero creamos el documento opciones indicando la cantidad inicial de chunks.
+```
 opciones = { numInitialChunks: 4}
 
 sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false, opciones)
+```
+2) Sin indicar la cantidad inicial y dejar al balancer que distribuya:
+```
+sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false)
 ```
 Vemos los chunks que se generaron:
 ```
@@ -179,6 +167,24 @@ sh.shardCollection("joits.Peliculas", {"_id" :"hashed"}, false)
  * Levantar mongod en "C:\data\mongodb"
 ```
 mongod --dbpath "C:\data\mongodb"
+```
+## Opcional
+Abrir eclipse y cambiar el puerto a 28001 para que se conecte al servicio de ruteo (mongos) en el RepoAbstractMongo y luego ejecutar la app.
+
+A partir de ahora se puede ver las colecciones
+```
+use joits
+db.Peliculas.find().pretty()
+db.Peliculas.count()
+```
+
+* Las peliculas y sagas estan en algun shard, esto se ve haciendo:
+```
+mongo --port 27100
+
+use joits
+db.Peliculas.count()
+```
 
 
 

@@ -9,6 +9,7 @@ import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
 import domain.CarritoFactory
+import repos.RepoUsuariosNeo4j
 
 @Accessors
 @Observable
@@ -54,6 +55,9 @@ class FinalizarCompra {
 	}
 
 	def void actualizarUsuario() {
+		usuario.amigos.forEach[amigo|print(amigo.username)]
+		RepoUsuariosNeo4j.instance.guardarUsuario(usuario)
+//		RepoUsuariosNeo4j.instance.guardarUsuarioProfundidad2(usuario)
 		RepoUsuarios.instance.update(usuario)
 	}
 

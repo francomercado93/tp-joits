@@ -5,6 +5,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import repos.RepoUsuarios
+import repos.RepoUsuariosNeo4j
 
 @Observable
 @Accessors
@@ -28,6 +29,7 @@ class BuscadorAmigos {
 	}
 
 	def void actualizarUsuario() {
+		RepoUsuariosNeo4j.instance.guardarUsuario(usuarioSeleccionado)
 		RepoUsuarios.instance.update(usuarioSeleccionado)
 	}
 

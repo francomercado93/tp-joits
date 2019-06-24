@@ -7,37 +7,41 @@ import javax.persistence.Column
 import javax.persistence.Convert
 import javax.persistence.Embedded
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.neo4j.ogm.annotation.EndNode
+import org.neo4j.ogm.annotation.GeneratedValue
+import org.neo4j.ogm.annotation.Id
+import org.neo4j.ogm.annotation.RelationshipEntity
+import org.neo4j.ogm.annotation.StartNode
 import org.uqbar.commons.model.annotations.Observable
 
+@RelationshipEntity(type="MIRO")
 @Entity
 @Accessors
 @Observable
 @JsonIgnoreProperties(value=#["changeSupport"])
 class Entrada {
-	// comentario
+	@javax.persistence.Id
 	@Id @GeneratedValue
 	@JsonIgnore
 	Long id
 
 	@Column
 	@Convert(converter=PeliculaConverter)
-	//@JsonIgnore
-//	@Transient
+	@EndNode
 	Pelicula pelicula
 
 	@Embedded
-	// @JsonIgnore
-	Funcion funcion
+	transient Funcion funcion
 
 	@Column
 	BigDecimal precioEntrada
 
-//
-//	@Column
-//	String nombrePelicula
+	@Transient
+	@StartNode
+	Usuario usuario
+
 	new() {
 	}
 
@@ -47,5 +51,13 @@ class Entrada {
 
 	def getPrecioEntrada() {
 		precioEntrada
+	}
+
+	def setUsuario(Usuario usr) {
+		usuario = usr
+	}
+
+	def getUsuario() {
+		usuario
 	}
 }

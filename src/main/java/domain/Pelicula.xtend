@@ -1,14 +1,14 @@
 package domain
 
-import java.math.BigDecimal
-import java.util.List
-import org.bson.types.ObjectId
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.mongodb.morphia.annotations.Entity
-import org.mongodb.morphia.annotations.Id
-import org.uqbar.commons.model.annotations.Observable
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.math.BigDecimal
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongodb.morphia.annotations.Entity
+import org.neo4j.ogm.annotation.GeneratedValue
+import org.neo4j.ogm.annotation.Id
+import org.uqbar.commons.model.annotations.Observable
 
 //sin asignar un nuevo nombre a la collection, se me generaban dos colecciones Pelicula y Saga en la base
 @Entity(value="Peliculas", noClassnameStored=false)
@@ -16,17 +16,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 @Observable
 @JsonIgnoreProperties(value=#["changeSupport"])
 class Pelicula {
+//	@Id ObjectId id
+	@org.mongodb.morphia.annotations.Id
 	@JsonIgnore
-	@Id ObjectId id
+	@Id @GeneratedValue
+	Long id
 
 	static final BigDecimal PRECIO_BASE_PELICULA = new BigDecimal("30")
 
 	String titulo
 	@JsonIgnore
 	Integer anio
-	//@JsonIgnore
+	// @JsonIgnore
 	BigDecimal puntaje
-	//@JsonIgnore
+	// @JsonIgnore
 	String genero
 	@JsonIgnore
 	List<Funcion> funcionesDisponibles

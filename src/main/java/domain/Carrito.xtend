@@ -15,6 +15,10 @@ class Carrito {
 		entradas = new ArrayList<Entrada>
 	}
 
+	def setearUsuariosEntradas(Usuario usuario) {
+		entradas.forEach[entrada|entrada.setUsuario(usuario)]
+	}
+
 	def agregarAlCarrito(Entrada entrada) {
 		entradas.add(entrada)
 //		entrada.setNombrePelicula()

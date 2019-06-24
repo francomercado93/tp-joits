@@ -11,7 +11,9 @@ import java.time.LocalDate
 import java.time.LocalTime
 import org.uqbar.arena.bootstrap.Bootstrap
 import repos.RepoPeliculas
+import repos.RepoPeliculasNeo4j
 import repos.RepoUsuarios
+import repos.RepoUsuariosNeo4j
 
 class JoitsBootstrap implements Bootstrap {
 	Usuario santos
@@ -186,6 +188,7 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarAmigo(edna)
 		santos.agregarAmigo(riquelme)
 		santos.agregarAmigo(zanetti)
+		RepoUsuariosNeo4j.instance.guardarUsuario(santos)
 		RepoUsuarios.instance.update(santos)
 	}
 
@@ -199,9 +202,10 @@ class JoitsBootstrap implements Bootstrap {
 		carritoTest.agregarAlCarrito(entradaBatman1Martes3)
 		carritoTest.agregarAlCarrito(entradaBatman2Sabado4)
 		lisa.agregarSaldinho(new BigDecimal("5450"))
-		carritoTest.setPreciosEntradas()
+		carritoTest.setPreciosEntradas() // Deberia setear el precio cuando usr compra entradas
 		lisa.comprarEntradas(carritoTest)
 		lisa.agregarAmigo(marge)
+		RepoUsuariosNeo4j.instance.guardarUsuario(lisa)
 		RepoUsuarios.instance.update(lisa)
 	}
 
@@ -217,6 +221,7 @@ class JoitsBootstrap implements Bootstrap {
 		edna.comprarEntradas(carritoTest)
 		edna.agregarAmigo(santos)
 		edna.agregarAmigo(riquelme)
+		RepoUsuariosNeo4j.instance.guardarUsuario(edna)
 		RepoUsuarios.instance.update(edna)
 	}
 
@@ -631,11 +636,15 @@ class JoitsBootstrap implements Bootstrap {
 
 	def void crearUsuario(Usuario usuario) {
 		val repoUsuarios = RepoUsuarios.instance
+		val repoUsuariosGrafo = RepoUsuariosNeo4j.instance
+		repoUsuariosGrafo.guardarUsuario(usuario)
 		repoUsuarios.create(usuario)
 	}
 
 	def crearPelicula(Pelicula pelicula) {
 		val repoPeliculas = RepoPeliculas.instance
+		val repoPeliculasGrafo = RepoPeliculasNeo4j.instance
+		repoPeliculasGrafo.guardarPelicula(pelicula)
 		repoPeliculas.create(pelicula)
 	}
 }

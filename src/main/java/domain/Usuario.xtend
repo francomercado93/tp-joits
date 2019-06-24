@@ -8,12 +8,13 @@ import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.neo4j.ogm.annotation.GeneratedValue
+import org.neo4j.ogm.annotation.Id
+import org.neo4j.ogm.annotation.Relationship
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
 
@@ -21,6 +22,8 @@ import org.uqbar.commons.model.exceptions.UserException
 @Observable
 @Accessors
 class Usuario {
+	// especificar id de usuario
+	@javax.persistence.Id
 	@Id @GeneratedValue
 	Long id
 
@@ -40,16 +43,16 @@ class Usuario {
 	Integer edad
 
 	@ManyToMany(fetch=FetchType.LAZY)
+//	@Relationship(type="ES_AMIGO")
+//averiguar porque rompe, falta alguna anottation en clase usuario para cambiar el nombre de la relacion en el grafo=?
+//	@Transient
 	Set<Usuario> amigos
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="usuario_id")
+	@Relationship(type="MIRO")
 	Set<Entrada> entradasCompradas
 
-//	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-//	@JoinColumn(name="usuario_id")
-//	@ElementCollection
-//	Set<String> peliculasVistas
 	@Column(nullable=false, columnDefinition="decimal(19,2) default 0")
 	BigDecimal saldo
 
@@ -85,6 +88,8 @@ class Usuario {
 	}
 
 	def finalizarCompra(Carrito carrito) {
+//		carrito.entradas.forEach(entrada|entrada.setUsuario(this))
+//		carrito.setearUsuariosEntradas(this)
 		this.descontarSaldo(carrito)
 		this.agregarEntradasCompradas(carrito.entradas)
 		carrito.vaciarCarrito()
@@ -100,6 +105,8 @@ class Usuario {
 
 	def agregarEntradasCompradas(List<Entrada> entradas) {
 		entradasCompradas.addAll(entradas) // devuelve boolean
+		entradasCompradas.forEach(entrada|entrada.setUsuario(this))
+		entradasCompradas.forEach[entrada|print(entrada.usuario.username)]
 	}
 
 	def validarPassword(String pass) {

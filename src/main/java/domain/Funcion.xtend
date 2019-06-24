@@ -1,5 +1,7 @@
 package domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -8,13 +10,12 @@ import javax.persistence.Embeddable
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongodb.morphia.annotations.Embedded
 import org.uqbar.commons.model.annotations.Observable
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 @Embedded
 @Observable
 @Embeddable
+//@Transient
 @JsonIgnoreProperties(value=#["changeSupport"])
 class Funcion implements Serializable {
 

@@ -22,6 +22,6 @@ class RepoUsuariosNeo4j extends RepoAbstractNeo4j {
 	}
 
 	def guardarUsuarioProfundidad2(Usuario usuario) {
-		session.save(usuario)
+		session.save(usuario, 0)
 	}
 }

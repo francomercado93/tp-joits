@@ -27,20 +27,20 @@ class Entrada {
 	@JsonIgnore
 	Long id
 
+	@Transient
+	@StartNode
+	Usuario usuario
+
 	@Column
 	@Convert(converter=PeliculaConverter)
 	@EndNode
 	Pelicula pelicula
 
 	@Embedded
-	transient Funcion funcion
+	Funcion funcion
 
 	@Column
 	BigDecimal precioEntrada
-
-	@Transient
-	@StartNode
-	Usuario usuario
 
 	new() {
 	}

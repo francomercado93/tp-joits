@@ -16,12 +16,12 @@ class Carrito {
 	}
 
 	def setearUsuariosEntradas(Usuario usuario) {
-		entradas.forEach[entrada|entrada.setUsuario(usuario)]
+		entradas.forEach(entrada|entrada.setUsuario(usuario))
+		entradas.forEach(entrada|print(entrada.usuario.username + "\n"))
 	}
 
 	def agregarAlCarrito(Entrada entrada) {
 		entradas.add(entrada)
-//		entrada.setNombrePelicula()
 	}
 
 	def eliminarDelCarrito(Entrada entrada) {

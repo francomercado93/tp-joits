@@ -82,6 +82,7 @@ class Usuario {
 //		peliculasVistas = entradasCompradas.map[pelicula.titulo].toSet
 //	}
 	def comprarEntradas(Carrito carrito) {
+		carrito.setPreciosEntradas()
 		if (!this.tieneSaldoSuficiente(carrito))
 			throw new UserException("No tiene saldo suficiente")
 		this.finalizarCompra(carrito)
@@ -89,7 +90,7 @@ class Usuario {
 
 	def finalizarCompra(Carrito carrito) {
 //		carrito.entradas.forEach(entrada|entrada.setUsuario(this))
-//		carrito.setearUsuariosEntradas(this)
+		carrito.setearUsuariosEntradas(this)
 		this.descontarSaldo(carrito)
 		this.agregarEntradasCompradas(carrito.entradas)
 		carrito.vaciarCarrito()
@@ -105,8 +106,6 @@ class Usuario {
 
 	def agregarEntradasCompradas(List<Entrada> entradas) {
 		entradasCompradas.addAll(entradas) // devuelve boolean
-		entradasCompradas.forEach(entrada|entrada.setUsuario(this))
-		entradasCompradas.forEach[entrada|print(entrada.usuario.username)]
 	}
 
 	def validarPassword(String pass) {

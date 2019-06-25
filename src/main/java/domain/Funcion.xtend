@@ -9,13 +9,14 @@ import java.time.LocalTime
 import javax.persistence.Embeddable
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongodb.morphia.annotations.Embedded
+import org.neo4j.ogm.annotation.Transient
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
 @Embedded
 @Observable
 @Embeddable
-//@Transient
+@Transient
 @JsonIgnoreProperties(value=#["changeSupport"])
 class Funcion implements Serializable {
 

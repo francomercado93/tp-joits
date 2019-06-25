@@ -55,9 +55,7 @@ class FinalizarCompra {
 	}
 
 	def void actualizarUsuario() {
-		usuario.amigos.forEach[amigo|print(amigo.username)]
 		RepoUsuariosNeo4j.instance.guardarUsuario(usuario)
-//		RepoUsuariosNeo4j.instance.guardarUsuarioProfundidad2(usuario)
 		RepoUsuarios.instance.update(usuario)
 	}
 

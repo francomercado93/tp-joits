@@ -29,8 +29,12 @@ class BuscadorAmigos {
 	}
 
 	def void actualizarUsuario() {
-		RepoUsuariosNeo4j.instance.guardarUsuario(usuarioSeleccionado)
+		//setear de nuevo los usuarios en las entradas compradas al recuperar de la bd relacional o guardar
+		usuarioSeleccionado.entradasCompradas.forEach( entrada |
+			print(entrada.usuario.username + " " + entrada.pelicula.titulo + "\n")
+		)
 		RepoUsuarios.instance.update(usuarioSeleccionado)
+		RepoUsuariosNeo4j.instance.guardarUsuario(usuarioSeleccionado)
 	}
 
 	def boolean removerDeListas() {

@@ -182,7 +182,6 @@ class JoitsBootstrap implements Bootstrap {
 		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
 		carritoTest.agregarAlCarrito(entradaMatrixMiercoles)
 		carritoTest.agregarAlCarrito(entradaToyStoryJueves5)
-		carritoTest.setPreciosEntradas()
 		santos.agregarSaldinho(new BigDecimal("980"))
 		santos.comprarEntradas(carritoTest)
 		santos.agregarAmigo(edna)
@@ -202,7 +201,6 @@ class JoitsBootstrap implements Bootstrap {
 		carritoTest.agregarAlCarrito(entradaBatman1Martes3)
 		carritoTest.agregarAlCarrito(entradaBatman2Sabado4)
 		lisa.agregarSaldinho(new BigDecimal("5450"))
-		carritoTest.setPreciosEntradas() // Deberia setear el precio cuando usr compra entradas
 		lisa.comprarEntradas(carritoTest)
 		lisa.agregarAmigo(marge)
 		RepoUsuariosNeo4j.instance.guardarUsuario(lisa)
@@ -216,7 +214,6 @@ class JoitsBootstrap implements Bootstrap {
 		carritoTest.agregarAlCarrito(entradaSagaBatmanLunes4)
 		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
 		carritoTest.agregarAlCarrito(entradaNueveReinasDomingo1)
-		carritoTest.setPreciosEntradas()
 		edna.agregarSaldinho(new BigDecimal("1200"))
 		edna.comprarEntradas(carritoTest)
 		edna.agregarAmigo(santos)

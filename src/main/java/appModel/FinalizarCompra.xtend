@@ -49,10 +49,7 @@ class FinalizarCompra {
 
 	def comprarEntradas() {
 		usuario.comprarEntradas(carrito)
-		print("id peliculas:\n")
-		carrito.entradas.forEach(entrada|print(entrada.pelicula.id))
 		this.actualizarUsuario()
-		actualizarNodosPelicula()
 		carrito.vaciarCarrito()
 		CarritoFactory.instance.vaciarCarrito(usuario.id)
 		ObservableUtils.firePropertyChanged(this, "carrito")

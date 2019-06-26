@@ -82,6 +82,10 @@ class Usuario {
 //	}
 	def comprarEntradas(Carrito carrito) {
 		carrito.setPreciosEntradas()
+		carrito.setFechaHora()
+//		print("horas string carrito comprarentradas")
+//		carrito.entradas.forEach(ent|print(ent.funcion.horitaString))
+//		carrito.setHoraStringFuncion()
 		if (!this.tieneSaldoSuficiente(carrito))
 			throw new UserException("No tiene saldo suficiente")
 		this.finalizarCompra(carrito)

@@ -8,8 +8,9 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongodb.morphia.annotations.Entity
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
-import org.uqbar.commons.model.annotations.Observable
+import org.neo4j.ogm.annotation.Relationship
 import org.neo4j.ogm.annotation.Transient
+import org.uqbar.commons.model.annotations.Observable
 
 @Entity(value="Peliculas", noClassnameStored=false)
 @Accessors
@@ -18,7 +19,6 @@ import org.neo4j.ogm.annotation.Transient
 class Pelicula {
 
 	@org.mongodb.morphia.annotations.Id
-	@JsonIgnore
 	@Id @GeneratedValue
 	Long id
 
@@ -33,8 +33,8 @@ class Pelicula {
 
 	String genero
 
-	@Transient
 	@JsonIgnore
+	@Relationship(type="TIENE_FUNCION")
 	List<Funcion> funcionesDisponibles
 
 	@JsonIgnore

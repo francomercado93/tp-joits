@@ -55,7 +55,9 @@ class CompraEntradas {
 			funcion = funcionSeleccionada
 		]
 		entrada.setPrecioEntrada()
-		
+		entrada.setHoraString()
+		entrada.setFechaHora()
+
 		entrada
 	}
 
@@ -66,6 +68,7 @@ class CompraEntradas {
 
 	def void agregarItemCarrito() {
 		val entrada = this.crearEntrada()
+		print(entrada.funcion.horitaString)
 		print("id pelicula en carrito" + entrada.pelicula.id)
 		CarritoFactory.instance.agregarEntradaRedis(usuario.id, entrada)
 		carritoUsr.agregarAlCarrito(entrada)

@@ -77,22 +77,15 @@ class Usuario {
 		return entradasCompradas.map[pelicula].toSet
 	}
 
-//	def setPeliculasVistas() {
-//		peliculasVistas = entradasCompradas.map[pelicula.titulo].toSet
-//	}
 	def comprarEntradas(Carrito carrito) {
-		carrito.setPreciosEntradas()
-		carrito.setFechaHora()
-//		print("horas string carrito comprarentradas")
-//		carrito.entradas.forEach(ent|print(ent.funcion.horitaString))
-//		carrito.setHoraStringFuncion()
 		if (!this.tieneSaldoSuficiente(carrito))
 			throw new UserException("No tiene saldo suficiente")
 		this.finalizarCompra(carrito)
 	}
 
 	def finalizarCompra(Carrito carrito) {
-//		carrito.entradas.forEach(entrada|entrada.setUsuario(this))
+		carrito.setPreciosEntradas()
+		carrito.setFechaHora()
 		carrito.setearUsuariosEntradas(this)
 		this.descontarSaldo(carrito)
 		this.agregarEntradasCompradas(carrito.entradas)

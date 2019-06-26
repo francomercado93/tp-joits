@@ -1,6 +1,7 @@
 package appModel
 
 import domain.Carrito
+import domain.CarritoFactory
 import domain.Entrada
 import domain.Usuario
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -8,9 +9,7 @@ import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
-import domain.CarritoFactory
 import repos.RepoUsuariosNeo4j
-import repos.RepoPeliculasNeo4j
 
 @Accessors
 @Observable
@@ -58,10 +57,6 @@ class FinalizarCompra {
 	def void actualizarUsuario() {
 		RepoUsuariosNeo4j.instance.guardarUsuario(usuario)
 		RepoUsuarios.instance.update(usuario)
-	}
-
-	def actualizarNodosPelicula() {
-		carrito.entradas.forEach(entrada|RepoPeliculasNeo4j.instance.guardarPelicula(entrada.pelicula))
 	}
 
 	@Dependencies("carrito")

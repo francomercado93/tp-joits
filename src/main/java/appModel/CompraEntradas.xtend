@@ -56,7 +56,7 @@ class CompraEntradas {
 		]
 		entrada.setPrecioEntrada()
 		entrada.setHoraString()
-		entrada.setFechaHora()
+//		entrada.setFechaHora()
 
 		entrada
 	}

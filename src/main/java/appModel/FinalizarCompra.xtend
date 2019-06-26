@@ -10,6 +10,7 @@ import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
 import domain.CarritoFactory
 import repos.RepoUsuariosNeo4j
+import repos.RepoPeliculasNeo4j
 
 @Accessors
 @Observable
@@ -48,15 +49,22 @@ class FinalizarCompra {
 
 	def comprarEntradas() {
 		usuario.comprarEntradas(carrito)
+		print("id peliculas:\n")
+		carrito.entradas.forEach(entrada|print(entrada.pelicula.id))
+		this.actualizarUsuario()
+		actualizarNodosPelicula()
 		carrito.vaciarCarrito()
 		CarritoFactory.instance.vaciarCarrito(usuario.id)
-		this.actualizarUsuario()
 		ObservableUtils.firePropertyChanged(this, "carrito")
 	}
 
 	def void actualizarUsuario() {
 		RepoUsuariosNeo4j.instance.guardarUsuario(usuario)
 		RepoUsuarios.instance.update(usuario)
+	}
+
+	def actualizarNodosPelicula() {
+		carrito.entradas.forEach(entrada|RepoPeliculasNeo4j.instance.guardarPelicula(entrada.pelicula))
 	}
 
 	@Dependencies("carrito")

@@ -1,0 +1,11 @@
+todos los usuarios que miraron peliculas
+MATCH(usuario:Usuario)-[:MIRO]->(pelicula:Pelicula) RETURN usuario, pelicula
+amigos de marioSantos
+MATCH(usuario {username:'MarioSantos'})-[:AMIGOS]->(amigo) RETURN usuario, amigo
+peliculas que vieron amigos de un usuario(por ejemplo marioSantos)
+MATCH(usuario {username:'MarioSantos'})-[:AMIGOS]->(amigo)-[:MIRO]->(pelicula) RETURN pelicula
+nueve reinas, los vengadores, toy story
+
+peliculas recomendadas
+MATCH(usuario {username:'EdnaK'})-[:AMIGOS]->(amigo)-[:MIRO]->(pelicula) 
+WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula

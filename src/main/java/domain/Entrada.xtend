@@ -29,6 +29,7 @@ class Entrada {
 
 	@Transient
 	@StartNode
+	@JsonIgnore
 	Usuario usuario
 
 	@Column

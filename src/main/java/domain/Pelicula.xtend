@@ -9,14 +9,14 @@ import org.mongodb.morphia.annotations.Entity
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.uqbar.commons.model.annotations.Observable
+import org.neo4j.ogm.annotation.Transient
 
-//sin asignar un nuevo nombre a la collection, se me generaban dos colecciones Pelicula y Saga en la base
 @Entity(value="Peliculas", noClassnameStored=false)
 @Accessors
 @Observable
 @JsonIgnoreProperties(value=#["changeSupport"])
 class Pelicula {
-//	@Id ObjectId id
+
 	@org.mongodb.morphia.annotations.Id
 	@JsonIgnore
 	@Id @GeneratedValue
@@ -25,15 +25,20 @@ class Pelicula {
 	static final BigDecimal PRECIO_BASE_PELICULA = new BigDecimal("30")
 
 	String titulo
+
 	@JsonIgnore
 	Integer anio
-	// @JsonIgnore
+
 	BigDecimal puntaje
-	// @JsonIgnore
+
 	String genero
+
+	@Transient
 	@JsonIgnore
 	List<Funcion> funcionesDisponibles
+
 	@JsonIgnore
+	@Transient
 	BigDecimal precioBase
 
 	new() {

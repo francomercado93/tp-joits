@@ -22,7 +22,7 @@ import org.uqbar.commons.model.exceptions.UserException
 @Observable
 @Accessors
 class Usuario {
-	// especificar id de usuario
+
 	@javax.persistence.Id
 	@Id @GeneratedValue
 	Long id
@@ -45,7 +45,6 @@ class Usuario {
 	@ManyToMany(fetch=FetchType.LAZY)
 //	@Relationship(type="ES_AMIGO")
 //averiguar porque rompe, falta alguna anottation en clase usuario para cambiar el nombre de la relacion en el grafo=?
-//	@Transient
 	Set<Usuario> amigos
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)

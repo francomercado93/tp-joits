@@ -13,18 +13,6 @@ WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula LIMIT 5
 MATCH(usuario {username:'EdnaK'})-[:AMIGOS]->(amigo)-[:MIRO]->(pelicula)
 WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula LIMIT 5
 
-TODO:
-arreglar tabla recomendaciones, al comprar una entrada de una pelicula recomendada se deberia hacer nuevamente el query
-y tendria que salir de la tabla la pelicula(en la base funciona ok, no actualiza bien en la app)
-Traer de bd las peliculas y hacerle un set al atributo del model, luego tirar un fireproperty para actualizar la vista.
-
-Cambiar el nombre de la relacion AMIGOS(por defecto) por ES_AMIGOS, revisar porque rompe al comprar una entrada.
-@Relationship(type="ES_AMIGO", direction=Relationship.UNDIRECTED).
-O utilizar modo EAGER y @Relationship(type="ES_AMIGO").
-
-Clase entrada: porque rompe al poner el @transient de ogm?
-org.neo4j.ogm.annotation.Transient no está funcionando, revisar.
-
 query de amigos recomendados:
 amigos de mis amigos V1:
 MATCH (n:Usuario {username: 'MarioSantos'}) 
@@ -45,6 +33,8 @@ Tabla de lista de amigos sugeridos no se actualiza al agregar un amigo sugerido.
 
 Cuando un usuario mira dos o mas veces una pelicula, en el grafo mostrar una sola relacion?
 
+Clase entrada: porque rompe al poner el @transient de ogm?
+org.neo4j.ogm.annotation.Transient no está funcionando, revisar.
 
 crear juego de datos con ids fijos(? y no dropear las bd para levantar de nuevo la app
 Neo4J está creando de nuevo los nodos en vez de actualizar los mismos que ya tiene, me parece que el problema viene por el lado

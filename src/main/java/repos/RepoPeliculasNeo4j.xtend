@@ -20,9 +20,10 @@ class RepoPeliculasNeo4j extends RepoAbstractNeo4j {
 		val query = "MATCH(usuario {username:'" + usuario.username + "'})-[:ES_AMIGO]->(amigo)-[:MIRO]->(pelicula)
 					 WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula"
 		val pelis = session.query(typeof(Pelicula), query, Collections.EMPTY_MAP).toSet
-		val repo = RepoPeliculas.instance
-		val recomendadas = pelis.map(pelicula|repo.searchByName(pelicula.titulo)).toSet
-		recomendadas
+//		val repo = RepoPeliculas.instance
+//		val recomendadas = pelis.map(pelicula|repo.searchByName(pelicula.titulo)).toSet
+//		recomendadas
+		pelis
 	}
 
 	def guardar(Pelicula pelicula) {

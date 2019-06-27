@@ -3,7 +3,9 @@ package appModel
 import domain.Usuario
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
 import repos.RepoUsuariosNeo4j
 
@@ -14,26 +16,35 @@ class BuscadorAmigos {
 	Usuario amigoSeleccionado
 	List<Usuario> usuarios
 	String busqueda
-	List<Usuario> amigosSugeridos
 
 	new(Usuario usuario) {
 		this.usuarioSeleccionado = RepoUsuarios.instance.searchById(usuario.id)
 		busqueda = ""
-		//amigosSugeridos = RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
-		amigosSugeridos = RepoUsuariosNeo4j.instance.getAmigosSugeridos(usuario)
+	}
+
+	def void setAmigoSeleccionado(Usuario amigo) {
+		if (amigo !== null)
+//			amigoSeleccionado = RepoUsuarios.instance.getAmigosSugeridos(amigo)
+			amigoSeleccionado = RepoUsuarios.instance.searchById(amigo.id)
 	}
 
 	def agregarAmigo() {
 		usuarioSeleccionado.agregarAmigo(amigoSeleccionado)
+		this.actualizarTablas()
+	}
+
+	@Dependencies("usuarioSeleccionado")
+	def getAmigosSugeridos() {
+		RepoUsuariosNeo4j.instance.getAmigosSugeridos(usuarioSeleccionado)
+	}
+
+	def void actualizarTablas() {
 		search()
-//		removerDeListas()
+		this.amigosSugeridos
+		ObservableUtils.firePropertyChanged(this, "amigosSugeridos")
 	}
 
 	def void actualizarUsuario() {
-		//setear de nuevo los usuarios en las entradas compradas al recuperar de la bd relacional o guardar
-		usuarioSeleccionado.entradasCompradas.forEach( entrada |
-			print(entrada.usuario.username + " " + entrada.pelicula.titulo + "\n")
-		)
 		RepoUsuarios.instance.update(usuarioSeleccionado)
 		RepoUsuariosNeo4j.instance.guardarUsuario(usuarioSeleccionado)
 	}

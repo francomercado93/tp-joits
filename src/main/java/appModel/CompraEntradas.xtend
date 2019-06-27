@@ -27,18 +27,21 @@ class CompraEntradas {
 	Pelicula peliculaSeleccionada
 	Funcion funcionSeleccionada
 	Carrito carritoUsr
-//	Set<Pelicula> recomendadas
 
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
 		carritoUsr = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		peliculaABuscar = ""
-//		recomendadas = getPeliculasRecomendadas()
 	}
 
 	def void search() {
 		cartelera = RepoPeliculas.instance.searchByExample(new Pelicula(peliculaABuscar))
+	}
+
+	def void setPeliculaSeleccionada(Pelicula pelicula) {
+		if (pelicula !== null)
+			peliculaSeleccionada = RepoPeliculas.instance.searchByName(pelicula.titulo)
 	}
 
 	@Dependencies("usuario")
@@ -76,8 +79,6 @@ class CompraEntradas {
 	}
 
 	def void actualizarCarrito() {
-//		recomendadas = getPeliculasRecomendadas()
-//		recomendadas.forEach(peli|print(peli.titulo))
 		carritoUsr = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		ObservableUtils.firePropertyChanged(this, "itemsEnElCarrito")
 		ObservableUtils.firePropertyChanged(this, "peliculasRecomendadas")

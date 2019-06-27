@@ -1,7 +1,7 @@
 package appModel
 
 import domain.Usuario
-import java.util.List
+import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
@@ -14,7 +14,7 @@ import repos.RepoUsuariosNeo4j
 class BuscadorAmigos {
 	Usuario usuarioSeleccionado
 	Usuario amigoSeleccionado
-	List<Usuario> usuarios
+	Set<Usuario> usuariosFiltrados
 	String busqueda
 
 	new(Usuario usuario) {
@@ -53,15 +53,9 @@ class BuscadorAmigos {
 		amigosSugeridos.remove(amigoSeleccionado)
 	}
 
-	def void search() {
-		usuarios = getUsuariosFiltrados()
+	@Dependencies("usuarioSeleccionado")
+	def search() {
+		usuariosFiltrados = RepoUsuarios.instance.getUsuariosFiltrados(busqueda, usuarioSeleccionado)
 	}
 
-	def getUsuariosFiltrados() {
-		RepoUsuarios.instance.searchByName(busqueda).filter(usr|filtrarAmigosYUsuario(usr)).toList
-	}
-
-	def boolean filtrarAmigosYUsuario(Usuario usr) {
-		usuarioSeleccionado.id != usr.id && ! usuarioSeleccionado.esAmigo(usr)
-	}
 }

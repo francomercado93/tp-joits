@@ -88,7 +88,14 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		} finally {
 			entityManager.close
 		}
+	}
 
+	def getUsuariosFiltrados(String busqueda, Usuario usuarioSeleccionado) {
+		RepoUsuarios.instance.searchByName(busqueda).filter(usr|filtrarAmigosYUsuario(usr, usuarioSeleccionado)).toSet
+	}
+
+	def boolean filtrarAmigosYUsuario(Usuario usr, Usuario usuarioSeleccionado) {
+		usuarioSeleccionado.id != usr.id && ! usuarioSeleccionado.esAmigo(usr)
 	}
 
 }

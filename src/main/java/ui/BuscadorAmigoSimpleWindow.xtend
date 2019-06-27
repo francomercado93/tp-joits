@@ -67,10 +67,9 @@ class BuscadorAmigoSimpleWindow extends SimpleWindow<BuscadorAmigos> {
 		new Panel(panel) => [
 			it.layout = new HorizontalLayout
 			val tablaAmigos = new Table<Usuario>(it, typeof(Usuario)) => [
-				items <=> "usuarios"
+				items <=> "usuariosFiltrados"
 				value <=> "amigoSeleccionado"
 				numberVisibleRows = 4
-
 			]
 			this.llenarGridAmigos(tablaAmigos)
 		]
@@ -125,7 +124,7 @@ class BuscadorAmigoSimpleWindow extends SimpleWindow<BuscadorAmigos> {
 				width = 101
 				caption = "Buscar"
 				onClick [|
-					this.modelObject.search()
+					this.modelObject.search
 				]
 			]
 		]

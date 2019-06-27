@@ -22,6 +22,7 @@ import org.uqbar.commons.model.exceptions.UserException
 @Entity
 @Observable
 @Accessors
+@NodeEntity
 class Usuario {
 
 	@javax.persistence.Id

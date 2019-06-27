@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.time.LocalDateTime
+//import java.time.LocalDateTime
 import java.time.LocalTime
 import javax.persistence.Embeddable
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -14,6 +14,10 @@ import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.Transient
 import org.uqbar.commons.model.annotations.Observable
+import org.neo4j.ogm.annotation.typeconversion.DateString
+import java.util.Date
+import java.time.Instant
+import java.time.ZoneId
 
 @Accessors
 @Embedded
@@ -30,22 +34,23 @@ class Funcion implements Serializable {
 	static final BigDecimal VALOR_FINDE = new BigDecimal("120")
 	static final BigDecimal VALOR_OTROS_DIAS = new BigDecimal("80")
 
-	@Transient
 	LocalDate fecha
 
 	@Transient
 	LocalTime hora
 
-	LocalDateTime fechaHora
+	@DateString("HH:mm")
+	Date fechaHora
 
 	String nombreSala
 
 	new() {
-		fechaHora = LocalDateTime.now()
+		fechaHora = new Date()
 	}
 
 	def setFechaHora() {
-		fechaHora = LocalDateTime.of(fecha, hora)
+		val Instant instant = hora.atDate(LocalDate.of(1900, 1, 1)).atZone(ZoneId.systemDefault()).toInstant();
+		fechaHora = Date.from(instant);
 	}
 
 	def getFechaHora() {

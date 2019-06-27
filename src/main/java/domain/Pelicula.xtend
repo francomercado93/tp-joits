@@ -10,11 +10,14 @@ import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.Transient
 import org.uqbar.commons.model.annotations.Observable
+import org.neo4j.ogm.annotation.NodeEntity
+//import org.neo4j.ogm.annotation.Relationship
 
 @Entity(value="Peliculas", noClassnameStored=false)
 @Accessors
 @Observable
 @JsonIgnoreProperties(value=#["changeSupport"])
+@NodeEntity
 class Pelicula {
 
 	@org.mongodb.morphia.annotations.Id
@@ -34,7 +37,7 @@ class Pelicula {
 
 	@JsonIgnore
 	@Transient
-//	@Relationship(type="TIENE_FUNCION")
+	//@Relationship(type="TIENE_FUNCION")
 	List<Funcion> funcionesDisponibles
 
 	@JsonIgnore

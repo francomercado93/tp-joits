@@ -108,7 +108,7 @@ class JoitsBootstrap implements Bootstrap {
 		this.santosCompraEntradasYSeHaceAmigos()
 		this.lisaCompraEntradasYHaceAmigos()
 		this.ednaCompraEntradasYHaceAmigos()
-
+		this.amigosDeAmigos()
 	}
 
 	def Entrada initEntradas() {
@@ -217,9 +217,20 @@ class JoitsBootstrap implements Bootstrap {
 		edna.agregarSaldinho(new BigDecimal("1200"))
 		edna.comprarEntradas(carritoTest)
 		edna.agregarAmigo(santos)
-		edna.agregarAmigo(riquelme)
+		//edna.agregarAmigo(riquelme)
+		edna.agregarAmigo(marge)
 		RepoUsuariosNeo4j.instance.guardarUsuario(edna)
 		RepoUsuarios.instance.update(edna)
+	}
+	
+	def amigosDeAmigos() {
+		zanetti.agregarAmigo(amigo1)
+		zanetti.agregarAmigo(amigo2)
+		riquelme.agregarAmigo(amigo3)
+		RepoUsuariosNeo4j.instance.guardarUsuario(zanetti)
+		RepoUsuarios.instance.update(zanetti)
+		RepoUsuariosNeo4j.instance.guardarUsuario(riquelme)
+		RepoUsuarios.instance.update(riquelme)
 	}
 
 	def void initFunciones() {

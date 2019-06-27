@@ -14,6 +14,7 @@ import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
+import org.neo4j.ogm.annotation.NodeEntity
 import org.neo4j.ogm.annotation.Relationship
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
@@ -43,8 +44,7 @@ class Usuario {
 	Integer edad
 
 	@ManyToMany(fetch=FetchType.LAZY)
-//	@Relationship(type="ES_AMIGO", direction=Relationship.INCOMING)
-//averiguar porque rompe, falta alguna anottation en clase usuario para cambiar el nombre de la relacion en el grafo=?
+	@Relationship(type="ES_AMIGO", direction=Relationship.UNDIRECTED)
 	Set<Usuario> amigos
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)

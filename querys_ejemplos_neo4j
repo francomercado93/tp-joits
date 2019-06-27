@@ -12,3 +12,15 @@ WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula LIMIT 5
 
 MATCH(usuario {username:'EdnaK'})-[:AMIGOS]->(amigo)-[:MIRO]->(pelicula)
 WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula LIMIT 5
+
+TODO:
+arreglar tabla recomendaciones, al comprar una entrada de una pelicula recomendada se deberia hacer nuevamente el query
+y tendria que salir de la tabla la pelicula(en la base funciona ok, no actualiza bien en la app)
+
+Cambiar el nombre de la relacion AMIGOS(por defecto) por ES_AMIGOS, revisar porque rompe al comprar una entrada.
+
+Clase entrada: porque rompe al poner el @transient de ogm ?
+
+query de amigos recomendados
+
+crear juego de datos con ids fijos(? y no dropear las bd para levantar de nuevo la app

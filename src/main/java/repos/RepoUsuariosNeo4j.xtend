@@ -13,7 +13,6 @@ class RepoUsuariosNeo4j extends RepoAbstractNeo4j {
 	}
 
 	def guardarUsuario(Usuario usuario) {
-		/* Guarda todo el grafo de usuario, es decir los amigos y las entradas con las peliculas y sin las funciones */
 		session.save(usuario, 1)
 	}
 

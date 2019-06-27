@@ -27,14 +27,14 @@ class CompraEntradas {
 	Pelicula peliculaSeleccionada
 	Funcion funcionSeleccionada
 	Carrito carritoUsr
-	Set<Pelicula> recomendadas
+//	Set<Pelicula> recomendadas
 
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
 		carritoUsr = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		peliculaABuscar = ""
-		recomendadas = getPeliculasRecomendadas()
+//		recomendadas = getPeliculasRecomendadas()
 	}
 
 	def void search() {
@@ -76,10 +76,11 @@ class CompraEntradas {
 	}
 
 	def void actualizarCarrito() {
-		recomendadas = getPeliculasRecomendadas()
+//		recomendadas = getPeliculasRecomendadas()
+//		recomendadas.forEach(peli|print(peli.titulo))
 		carritoUsr = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		ObservableUtils.firePropertyChanged(this, "itemsEnElCarrito")
-		ObservableUtils.firePropertyChanged(this, "recomendadas")
+		ObservableUtils.firePropertyChanged(this, "peliculasRecomendadas")
 	}
 
 	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")

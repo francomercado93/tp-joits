@@ -20,8 +20,4 @@ class RepoUsuariosNeo4j extends RepoAbstractNeo4j {
 	def getAmigosSugeridos(Usuario usuario) {
 		// query  amigos sugeridos
 	}
-
-	def guardarUsuarioProfundidad2(Usuario usuario) {
-		session.save(usuario, 0)
-	}
 }

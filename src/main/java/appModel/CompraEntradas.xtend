@@ -1,18 +1,19 @@
 package appModel
 
 import domain.Carrito
+import domain.CarritoFactory
 import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
 import domain.Usuario
 import java.time.LocalDate
 import java.util.List
+import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoPeliculas
-import domain.CarritoFactory
 import repos.RepoPeliculasNeo4j
 
 @Observable
@@ -26,21 +27,23 @@ class CompraEntradas {
 	Pelicula peliculaSeleccionada
 	Funcion funcionSeleccionada
 	Carrito carritoUsr
+	Set<Pelicula> recomendadas
 
 	new(Usuario usuarioSeleccionado) {
 		usuario = usuarioSeleccionado
 		fechaActual = LocalDate.now
 		carritoUsr = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		peliculaABuscar = ""
+		recomendadas = getPeliculasRecomendadas()
 	}
 
 	def void search() {
 		cartelera = RepoPeliculas.instance.searchByExample(new Pelicula(peliculaABuscar))
 	}
 
+	@Dependencies("usuario")
 	def getPeliculasRecomendadas() {
-//		RepoPeliculas.instance.getPeliculasRecomendadas()
-		RepoPeliculasNeo4j.instance.getPeliculasRecomendadas(usuario)
+		RepoPeliculasNeo4j.instance.getRecomendadas(usuario)
 	}
 
 	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")
@@ -73,8 +76,10 @@ class CompraEntradas {
 	}
 
 	def void actualizarCarrito() {
+		recomendadas = getPeliculasRecomendadas()
 		carritoUsr = CarritoFactory.instance.usuarioEntradasRedis(usuario.id)
 		ObservableUtils.firePropertyChanged(this, "itemsEnElCarrito")
+		ObservableUtils.firePropertyChanged(this, "recomendadas")
 	}
 
 	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")

@@ -43,7 +43,7 @@ class Usuario {
 	Integer edad
 
 	@ManyToMany(fetch=FetchType.LAZY)
-//	@Relationship(type="ES_AMIGO")
+//	@Relationship(type="ES_AMIGO", direction=Relationship.INCOMING)
 //averiguar porque rompe, falta alguna anottation en clase usuario para cambiar el nombre de la relacion en el grafo=?
 	Set<Usuario> amigos
 

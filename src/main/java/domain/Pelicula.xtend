@@ -8,7 +8,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongodb.morphia.annotations.Entity
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
-import org.neo4j.ogm.annotation.Relationship
 import org.neo4j.ogm.annotation.Transient
 import org.uqbar.commons.model.annotations.Observable
 
@@ -34,7 +33,8 @@ class Pelicula {
 	String genero
 
 	@JsonIgnore
-	@Relationship(type="TIENE_FUNCION")
+	@Transient
+//	@Relationship(type="TIENE_FUNCION")
 	List<Funcion> funcionesDisponibles
 
 	@JsonIgnore

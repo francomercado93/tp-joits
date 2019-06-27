@@ -163,7 +163,7 @@ class CompraEntradasWindow extends SimpleWindow<CompraEntradas> {
 			bindContentsToProperty("titulo")
 		]
 		new Column<Pelicula>(table) => [
-			title = "Fecha"
+			title = "Año"
 			fixedSize = 50
 			bindContentsToProperty("anio")
 		]

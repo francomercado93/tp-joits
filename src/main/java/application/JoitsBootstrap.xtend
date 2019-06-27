@@ -641,7 +641,7 @@ class JoitsBootstrap implements Bootstrap {
 	def crearPelicula(Pelicula pelicula) {
 		val repoPeliculas = RepoPeliculas.instance
 		val repoPeliculasGrafo = RepoPeliculasNeo4j.instance
-		repoPeliculasGrafo.guardarPelicula(pelicula)
+		repoPeliculasGrafo.guardar(pelicula)
 		repoPeliculas.create(pelicula)
 	}
 }

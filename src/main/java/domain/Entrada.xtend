@@ -7,11 +7,10 @@ import javax.persistence.Column
 import javax.persistence.Convert
 import javax.persistence.Embedded
 import javax.persistence.Entity
+import javax.persistence.Id
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.neo4j.ogm.annotation.EndNode
-import org.neo4j.ogm.annotation.GeneratedValue
-import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.RelationshipEntity
 import org.neo4j.ogm.annotation.StartNode
 import org.uqbar.commons.model.annotations.Observable
@@ -22,8 +21,8 @@ import org.uqbar.commons.model.annotations.Observable
 @Observable
 @JsonIgnoreProperties(value=#["changeSupport"])
 class Entrada {
-	@javax.persistence.Id
-	@Id @GeneratedValue
+	@Id
+//	@Id @GeneratedValue
 	@JsonIgnore
 	Long id
 
@@ -35,6 +34,7 @@ class Entrada {
 	@Column
 	@Convert(converter=PeliculaConverter)
 	@EndNode
+	/*Probar guardar pelicula sin converter */
 	Pelicula pelicula
 
 	@Embedded
@@ -43,9 +43,18 @@ class Entrada {
 	@Column
 	BigDecimal precioEntrada
 
+//	@Column
+//	Long idPelicula
 	new() {
 	}
 
+//	def setIdPelicula() {
+//		idPelicula = pelicula.id
+//	}
+//
+//	def getIdPelicula() {
+//		idPelicula
+//	}
 	def setPrecioEntrada() {
 		precioEntrada = pelicula.precioBase + funcion.valorPorDiaFuncion
 	}
@@ -70,6 +79,7 @@ class Entrada {
 		this.setUsuario(usr)
 		this.setPrecioEntrada()
 		this.setFechaHora()
+//		this.setIdPelicula()
 	}
 
 }

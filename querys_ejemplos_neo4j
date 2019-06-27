@@ -32,6 +32,10 @@ MATCH (n)-[:ES_AMIGO*2]-(m:Usuario)
 WHERE NOT (n)-[:ES_AMIGO]-(m) AND n <> m
 RETURN m
 
+query peliculas de un genero determinado que el usuario no vio pero los amigos si
+MATCH(usuario {username:'EdnaK'})-[:ES_AMIGO]->(amigo)-[:MIRO]->(pelicula) WHERE pelicula.genero = 'Ciencia ficcion' 
+AND NOT(usuario) -[:MIRO]->(pelicula) RETURN  pelicula, usuario, amigo
+
 amigos de mis amigos V2:
 MATCH (user:Usuario {username:'MarioSantos'})-[:ES_AMIGO*]-> (amigos_de_amigos:Usuario) 
 WHERE NOT (user)-[:ES_AMIGO]-(amigos_de_amigos) AND amigos_de_amigos <> user RETURN amigos_de_amigos

@@ -36,6 +36,14 @@ amigos de mis amigos V2:
 MATCH (user:Usuario {username:'MarioSantos'})-[:ES_AMIGO*]-> (amigos_de_amigos:Usuario) 
 WHERE NOT (user)-[:ES_AMIGO]-(amigos_de_amigos) AND amigos_de_amigos <> user RETURN amigos_de_amigos
 
+
+Tabla de lista de amigos sugeridos no se actualiza al agregar un amigo sugerido.
+
+Cuando un usuario mira dos o mas veces una pelicula, en el grafo mostrar una sola relacion?
+
+
 crear juego de datos con ids fijos(? y no dropear las bd para levantar de nuevo la app
 Neo4J está creando de nuevo los nodos en vez de actualizar los mismos que ya tiene, me parece que el problema viene por el lado
 de @GeneratedValue que autogenera uno nuevo, probar de setear manualmente y remover @GeneratedValue.
+
+ahora los nodos se crean una sola vez, pero las relaciones se crean de nuevo, porque las entradas al crearse se crean con un id distino

@@ -217,12 +217,12 @@ class JoitsBootstrap implements Bootstrap {
 		edna.agregarSaldinho(new BigDecimal("1200"))
 		edna.comprarEntradas(carritoTest)
 		edna.agregarAmigo(santos)
-		//edna.agregarAmigo(riquelme)
+		// edna.agregarAmigo(riquelme)
 		edna.agregarAmigo(marge)
 		RepoUsuariosNeo4j.instance.guardarUsuario(edna)
 		RepoUsuarios.instance.update(edna)
 	}
-	
+
 	def amigosDeAmigos() {
 		zanetti.agregarAmigo(amigo1)
 		zanetti.agregarAmigo(amigo2)

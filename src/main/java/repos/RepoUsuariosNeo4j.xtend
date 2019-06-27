@@ -1,8 +1,11 @@
 package repos
 
 import domain.Usuario
+import java.util.ArrayList
 import java.util.Collections
 import java.util.Set
+import org.neo4j.ogm.cypher.ComparisonOperator
+import org.neo4j.ogm.cypher.Filter
 
 //import java.util.Set
 class RepoUsuariosNeo4j extends RepoAbstractNeo4j {
@@ -16,7 +19,19 @@ class RepoUsuariosNeo4j extends RepoAbstractNeo4j {
 	}
 
 	def guardarUsuario(Usuario usuario) {
+		val usr = this.find(usuario)
+		if (usr !== null) {
+			usuario.id = usr.id
+		}
 		session.save(usuario, 1)
+	}
+
+	def Usuario find(Usuario usuario) {
+		new ArrayList(session.loadAll(typeof(Usuario), filtroNombre(usuario.username))).head
+	}
+
+	override filtroNombre(String nombre) {
+		return new Filter("username", ComparisonOperator.EQUALS, nombre)
 	}
 
 	def Set<Usuario> getAmigosSugeridos(Usuario usuario) {

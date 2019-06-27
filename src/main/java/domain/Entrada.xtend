@@ -21,8 +21,10 @@ import org.uqbar.commons.model.annotations.Observable
 @Observable
 @JsonIgnoreProperties(value=#["changeSupport"])
 class Entrada {
-	@Id
+
 //	@Id @GeneratedValue
+//	@javax.persistence.Id
+	@Id
 	@JsonIgnore
 	Long id
 

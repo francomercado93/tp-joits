@@ -41,6 +41,7 @@ class Funcion implements Serializable {
 	String nombreSala
 
 	new() {
+		fechaHora = LocalDateTime.now()
 	}
 
 	def setFechaHora() {

@@ -13,6 +13,7 @@ import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoPeliculas
 import domain.CarritoFactory
+import repos.RepoPeliculasNeo4j
 
 @Observable
 @Accessors
@@ -38,7 +39,8 @@ class CompraEntradas {
 	}
 
 	def getPeliculasRecomendadas() {
-		RepoPeliculas.instance.getPeliculasRecomendadas()
+//		RepoPeliculas.instance.getPeliculasRecomendadas()
+		RepoPeliculasNeo4j.instance.getPeliculasRecomendadas(usuario)
 	}
 
 	@Dependencies("peliculaSeleccionada", "funcionSeleccionada")

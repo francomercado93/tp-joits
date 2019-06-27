@@ -8,4 +8,7 @@ nueve reinas, los vengadores, toy story
 
 peliculas recomendadas
 MATCH(usuario {username:'EdnaK'})-[:AMIGOS]->(amigo)-[:MIRO]->(pelicula) 
-WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula
+WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula LIMIT 5
+
+MATCH(usuario {username:'EdnaK'})-[:AMIGOS]->(amigo)-[:MIRO]->(pelicula)-[:TIENE_FUNCION]->(funcion:Funcion) 
+WHERE NOT(usuario) -[:MIRO]->(pelicula) RETURN pelicula, funcion LIMIT 5

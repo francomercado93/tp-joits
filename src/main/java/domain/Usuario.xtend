@@ -79,6 +79,12 @@ class Usuario {
 
 	def comprarEntradas(Carrito carrito) {
 		carrito.validarEntradas(this)
+		carrito.entradas.forEach(
+			entrada |
+				print(
+					"Pelicula:" + entrada.pelicula.titulo + "\n nombreSala: " + entrada.funcion.nombreSala +
+						"\n FechaHora: " + entrada.funcion.fechaHora + "\n Usuario: " + entrada.usuario.username)
+		)
 		if (!this.tieneSaldoSuficiente(carrito))
 			throw new UserException("No tiene saldo suficiente")
 		this.finalizarCompra(carrito)

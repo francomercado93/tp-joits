@@ -74,7 +74,21 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 	}
 
 	def getAmigosSugeridos(Usuario usuario) {
-		searchByName("amigo")
+		// searchByName("amigo")
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery(entityType)
+			val from = query.from(entityType)
+			query.select(from)
+			if (usuario.username !== null) {
+				query.where(criteria.equal(from.get("username"), usuario.username))
+			}
+			entityManager.createQuery(query).singleResult
+		} finally {
+			entityManager.close
+		}
+
 	}
 
 }

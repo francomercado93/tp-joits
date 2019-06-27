@@ -19,7 +19,8 @@ class BuscadorAmigos {
 	new(Usuario usuario) {
 		this.usuarioSeleccionado = RepoUsuarios.instance.searchById(usuario.id)
 		busqueda = ""
-		amigosSugeridos = RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
+		//amigosSugeridos = RepoUsuarios.instance.getAmigosSugeridos(usuarioSeleccionado)
+		amigosSugeridos = RepoUsuariosNeo4j.instance.getAmigosSugeridos(usuario)
 	}
 
 	def agregarAmigo() {

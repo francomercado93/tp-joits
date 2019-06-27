@@ -1,7 +1,6 @@
 package domain
 
 import java.math.BigDecimal
-import java.time.LocalDateTime
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -14,11 +13,6 @@ class Carrito {
 
 	new() {
 		entradas = new ArrayList<Entrada>
-	}
-
-	def setearUsuariosEntradas(Usuario usuario) {
-		entradas.forEach(entrada|entrada.setUsuario(usuario))
-		entradas.forEach(entrada|print(entrada.usuario.username + "\n"))
 	}
 
 	def agregarAlCarrito(Entrada entrada) {
@@ -48,17 +42,8 @@ class Carrito {
 		entradas.isNullOrEmpty()
 	}
 
-	def setPreciosEntradas() {
-		entradas.forEach(entrada|entrada.setPrecioEntrada())
-	}
-
-	def setHoraStringFuncion() {
-		entradas.forEach(entrada|entrada.setHoraString())
-	}
-
-	def setFechaHora() {
-		entradas.forEach(entrada|entrada.funcion.fechaHora = LocalDateTime.now())
-		entradas.forEach(entrada|print(entrada.funcion.fechaHora.toString()))
+	def validarEntradas(Usuario usuario) {
+		entradas.forEach(entrada|entrada.validar(usuario))
 	}
 
 }

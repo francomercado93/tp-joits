@@ -46,10 +46,6 @@ class Entrada {
 	new() {
 	}
 
-	def setHoraString() {
-		funcion.setHoritaString()
-	}
-
 	def setPrecioEntrada() {
 		precioEntrada = pelicula.precioBase + funcion.valorPorDiaFuncion
 	}
@@ -66,8 +62,14 @@ class Entrada {
 		usuario
 	}
 
-//	def setFechaHora() {
-////		funcion.setFechaHora()
-//	}
+	def setFechaHora() {
+		funcion.setFechaHora()
+	}
+
+	def validar(Usuario usr) {
+		this.setUsuario(usr)
+		this.setPrecioEntrada()
+		this.setFechaHora()
+	}
 
 }

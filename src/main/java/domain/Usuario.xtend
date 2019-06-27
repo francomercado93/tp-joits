@@ -78,15 +78,13 @@ class Usuario {
 	}
 
 	def comprarEntradas(Carrito carrito) {
+		carrito.validarEntradas(this)
 		if (!this.tieneSaldoSuficiente(carrito))
 			throw new UserException("No tiene saldo suficiente")
 		this.finalizarCompra(carrito)
 	}
 
 	def finalizarCompra(Carrito carrito) {
-		carrito.setPreciosEntradas()
-		carrito.setFechaHora()
-		carrito.setearUsuariosEntradas(this)
 		this.descontarSaldo(carrito)
 		this.agregarEntradasCompradas(carrito.entradas)
 		carrito.vaciarCarrito()

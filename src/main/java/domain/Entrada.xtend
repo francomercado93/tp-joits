@@ -14,6 +14,7 @@ import org.neo4j.ogm.annotation.EndNode
 import org.neo4j.ogm.annotation.RelationshipEntity
 import org.neo4j.ogm.annotation.StartNode
 import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.GeneratedValue
 
 @RelationshipEntity(type="MIRO")
 @Entity
@@ -24,10 +25,16 @@ class Entrada {
 
 //	@Id @GeneratedValue
 //	@javax.persistence.Id
-	@Id
+	@Id  @GeneratedValue
+	@org.neo4j.ogm.annotation.Transient
 	@JsonIgnore
 	Long id
 
+	@JsonIgnore
+	@org.neo4j.ogm.annotation.Id
+	@Transient
+	@org.neo4j.ogm.annotation.GeneratedValue
+	Long id_neo
 	@Transient
 	@StartNode
 	@JsonIgnore
@@ -43,6 +50,7 @@ class Entrada {
 	Funcion funcion
 
 	@Column
+	@org.neo4j.ogm.annotation.Transient
 	BigDecimal precioEntrada
 
 //	@Column

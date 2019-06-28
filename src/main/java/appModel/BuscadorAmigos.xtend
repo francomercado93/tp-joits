@@ -30,6 +30,7 @@ class BuscadorAmigos {
 
 	def agregarAmigo() {
 		usuarioSeleccionado.agregarAmigo(amigoSeleccionado)
+		this.removerDeListas()
 		this.actualizarTablas()
 	}
 

@@ -137,11 +137,6 @@ class JoitsBootstrap implements Bootstrap {
 			funcion = jueves1
 		]
 
-		entradaVengadoresjueves1 = new Entrada() => [
-			pelicula = vengadores
-			funcion = domingo5
-		]
-
 		entradaNueveReinasDomingo1 = new Entrada() => [
 			pelicula = nueveReinas
 			funcion = domingo1
@@ -187,8 +182,8 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarAmigo(edna)
 		santos.agregarAmigo(riquelme)
 		santos.agregarAmigo(zanetti)
-		RepoUsuariosNeo4j.instance.guardarUsuario(santos)
 		RepoUsuarios.instance.update(santos)
+		RepoUsuariosNeo4j.instance.guardarUsuario(santos)
 	}
 
 	def lisaCompraEntradasYHaceAmigos() {
@@ -209,10 +204,10 @@ class JoitsBootstrap implements Bootstrap {
 
 	def ednaCompraEntradasYHaceAmigos() {
 		carritoTest.vaciarCarrito()
-		carritoTest.agregarAlCarrito(entradaBatman1Martes3)
-		carritoTest.agregarAlCarrito(entradaBatman2Sabado4)
-		carritoTest.agregarAlCarrito(entradaSagaBatmanLunes4)
-		carritoTest.agregarAlCarrito(entradaMatrixLunes1)
+		// carritoTest.agregarAlCarrito(entradaBatman1Martes3)
+		// carritoTest.agregarAlCarrito(entradaBatman2Sabado4)
+		// carritoTest.agregarAlCarrito(entradaSagaBatmanLunes4)
+		// carritoTest.agregarAlCarrito(entradaMatrixLunes1)
 		carritoTest.agregarAlCarrito(entradaNueveReinasDomingo1)
 		edna.agregarSaldinho(new BigDecimal("1200"))
 		edna.comprarEntradas(carritoTest)

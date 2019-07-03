@@ -183,7 +183,7 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarAmigo(riquelme)
 		santos.agregarAmigo(zanetti)
 		RepoUsuarios.instance.update(santos)
-		RepoUsuariosNeo4j.instance.guardarUsuario(santos)
+		RepoUsuariosNeo4j.instance.create(santos)
 	}
 
 	def lisaCompraEntradasYHaceAmigos() {
@@ -198,7 +198,7 @@ class JoitsBootstrap implements Bootstrap {
 		lisa.agregarSaldinho(new BigDecimal("5450"))
 		lisa.comprarEntradas(carritoTest)
 		lisa.agregarAmigo(marge)
-		RepoUsuariosNeo4j.instance.guardarUsuario(lisa)
+		RepoUsuariosNeo4j.instance.create(lisa)
 		RepoUsuarios.instance.update(lisa)
 	}
 
@@ -214,7 +214,7 @@ class JoitsBootstrap implements Bootstrap {
 		edna.agregarAmigo(santos)
 		// edna.agregarAmigo(riquelme)
 		edna.agregarAmigo(marge)
-		RepoUsuariosNeo4j.instance.guardarUsuario(edna)
+		RepoUsuariosNeo4j.instance.create(edna)
 		RepoUsuarios.instance.update(edna)
 	}
 
@@ -222,9 +222,9 @@ class JoitsBootstrap implements Bootstrap {
 		zanetti.agregarAmigo(amigo1)
 		zanetti.agregarAmigo(amigo2)
 		riquelme.agregarAmigo(amigo3)
-		RepoUsuariosNeo4j.instance.guardarUsuario(zanetti)
+		RepoUsuariosNeo4j.instance.create(zanetti)
 		RepoUsuarios.instance.update(zanetti)
-		RepoUsuariosNeo4j.instance.guardarUsuario(riquelme)
+		RepoUsuariosNeo4j.instance.create(riquelme)
 		RepoUsuarios.instance.update(riquelme)
 	}
 
@@ -640,14 +640,14 @@ class JoitsBootstrap implements Bootstrap {
 	def void crearUsuario(Usuario usuario) {
 		val repoUsuarios = RepoUsuarios.instance
 		val repoUsuariosGrafo = RepoUsuariosNeo4j.instance
-		repoUsuariosGrafo.guardarUsuario(usuario)
+		repoUsuariosGrafo.create(usuario)
 		repoUsuarios.create(usuario)
 	}
 
 	def crearPelicula(Pelicula pelicula) {
 		val repoPeliculas = RepoPeliculas.instance
 		val repoPeliculasGrafo = RepoPeliculasNeo4j.instance
-		repoPeliculasGrafo.guardar(pelicula)
+		repoPeliculasGrafo.create(pelicula)
 		repoPeliculas.create(pelicula)
 	}
 }

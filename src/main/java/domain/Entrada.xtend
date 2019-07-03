@@ -25,7 +25,7 @@ class Entrada {
 
 //	@Id @GeneratedValue
 //	@javax.persistence.Id
-	@Id  @GeneratedValue
+	@Id @GeneratedValue
 	@org.neo4j.ogm.annotation.Transient
 	@JsonIgnore
 	Long id
@@ -53,18 +53,9 @@ class Entrada {
 	@org.neo4j.ogm.annotation.Transient
 	BigDecimal precioEntrada
 
-//	@Column
-//	Long idPelicula
 	new() {
 	}
 
-//	def setIdPelicula() {
-//		idPelicula = pelicula.id
-//	}
-//
-//	def getIdPelicula() {
-//		idPelicula
-//	}
 	def setPrecioEntrada() {
 		precioEntrada = pelicula.precioBase + funcion.valorPorDiaFuncion
 	}
@@ -89,7 +80,6 @@ class Entrada {
 		this.setUsuario(usr)
 		this.setPrecioEntrada()
 		this.setFechaHora()
-//		this.setIdPelicula()
 	}
 
 }

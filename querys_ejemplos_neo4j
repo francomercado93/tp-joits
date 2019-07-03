@@ -41,3 +41,10 @@ Neo4J está creando de nuevo los nodos en vez de actualizar los mismos que ya ti
 de @GeneratedValue que autogenera uno nuevo, probar de setear manualmente y remover @GeneratedValue.
 
 ahora los nodos se crean una sola vez, pero las relaciones se crean de nuevo, porque las entradas al crearse se crean con un id distino
+
+
+ULTIMO TODO:
+--crear si no existe en la bd relacional los usuarios,  usar search by id , no actualizar porque si no se pisan los datos que se guardaron en ejecucion con los del bootstrap
+--agregar un "repo de repos(?" (peliculas y usuarios)
+--arreglar lista de amigos recomendados
+--query de pelicula mas vista

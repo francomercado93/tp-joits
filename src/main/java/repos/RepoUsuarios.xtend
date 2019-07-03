@@ -1,7 +1,11 @@
 package repos
 
 import domain.Usuario
+import java.util.List
+import javax.persistence.EntityManagerFactory
 import javax.persistence.NoResultException
+import javax.persistence.Persistence
+import javax.persistence.PersistenceException
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.JoinType
@@ -12,7 +16,7 @@ import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 @Observable
-class RepoUsuarios extends RepoDefault<Usuario> {
+class RepoUsuarios{
 
 	static RepoUsuarios instance
 
@@ -23,8 +27,60 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		instance
 	}
 
-//buscar en bd por username y pass o buscar por username y luego validar en clase usuario?
-//query.where(criteria.equal(camposUsuario.get("password"), pass))
+	static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Joits")
+
+	def create(Usuario usuario) {
+		val entityManager = this.entityManager
+		try {
+			entityManager => [
+				transaction.begin
+				persist(usuario)
+				transaction.commit
+			]
+		} catch (PersistenceException e) {
+			e.printStackTrace
+			entityManager.transaction.rollback
+			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
+		} finally {
+			entityManager?.close
+		}
+	}
+
+	def update(Usuario usuario) {
+		val entityManager = this.entityManager
+		try {
+			entityManager => [
+				transaction.begin
+				merge(usuario)
+				transaction.commit
+			]
+		} catch (PersistenceException e) {
+			e.printStackTrace
+			entityManager.transaction.rollback
+			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
+		} finally {
+			entityManager?.close
+		}
+	}
+
+	def getEntityManager() {
+		entityManagerFactory.createEntityManager
+	}
+
+	def List<Usuario> searchByName(String nombre) {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery(entityType)
+			val from = query.from(entityType)
+			query.select(from)
+			this.generateWhere(criteria, query, from, nombre)
+			entityManager.createQuery(query).resultList
+		} finally {
+			entityManager?.close
+		}
+	}
+
 	def Usuario getUsuario(String usrname, String pass) {
 		val entityManager = entityManager
 		try {
@@ -43,25 +99,24 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		}
 	}
 
-	override getEntityType() {
+	def getEntityType() {
 		Usuario
 	}
 
-	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Usuario> query, Root<Usuario> camposUsuario,
+	def generateWhere(CriteriaBuilder criteria, CriteriaQuery<Usuario> query, Root<Usuario> camposUsuario,
 		String nombre) {
 		query.where(
 			criteria.or(criteria.like(camposUsuario.get("nombre"), "%" + nombre + "%"),
 				criteria.like(camposUsuario.get("apellido"), "%" + nombre + "%")))
 	}
 
-	override Usuario searchById(Long id) {
+	def Usuario searchById(Long id) {
 		val entityManager = entityManager
 		try {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery(entityType)
 			val camposUsuario = query.from(entityType)
 			camposUsuario.fetch("entradasCompradas", JoinType.LEFT) // si un usuario no tiene entradas o amigos los trae igual de la bd
-			/*Averiguar como setear el usuario en la entrada del lado del objeto usando la info de la tabla entrada que tiene como foreign key id usuario */
 			camposUsuario.fetch("amigos", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))
@@ -73,29 +128,26 @@ class RepoUsuarios extends RepoDefault<Usuario> {
 		}
 	}
 
-	def getAmigosSugeridos(Usuario usuario) {
-		// searchByName("amigo")
-		val entityManager = this.entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery(entityType)
-			val from = query.from(entityType)
-			query.select(from)
-			if (usuario.username !== null) {
-				query.where(criteria.equal(from.get("username"), usuario.username))
-			}
-			entityManager.createQuery(query).singleResult
-		} finally {
-			entityManager.close
-		}
-	}
-
 	def getUsuariosFiltrados(String busqueda, Usuario usuarioSeleccionado) {
 		RepoUsuarios.instance.searchByName(busqueda).filter(usr|filtrarAmigosYUsuario(usr, usuarioSeleccionado)).toSet
 	}
 
 	def boolean filtrarAmigosYUsuario(Usuario usr, Usuario usuarioSeleccionado) {
 		usuarioSeleccionado.id != usr.id && ! usuarioSeleccionado.esAmigo(usr)
+	}
+
+	def Usuario searchByUsername(String usrname) {
+		val entityManager = entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery(entityType)
+			val camposUsuario = query.from(entityType)
+			query.select(camposUsuario)
+			query.where(criteria.equal(camposUsuario.get("username"), usrname))
+			entityManager.createQuery(query).singleResult
+		} finally {
+			entityManager?.close
+		}
 	}
 
 }

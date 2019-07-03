@@ -36,7 +36,7 @@ class BuscadorAmigos {
 
 	@Dependencies("usuarioSeleccionado")
 	def getAmigosSugeridos() {
-		RepoUsuariosNeo4j.instance.getAmigosSugeridos(usuarioSeleccionado)
+		RepoUsuariosNeo4j.instance.getRecomendadas(usuarioSeleccionado)
 	}
 
 	def void actualizarTablas() {
@@ -47,7 +47,7 @@ class BuscadorAmigos {
 
 	def void actualizarUsuario() {
 		RepoUsuarios.instance.update(usuarioSeleccionado)
-		RepoUsuariosNeo4j.instance.guardarUsuario(usuarioSeleccionado)
+		RepoUsuariosNeo4j.instance.create(usuarioSeleccionado)
 	}
 
 	def boolean removerDeListas() {

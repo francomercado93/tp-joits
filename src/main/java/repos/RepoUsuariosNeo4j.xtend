@@ -8,7 +8,8 @@ import org.neo4j.ogm.cypher.ComparisonOperator
 import org.neo4j.ogm.cypher.Filter
 
 //import java.util.Set
-class RepoUsuariosNeo4j extends RepoAbstractNeo4j {
+class RepoUsuariosNeo4j extends RepoAbstractNeo4j<Usuario> {
+
 	static RepoUsuariosNeo4j instance
 
 	def static RepoUsuariosNeo4j getInstance() {
@@ -18,15 +19,15 @@ class RepoUsuariosNeo4j extends RepoAbstractNeo4j {
 		instance
 	}
 
-	def guardarUsuario(Usuario usuario) {
-		val usr = this.find(usuario)
+	override create(Usuario usuario) {
+		val usr = this.searchByUsername(usuario)
 		if (usr !== null) {
 			usuario.id = usr.id
 		}
 		session.save(usuario, 1)
 	}
 
-	def Usuario find(Usuario usuario) {
+	def Usuario searchByUsername(Usuario usuario) {
 		new ArrayList(session.loadAll(typeof(Usuario), filtroNombre(usuario.username))).head
 	}
 
@@ -34,11 +35,10 @@ class RepoUsuariosNeo4j extends RepoAbstractNeo4j {
 		return new Filter("username", ComparisonOperator.EQUALS, nombre)
 	}
 
-	def Set<Usuario> getAmigosSugeridos(Usuario usuario) {
+	override Set<Usuario> getRecomendadas(Usuario usuario) {
 		val query = "MATCH (n:Usuario {username:'" + usuario.username +
 			"'}) MATCH (n)-[:ES_AMIGO*2]-(m:Usuario) WHERE NOT (n)-[:ES_AMIGO]-(m) AND n <> m RETURN m"
 		val usuarios = session.query(typeof(Usuario), query, Collections.EMPTY_MAP).toSet
 		usuarios
 	}
-
 }

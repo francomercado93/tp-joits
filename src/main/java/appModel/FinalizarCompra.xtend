@@ -55,7 +55,7 @@ class FinalizarCompra {
 	}
 
 	def void actualizarUsuario() {
-		RepoUsuariosNeo4j.instance.guardarUsuario(usuario)
+		RepoUsuariosNeo4j.instance.create(usuario)
 		RepoUsuarios.instance.update(usuario)
 	}
 

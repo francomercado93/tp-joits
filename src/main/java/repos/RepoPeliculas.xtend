@@ -40,11 +40,6 @@ class RepoPeliculas {
 		Pelicula
 	}
 
-	def getPeliculasRecomendadas() {
-		return allInstances.take(3).toList
-	}
-
-//	def Pelicula searchByName(String nombre)
 	def searchByExample(Pelicula example) {
 		val query = ds.createQuery(entityType)
 		if (example.titulo !== null) {

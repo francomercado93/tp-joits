@@ -9,7 +9,7 @@ import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
-import repos.RepoUsuariosNeo4j
+import repos.RepoUsuariosGeneral
 
 @Accessors
 @Observable
@@ -55,8 +55,9 @@ class FinalizarCompra {
 	}
 
 	def void actualizarUsuario() {
-		RepoUsuariosNeo4j.instance.create(usuario)
-		RepoUsuarios.instance.update(usuario)
+		RepoUsuariosGeneral.instance.update(usuario)
+//		RepoUsuariosNeo4j.instance.create(usuario)
+//		RepoUsuarios.instance.update(usuario)
 	}
 
 	@Dependencies("carrito")

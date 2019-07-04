@@ -8,7 +8,7 @@ import java.util.Set
 import org.neo4j.ogm.cypher.ComparisonOperator
 import org.neo4j.ogm.cypher.Filter
 
-class RepoPeliculasNeo4j extends RepoAbstractNeo4j<Pelicula> {
+class RepoPeliculasNeo4j extends RepoAbstractNeo4j<Pelicula> implements RepoPeliculasInterface {
 
 	static RepoPeliculasNeo4j instance
 
@@ -21,7 +21,7 @@ class RepoPeliculasNeo4j extends RepoAbstractNeo4j<Pelicula> {
 
 	override create(Pelicula pelicula) {
 		/*guardar todo el grafo y agregar un anotattion transient a lo que no se quiere guardar*/
-		val peli = this.searchByName(pelicula)
+		val peli = this.searchByName(pelicula.titulo)
 		if (peli !== null) {
 			pelicula.id = peli.id
 		}
@@ -35,8 +35,8 @@ class RepoPeliculasNeo4j extends RepoAbstractNeo4j<Pelicula> {
 		pelis
 	}
 
-	def Pelicula searchByName(Pelicula pelicula) {
-		new ArrayList(session.loadAll(typeof(Pelicula), this.filtroNombre(pelicula.titulo))).head
+	override Pelicula searchByName(String titulo) {
+		new ArrayList(session.loadAll(typeof(Pelicula), this.filtroNombre(titulo))).head
 	}
 
 	override filtroNombre(String titulo) {

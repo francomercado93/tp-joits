@@ -7,6 +7,7 @@ import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
+import repos.RepoUsuariosGeneral
 import repos.RepoUsuariosNeo4j
 
 @Observable
@@ -46,8 +47,9 @@ class BuscadorAmigos {
 	}
 
 	def void actualizarUsuario() {
-		RepoUsuarios.instance.update(usuarioSeleccionado)
-		RepoUsuariosNeo4j.instance.create(usuarioSeleccionado)
+		RepoUsuariosGeneral.instance.update(usuarioSeleccionado)
+//		RepoUsuarios.instance.update(usuarioSeleccionado)
+//		RepoUsuariosNeo4j.instance.create(usuarioSeleccionado)
 	}
 
 	def boolean removerDeListas() {

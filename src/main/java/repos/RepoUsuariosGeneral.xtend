@@ -1,10 +1,11 @@
 package repos
 
+import domain.Usuario
 import java.util.List
 
 class RepoUsuariosGeneral {
 
-	List<RepoUsuariosGeneral> repos
+	List<RepoUsrsInterface> repos = newArrayList
 
 	static RepoUsuariosGeneral instance
 
@@ -15,11 +16,15 @@ class RepoUsuariosGeneral {
 		instance
 	}
 
-//	def void create(Usuario usuario) {
-//		repos.forEach(repo|repo.create(usuario))
-//	}
-//
-	def agregarRepo(RepoUsuariosGeneral repo) {
+	def void create(Usuario usuario) {
+		repos.forEach(repo|repo.create(usuario))
+	}
+
+	def agregarRepo(RepoUsrsInterface repo) {
 		repos.add(repo)
+	}
+
+	def void update(Usuario usuario) {
+		repos.forEach(repo|repo.update(usuario))
 	}
 }

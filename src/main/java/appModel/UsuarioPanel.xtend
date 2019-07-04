@@ -7,6 +7,7 @@ import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
 import org.uqbar.commons.model.utils.ObservableUtils
 import repos.RepoUsuarios
+import repos.RepoUsuariosGeneral
 
 @Observable
 @Accessors
@@ -41,7 +42,8 @@ class UsuarioPanel {
 	}
 
 	def void actualizar() {
-		RepoUsuarios.instance.update(usuarioSeleccionado)
+		RepoUsuariosGeneral.instance.update(usuarioSeleccionado)
+//		RepoUsuarios.instance.update(usuarioSeleccionado)
 	}
 
 	def void actualizarAmigos() {

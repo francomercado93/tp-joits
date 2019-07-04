@@ -8,7 +8,7 @@ import org.neo4j.ogm.cypher.ComparisonOperator
 import org.neo4j.ogm.cypher.Filter
 
 //import java.util.Set
-class RepoUsuariosNeo4j extends RepoAbstractNeo4j<Usuario> {
+class RepoUsuariosNeo4j extends RepoAbstractNeo4j<Usuario> implements RepoUsrsInterface {
 
 	static RepoUsuariosNeo4j instance
 
@@ -20,15 +20,15 @@ class RepoUsuariosNeo4j extends RepoAbstractNeo4j<Usuario> {
 	}
 
 	override create(Usuario usuario) {
-		val usr = this.searchByUsername(usuario)
+		val usr = this.searchByUsername(usuario.username)
 		if (usr !== null) {
 			usuario.id = usr.id
 		}
 		session.save(usuario, 1)
 	}
 
-	def Usuario searchByUsername(Usuario usuario) {
-		new ArrayList(session.loadAll(typeof(Usuario), filtroNombre(usuario.username))).head
+	override Usuario searchByUsername(String username) {
+		new ArrayList(session.loadAll(typeof(Usuario), filtroNombre(username))).head
 	}
 
 	override filtroNombre(String nombre) {
@@ -41,4 +41,10 @@ class RepoUsuariosNeo4j extends RepoAbstractNeo4j<Usuario> {
 		val usuarios = session.query(typeof(Usuario), query, Collections.EMPTY_MAP).toSet
 		usuarios
 	}
+
+	override update(Usuario usuario) {
+		/*Pasamanos */
+		this.create(usuario)
+	}
+
 }

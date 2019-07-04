@@ -16,7 +16,7 @@ import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 @Observable
-class RepoUsuarios{
+class RepoUsuarios implements RepoUsrsInterface {
 
 	static RepoUsuarios instance
 
@@ -29,7 +29,7 @@ class RepoUsuarios{
 
 	static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Joits")
 
-	def create(Usuario usuario) {
+	override create(Usuario usuario) {
 		val entityManager = this.entityManager
 		try {
 			entityManager => [
@@ -46,7 +46,7 @@ class RepoUsuarios{
 		}
 	}
 
-	def update(Usuario usuario) {
+	override update(Usuario usuario) {
 		val entityManager = this.entityManager
 		try {
 			entityManager => [
@@ -136,7 +136,7 @@ class RepoUsuarios{
 		usuarioSeleccionado.id != usr.id && ! usuarioSeleccionado.esAmigo(usr)
 	}
 
-	def Usuario searchByUsername(String usrname) {
+	override Usuario searchByUsername(String usrname) {
 		val entityManager = entityManager
 		try {
 			val criteria = entityManager.criteriaBuilder

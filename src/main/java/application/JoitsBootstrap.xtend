@@ -14,6 +14,8 @@ import repos.RepoPeliculas
 import repos.RepoPeliculasNeo4j
 import repos.RepoUsuarios
 import repos.RepoUsuariosNeo4j
+import repos.RepoPeliculasGeneral
+import repos.RepoUsuariosGeneral
 
 class JoitsBootstrap implements Bootstrap {
 	Usuario santos
@@ -88,8 +90,25 @@ class JoitsBootstrap implements Bootstrap {
 
 	Carrito carritoTest
 
+	RepoPeliculasGeneral repoPelis
+	RepoUsuariosGeneral repoUsrs
+
+	RepoUsuarios repoUsrsMysql
+
+	RepoUsuariosNeo4j repoUsrsNeo4j
+
+	RepoPeliculas repoPeliculasMongoDb
+
+	RepoPeliculasNeo4j repoPeliculasNeo4j
+
 	new() {
 		carritoTest = new Carrito()
+		repoUsrsMysql = RepoUsuarios.instance
+		repoUsrsNeo4j = RepoUsuariosNeo4j.instance
+		repoPeliculasMongoDb = RepoPeliculas.instance
+		repoPeliculasNeo4j = RepoPeliculasNeo4j.instance
+		repoPelis = RepoPeliculasGeneral.instance
+		repoUsrs = RepoUsuariosGeneral.instance
 	}
 
 	override isPending() {
@@ -97,11 +116,19 @@ class JoitsBootstrap implements Bootstrap {
 	}
 
 	override run() {
+		initRepos()
 		initUsuario()
 		initFunciones()
 		initPeliculas()
 		initEntradas()
 		initJuegoDatos()
+	}
+
+	def initRepos() {
+		repoUsrs.agregarRepo(repoUsrsNeo4j)
+		repoUsrs.agregarRepo(repoUsrsMysql)
+		repoPelis.agregarRepo(repoPeliculasNeo4j)
+		repoPelis.agregarRepo(repoPeliculasMongoDb)
 	}
 
 	def initJuegoDatos() {
@@ -182,8 +209,9 @@ class JoitsBootstrap implements Bootstrap {
 		santos.agregarAmigo(edna)
 		santos.agregarAmigo(riquelme)
 		santos.agregarAmigo(zanetti)
-		RepoUsuarios.instance.update(santos)
-		RepoUsuariosNeo4j.instance.create(santos)
+		repoUsrs.update(santos)
+//		RepoUsuarios.instance.update(santos)
+//		RepoUsuariosNeo4j.instance.create(santos)
 	}
 
 	def lisaCompraEntradasYHaceAmigos() {
@@ -198,8 +226,9 @@ class JoitsBootstrap implements Bootstrap {
 		lisa.agregarSaldinho(new BigDecimal("5450"))
 		lisa.comprarEntradas(carritoTest)
 		lisa.agregarAmigo(marge)
-		RepoUsuariosNeo4j.instance.create(lisa)
-		RepoUsuarios.instance.update(lisa)
+		repoUsrs.update(lisa)
+//		RepoUsuariosNeo4j.instance.create(lisa)
+//		RepoUsuarios.instance.update(lisa)
 	}
 
 	def ednaCompraEntradasYHaceAmigos() {
@@ -214,18 +243,21 @@ class JoitsBootstrap implements Bootstrap {
 		edna.agregarAmigo(santos)
 		// edna.agregarAmigo(riquelme)
 		edna.agregarAmigo(marge)
-		RepoUsuariosNeo4j.instance.create(edna)
-		RepoUsuarios.instance.update(edna)
+		repoUsrs.update(edna)
+//		RepoUsuariosNeo4j.instance.create(edna)
+//		RepoUsuarios.instance.update(edna)
 	}
 
 	def amigosDeAmigos() {
 		zanetti.agregarAmigo(amigo1)
 		zanetti.agregarAmigo(amigo2)
 		riquelme.agregarAmigo(amigo3)
-		RepoUsuariosNeo4j.instance.create(zanetti)
-		RepoUsuarios.instance.update(zanetti)
-		RepoUsuariosNeo4j.instance.create(riquelme)
-		RepoUsuarios.instance.update(riquelme)
+		repoUsrs.update(zanetti)
+		repoUsrs.update(riquelme)
+//		RepoUsuariosNeo4j.instance.create(zanetti)
+//		RepoUsuarios.instance.update(zanetti)
+//		RepoUsuariosNeo4j.instance.create(riquelme)
+//		RepoUsuarios.instance.update(riquelme)
 	}
 
 	def void initFunciones() {
@@ -638,16 +670,18 @@ class JoitsBootstrap implements Bootstrap {
 	}
 
 	def void crearUsuario(Usuario usuario) {
-		val repoUsuarios = RepoUsuarios.instance
-		val repoUsuariosGrafo = RepoUsuariosNeo4j.instance
-		repoUsuariosGrafo.create(usuario)
-		repoUsuarios.create(usuario)
+		repoUsrs.create(usuario)
+//		val repoUsuarios = RepoUsuarios.instance
+//		val repoUsuariosGrafo = RepoUsuariosNeo4j.instance
+//		repoUsuariosGrafo.create(usuario)
+//		repoUsuarios.create(usuario)
 	}
 
 	def crearPelicula(Pelicula pelicula) {
-		val repoPeliculas = RepoPeliculas.instance
-		val repoPeliculasGrafo = RepoPeliculasNeo4j.instance
-		repoPeliculasGrafo.create(pelicula)
-		repoPeliculas.create(pelicula)
+		repoPelis.create(pelicula)
+//		val repoPeliculas = RepoPeliculas.instance
+//		val repoPeliculasGrafo = RepoPeliculasNeo4j.instance
+//		repoPeliculasGrafo.create(pelicula)
+//		repoPeliculas.create(pelicula)
 	}
 }

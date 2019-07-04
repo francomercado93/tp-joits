@@ -10,7 +10,7 @@ import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
 @Observable
-class RepoPeliculas {
+class RepoPeliculas implements RepoPeliculasInterface {
 
 	static RepoPeliculas instance
 
@@ -48,7 +48,7 @@ class RepoPeliculas {
 		query.asList
 	}
 
-	def Pelicula searchByName(String nombre) {
+	override Pelicula searchByName(String nombre) {
 		val query = ds.createQuery(entityType)
 		if (nombre !== null) {
 			query.field("titulo").containsIgnoreCase(nombre ?: "")
@@ -65,17 +65,15 @@ class RepoPeliculas {
 		}
 	}
 
-	def Pelicula create(Pelicula pelicula) { // createIfNotExists
+	override create(Pelicula pelicula) { // createIfNotExists
 		val entidadAModificar = getByExample(pelicula)
-		if (entidadAModificar !== null) {
-			return entidadAModificar
+		if (entidadAModificar === null) {
+			doCreate(pelicula)
 		}
-		doCreate(pelicula)
 	}
 
-	def Pelicula doCreate(Pelicula pelicula) {
+	def doCreate(Pelicula pelicula) {
 		ds.save(pelicula)
-		pelicula
 	}
 
 	def List<Pelicula> allInstances() {

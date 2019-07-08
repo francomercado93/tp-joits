@@ -11,11 +11,11 @@ import java.time.LocalDate
 import java.time.LocalTime
 import org.uqbar.arena.bootstrap.Bootstrap
 import repos.RepoPeliculas
+import repos.RepoPeliculasGeneral
 import repos.RepoPeliculasNeo4j
 import repos.RepoUsuarios
-import repos.RepoUsuariosNeo4j
-import repos.RepoPeliculasGeneral
 import repos.RepoUsuariosGeneral
+import repos.RepoUsuariosNeo4j
 
 class JoitsBootstrap implements Bootstrap {
 	Usuario santos

@@ -5,6 +5,7 @@ Es una aplicacion con persistencia poliglota:
 * las peliculas y sus funciones disponibles se guardan en una base documental(MongoDB).
 * las entradas agregadas al carrito se guardan en una base orientado a clave-valor(Redis).
 * y las recomendaciones de peliculas y amigos se obtienen al guardar estos en una base orientado a grafos(Neo4j).
+* tambien tenemos la opcion de conectarnos a un cluster donde podemos escalar horizontalmente mediante sharding.
 
 # Pasos para crear shards en mongodb!
 * Crear carpeta data, mongodb y sharding.

@@ -1,4 +1,12 @@
-# Pasos para crear shards!
+# Tp-joits
+Aplicacion realizada con el framework Arena, que permite a un usuario loguearse, sacar entradas para el cine, obtener una lista de peliculas recomendadas, editar sus datos personales como cambiar su edad, cargar saldo, agregar amigos y obtener recomendaciones de amigos.
+Es una aplicacion con persistencia poliglota:
+* los usuarios, los amigos de los usuarios y sus entradas se guardan en una base relacional(MySQL).
+* las peliculas y sus funciones disponibles se guardan en una base documental(MongoDB).
+* las entradas agregadas al carrito se guardan en una base orientado a clave-valor(Redis).
+* y las recomendaciones de peliculas y amigos se obtienen al guardar estos en una base orientado a grafos(Neo4j).
+
+# Pasos para crear shards en mongodb!
 * Crear carpeta data, mongodb y sharding.
 ```
 mkdir "C:\data\mongodb\sharding
